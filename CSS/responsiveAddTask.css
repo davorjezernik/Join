@@ -1,0 +1,60 @@
+@media (max-width: 1024px) {
+    .parent-container {
+        width: 100vw;
+    }
+
+    .button-end-process-container {
+        margin-bottom: 10%;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-container-task-one-two {
+        margin-bottom: unset;
+        margin-top: unset;
+        align-items: flex-start;
+        width: unset;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: calc(100vh - 54%);
+        overflow-x: scroll;
+        padding: 0 16px;
+        margin: unset;
+    }
+
+    .main-container-task-one-two-small {
+        flex-direction: column;
+        margin: 0 48px !important;
+        gap: unset !important;
+    }
+
+    .button-end-process-container {
+        position: sticky;
+        bottom: 10%;
+        padding-left: 12px;
+        padding-right: 12px;
+        background-color: #F6F7F8;
+        margin: unset;
+        flex-direction: column;
+    }
+
+    .add-task-set-up-one-container,
+    .add-task-set-up-two-container {
+        width: 100% !important;
+    }
+
+    .aot-task-container {
+        margin: 24px 16px 0;
+        width: unset;
+    }
+
+    .aot-task-container-small {
+        width: unset;
+        height: unset;
+        margin: 32px 0 32px 32px;
+    }
+
+    .seperate-container {
+        display: none;
+    }
+}

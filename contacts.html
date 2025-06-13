@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/contacts.css">
+    <link rel="stylesheet" href="./CSS/summary.css">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./CSS/font.css">
+    <link rel="stylesheet" href="./CSS/responsive.css">
+    <link rel="stylesheet" href="./CSS/bluebar.css">
+    <link rel="stylesheet" href="./CSS/topbar.css">
+    <link rel="stylesheet" href="./CSS/legalPrivacy.css">
+    <title>Contacts</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+</head>
+<body onload="init()">
+    <div class="main-content">
+        <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
+        <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
+        <div class="content-container">
+            <div class="header-container" w3-include-html="./templates/topbar.html"></div>
+            <div class="parent-container">
+                <div class="contact-box">
+                    <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
+                        <img src="./img/arrow-left-line.png">
+                    </div>
+                    <button onclick="openEditSmallMenu(), showEditDeleteMenuBox()" id="btnEditContacts"
+                        class="button-edit-contacts d-none">
+                        <img src="./img/contactsImg/dot_menu.svg">
+                    </button>
+                    <div id="editDeleteMenuBox" class="edit-delete-menu-box d-none"></div>
+                    <div id="contactsContainer" class="contacts-container">
+                        <div class="add-contact-box">
+                            <button onclick="openAddNewContact()" class="button-add-contacts">
+                                <div class="button-txt">Add New Contact</div>
+                                <img class="img-contact-add" src="./img/contactsImg/person_add.svg">
+                            </button>
+                        </div>
+                        <div class="scroll">
+                            <div id="filteredContactsContainer"></div>
+                        </div>
+                    </div>
+                    <div id="contactBigContainer" class="contact-big-container">
+                        <div id="contactHeadline" class="contact-headline">
+                            <div class="fat-contacts-headline">Contacts</div>
+                            <div class="seperator-and-text-container">
+                                <div class="vertical-seperator"></div>
+                                <div>Better with a team</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div id="contactInfos" class="contact-infos"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="success-box d-none" id="successBox">
+        <div class="success-message" id="successMessage">Contact succesfully created</div>
+    </div>
+    <div class="success-delete-box d-none" id="successDeleteBox">
+        <div class="success-delete-message" id="successDeleteMessage">Contact succesfully deleted</div>
+    </div>
+</body>
+<script src="./JS/include.js"></script>
+<script src="./JS/topbar.js"></script>
+<script src="./JS/storage.js"></script>
+<script src="./JS/contactsEditDelete.js"></script>
+<script src="./JS/contactsHtml.js"></script>
+<script src="./JS/contacts.js"></script>
+<script src="./JS/logout.js"></script>
+<script src="./JS/summary.js"></script>
+</html>

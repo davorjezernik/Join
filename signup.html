@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./CSS/font.css">
+    <link rel="stylesheet" href="./CSS/signupLoginResponsive.css">
+    <link rel="stylesheet" href="./CSS/legalPolicyExtern.css">
+    <title>Sign up</title>
+    <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
+</head>
+
+<body>
+    <div class="background">
+        <div>
+            <a href="index.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
+            <img class="join-icon-signup" src="./img/Capa 2.png">
+        </div>
+        <form onsubmit="signUp('/users'); return false;" class="main-container-signup">
+            <div class="signup-headline">Sign up</div>
+            <div class="blue-seperator"></div>
+            <div class="data-container">
+                <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
+                <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
+
+                <input id="email" placeholder="Email" type="email" required class="email-input"
+                    onkeyup="validateEmailS()">
+                <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
+
+                <div class="password-container">
+                    <input id="password" placeholder="Password" type="password"
+                        required class="password-input" onkeyup="validatePassword()" />
+                        <div class="toggle-password" onclick="togglePassword('password')"></div>
+                </div>
+                <div id="passwordOneCorrectIncorrect" class="correct-incorrect"></div>
+
+                <div class="password-container">
+                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
+                        class="password-input" onkeyup="validatePassword()" />
+                    <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
+                </div>
+
+                <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>
+
+            </div>
+
+            <div class="accept-policy-container">
+                <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox">
+                <div>
+                    <div id="acceptText" class="accept-text">
+                        I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy policy</a>
+                    </div>
+                    <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
+                </div>
+            </div>
+            <button class="sign-up-button pointer color-blue-button" type="submit" onclick="validatePolicyAcceptance(event)">Sign up</button>
+            
+        </form>
+        <div class="legal-privacy-container">
+            <a href="privacyPolicyExtern.html" class="privacy-policy-extern">Privacy policy</a>
+            <a href="legalNoticeExtern.html" class="privacy-policy-extern">Legal notice</a>
+        </div>
+    </div>
+    <div id="successfull-container" class="signup-successful-container d-none">
+        <div id="succesfull-signup" class="succesfull-signup">You signed up successfully</div>
+    </div>
+</body>
+<script src="./JS/storage.js"></script>
+<script src="./JS/signup.js"></script>
+<script src="./JS/contacts.js"></script>
+
+</html>
