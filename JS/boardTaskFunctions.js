@@ -299,13 +299,14 @@ function displayAllTasks() {
  * @param {number} i 
  */
 async function deleteTask(i) {
-    let taskTitle = document.getElementById(`openedTitle${i}`).innerHTML;
-    let taskIndex = todos.findIndex(todo => taskTitle === todo.task.name);
-    if (taskIndex !== -1) {
-        const taskId = todos[taskIndex].id;
-        await deleteUserTask(uid, taskId);
+    const taskId = todos[i].id;
+    await deleteUserTask(uid, taskId);
+    const modal = document.getElementById(`myModal${i}`);
+    if (modal) {
+        closeModal(modal); 
+    } else {
+        await displayOpenTasks();
     }
-    displayOpenTasks();
 }
 
 

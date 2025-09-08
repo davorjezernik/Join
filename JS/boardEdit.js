@@ -8,6 +8,7 @@ function highlight(event) {
     event.currentTarget.classList.add('drag-area-highlight');
 }
 
+
 /**
  * This function removes a higlight when we mova a dropdown
  * 
@@ -16,10 +17,6 @@ function highlight(event) {
 function removeHighlight(event) {
     event.currentTarget.classList.remove('drag-area-highlight');
 }
-
-
-
-
 
 
 /**
@@ -222,6 +219,9 @@ function showCheckedContacts() {
  */
 async function saveTask(i) {
     const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
+    const isTitleValid = validateEditTitle(nameEdit, i);
+    const isDateValid = validateEditDate(dateEdit, i);
+    if (!isTitleValid || !isDateValid) return;
     const subtasks = getTaskSubtasks(i);
     const newContacts = getTaskContacts();
     const newPriority = getTaskPriority();
@@ -240,8 +240,61 @@ async function saveTask(i) {
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
     await displayOpenTasks();
+    const modal = document.getElementById(`myModal${i}`);
+    closeModal(modal); 
     localStorage.removeItem('contacts');
 }
+
+
+
+/**
+ * This function title is chosen
+ * 
+ * @param {number} i 
+ * @param {number} title 
+ */
+function validateEditTitle(title, i) {
+    const input = document.getElementById(`taskTitleEdit${i}`);
+    const errorSpan = document.getElementById(`correctTitleEdit${i}`);    
+    const isValid = title && title.trim().length >= 4;
+    if (!isValid) {
+        if (input) input.style.borderColor = 'red';
+        if (errorSpan) {
+            errorSpan.textContent = 'Title must be at least 4 characters.';
+            errorSpan.style.color = 'red';
+        }
+        return false;
+    }
+    if (input?.style.borderColor === 'red') input.style.borderColor = '';
+    if (errorSpan?.textContent) errorSpan.textContent = '';
+
+    return true;
+}
+
+
+/**
+ * This function if a date is chosen
+ * 
+ * @param {number} i 
+ * @param {number} date 
+ */
+function validateEditDate(date, i) {
+    const input = document.getElementById(`dateEdit${i}`);
+    const errorSpan = document.getElementById(`correctDateEdit${i}`);
+    const isValid = Boolean(date);
+    if (!isValid) {
+        if (input) input.style.borderColor = 'red';
+        if (errorSpan) {
+            errorSpan.textContent = 'Please select a valid date.';
+            errorSpan.style.color = 'red';
+        }
+        return false;
+    }
+    if (input?.style.borderColor === 'red') input.style.borderColor = '';
+    if (errorSpan?.textContent) errorSpan.textContent = '';
+    return true;
+}
+
 
 
 /**
@@ -251,15 +304,12 @@ async function saveTask(i) {
  * @returns {string, number}
  */
 function getTaskDetails(i) {
-    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value;
-    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value;
-    const dateEdit = document.getElementById(`dateEdit${i}`).value;
-    let details = {};
-    if (nameEdit && descriptionEdit && dateEdit) {
-        details = { nameEdit, descriptionEdit, dateEdit };
-    }
-    return details;
+    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value || '';
+    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value || '';
+    const dateEdit = document.getElementById(`dateEdit${i}`).value || '';
+    return { nameEdit, descriptionEdit, dateEdit };
 }
+
 
 
 /**

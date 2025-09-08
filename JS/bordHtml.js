@@ -100,6 +100,7 @@ function generateEditModalContent(task, i) {
         <div class="modal-edit-content">
             <label for="editTaskTitle${i}" class="margin-span">Title:</label>
             <input id="taskTitleEdit${i}" required placeholder="Enter a title..." minlength="4" class="task-input-field" value="${task.name}">
+            <span id="correctTitleEdit${i}" class="error-msg"></span>
             <label for="editTaskDescription${i}">Description:</label>
             <textarea style="height: 80px;" id="taskDescriptionEdit${i}" required placeholder="Enter a Description..." minlength="4" class="task-input-field">${task.description}</textarea>
             <label for="editTaskTitle${i}" class="margin-span">Assigned to:</label>
@@ -117,6 +118,7 @@ function generateEditModalContent(task, i) {
             </div>
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
             <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
+            <span id="correctDateEdit${i}" class="error-msg"></span>
             <label for="editTaskPriority${i}" class="margin-span">Priority:</label>
             <div class="button-prio-width">
         <button onclick="addPrioEventListenersEdit(); changeColorEdit(this);" id="urgentButtonEdit" type="button" class="button-prio">

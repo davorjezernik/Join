@@ -168,7 +168,6 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -522,6 +521,13 @@ body {
 
 .correct-incorrect {
     font-size: 12px;
+}
+
+@media(max-width: 531px) {
+    .button-prio-width {
+        justify-content: space-evenly;
+        margin: 1px;
+    }
 }
 
 @media(max-width: 350px) {
