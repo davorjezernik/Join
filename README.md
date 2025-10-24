@@ -16,12 +16,16 @@ cd Join
 ### 3. Make a Realtime Database
 
 
-![Database Screenshot](‎‎img/screenshot_git/realtime_datevase.png)
+![Database Screenshot](img/screenshot_git/realtime_datevase.png)
+
 
 
 1.Chose the nearest server
+
 2.Use test mode
+
 U will get an url from it like this:
+
 
 
 ![Base URL Firebase Screenshot](img/screenshot_git/base_url_firebase.png)
