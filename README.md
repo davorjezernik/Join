@@ -64,3 +64,5 @@ To users will apear in firebase:
 
 Done!
 
+To start it right click on index.html and click Open with Live Server
+
