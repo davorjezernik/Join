@@ -16,7 +16,7 @@ cd Join
 ### 3. Make a Realtime Database
 
 
-![Database Screenshot](‎img/screenshot_git/realtime_datevase.png)
+![Database Screenshot](‎‎img/screenshot_git/realtime_datevase.png)
 
 
 1.Chose the nearest server
@@ -54,7 +54,7 @@ For other users just what you want
 To users will apear in firebase:
 
 
-![User List Screenshot](‎img/screenshot_git/users.png)
+![User List Screenshot](img/screenshot_git/users.png)
 
 
 
