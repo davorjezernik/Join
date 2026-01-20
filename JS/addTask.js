@@ -6,6 +6,9 @@ let subtasks = [];
 let uid = localStorage.getItem('uid');
 
 
+const fileUpload = document.getElementById('fileUpload');
+
+
 async function onloadFunction() {
     includeHTML();
     await loadSpecificUserDataFromLocalStorage();
@@ -13,6 +16,24 @@ async function onloadFunction() {
     showLoggedUserInitials();
     changeBgColorMenu();
 }
+
+
+/**
+ * This function uploads files and displays them in the gallery
+ */
+fileUpload.addEventListener('change', () => {
+    const files = fileUpload.files;
+    const gallery = document.getElementById('gallery');
+    if (files.length > 0) {
+        Array.from(files).forEach(async file => {
+            const blob = new Blob([file], { type: file.type });
+            console.log('Selected files:', blob);
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(blob);
+            gallery.appendChild(img);
+        });
+    }
+});
 
 
 /**

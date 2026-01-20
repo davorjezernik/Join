@@ -156,6 +156,12 @@ function generateEditModalContent(task, i) {
         <div class="subtasks-opened" id="subtasksContainer${i}">
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
+        <div class="inputs-flex">
+            <span>Data upload</span>
+                <input id="fileUpload" type="file" class="none">
+                <button onclick="fileUpload.click()">Upload</button>
+                <div class="inputs-flex" id="gallery"></div>
+        </div>
         <div class="align-center justify-center">
             <button class="button-dark color-blue-button" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>
