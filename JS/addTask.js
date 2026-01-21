@@ -1,6 +1,7 @@
 let subtaskCounter = 0;
 let assignedContacts = [];
 let subtasks = [];
+let allImages = [];
 
 
 let uid = localStorage.getItem('uid');
@@ -21,19 +22,40 @@ async function onloadFunction() {
 /**
  * This function uploads files and displays them in the gallery
  */
-fileUpload.addEventListener('change', () => {
+fileUpload.addEventListener('change', async () => {
     const files = fileUpload.files;
     const gallery = document.getElementById('gallery');
     if (files.length > 0) {
         Array.from(files).forEach(async file => {
             const blob = new Blob([file], { type: file.type });
             console.log('Selected files:', blob);
+
+            const base64String = await blobToBase64(blob);
             const img = document.createElement('img');
-            img.src = URL.createObjectURL(blob);
+            img.src = base64String;
             gallery.appendChild(img);
+            allImages.push({
+                name: file.name,
+                fileType: blob.type,
+                base64String: base64String
+            });
         });
     }
 });
+
+
+/**
+ * This function converts blob into base64
+ * @param {Blob} blob 
+ * @returns {Promise<string>}
+ */
+function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
 
 
 /**
