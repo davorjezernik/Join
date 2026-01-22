@@ -40,8 +40,32 @@ fileUpload.addEventListener('change', async () => {
                 base64String: base64String
             });
         });
+        save();
     }
 });
+
+
+function save() {
+    let allImagesString = JSON.stringify(allImages);
+    localStorage.setItem('allImages', allImagesString);
+}
+
+
+function loadImages() {
+    let allImagesString = localStorage.getItem('allImages');
+    if (allImagesString) {
+        allImages = JSON.parse(allImagesString);
+        renderImages();
+    }
+}
+
+
+function renderImages() {
+    gallery.innerHTML = '';
+    allImages.forEach(image => {
+        gallery.innerHTML += `<img src="${image.base64String}" alt="${image.name}">`;
+    });
+}
 
 
 /**
