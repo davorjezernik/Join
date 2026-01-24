@@ -27,17 +27,20 @@ fileUpload.addEventListener('change', async () => {
     const gallery = document.getElementById('gallery');
     if (files.length > 0) {
         Array.from(files).forEach(async file => {
+            if (!file.type.startsWith('image/')) {
+                error.textContent = 'Please upload only image files.';
+                return;         
+            }
             const blob = new Blob([file], { type: file.type });
             console.log('Selected files:', blob);
-
-            const base64String = await blobToBase64(blob);
+            const compressedBase64String = await compressImage(file, 800, 800, 0.7);
             const img = document.createElement('img');
-            img.src = base64String;
+            img.src = compressedBase64String;
             gallery.appendChild(img);
             allImages.push({
                 name: file.name,
                 fileType: blob.type,
-                base64String: base64String
+                base64String: compressedBase64String
             });
         });
         save();
@@ -64,6 +67,45 @@ function renderImages() {
     gallery.innerHTML = '';
     allImages.forEach(image => {
         gallery.innerHTML += `<img src="${image.base64String}" alt="${image.name}">`;
+    });
+}
+
+
+function compressImage(file, maxWidth, maxHeight, quality) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        const img = new Image();
+
+        reader.addEventListener('load', event => {
+            img.src = event.target.result;
+        });
+
+        reader.addEventListener('error', () => reject('File reading failed'));
+
+        img.addEventListener('load', () => {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth || height > maxHeight) {
+                const scale = Math.min(maxWidth / width, maxHeight / height);
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedBase64 = canvas.toDataURL(file.type, quality);
+            resolve(compressedBase64);
+        });
+
+        img.addEventListener('error', () => reject('Image loading failed'));
+
+        reader.readAsDataURL(file);
     });
 }
 
