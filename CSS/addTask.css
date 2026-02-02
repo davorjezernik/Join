@@ -527,6 +527,50 @@ body {
     display: none;
 }
 
+.attachments-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    color: gray;
+    margin-top: 4px;
+}
+
+.attachments-delete {
+    color: black;
+}
+
+.plus-button {
+    cursor: pointer;
+}
+
+.drop-area {
+    border: 1px dashed rgb(168, 168, 168);
+    border-radius: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(242, 242, 242);
+    gap: 8px;
+    color: rgb(168, 168, 168);
+}
+
+#gallery {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+    img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+}
+
 @media(max-width: 531px) {
     .button-prio-width {
         justify-content: space-evenly;

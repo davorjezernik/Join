@@ -22,30 +22,59 @@ async function onloadFunction() {
 /**
  * This function uploads files and displays them in the gallery
  */
-fileUpload.addEventListener('change', async () => {
-    const files = fileUpload.files;
-    const gallery = document.getElementById('gallery');
-    if (files.length > 0) {
-        Array.from(files).forEach(async file => {
-            if (!file.type.startsWith('image/')) {
-                error.textContent = 'Please upload only image files.';
-                return;         
-            }
-            const blob = new Blob([file], { type: file.type });
-            console.log('Selected files:', blob);
-            const compressedBase64String = await compressImage(file, 800, 800, 0.7);
-            const img = document.createElement('img');
-            img.src = compressedBase64String;
-            gallery.appendChild(img);
-            allImages.push({
-                name: file.name,
-                fileType: blob.type,
-                base64String: compressedBase64String
-            });
-        });
-        save();
-    }
+const gallery = document.getElementById('gallery');
+const dropZone = document.getElementById('dropZone');
+
+fileUpload.addEventListener('change', () => {
+    handleFiles(fileUpload.files);
 });
+
+async function handleFiles(files) {
+    if (!files || files.length === 0) return;
+
+    for (const file of Array.from(files)) {
+        if (!file.type.startsWith('image/')) {
+            error.textContent = 'Please upload only image files.';
+            continue;
+        }
+
+        const blob = new Blob([file], { type: file.type });
+        const compressedBase64String = await compressImage(file, 800, 800, 0.7);
+
+        const img = document.createElement('img');
+        img.src = compressedBase64String;
+        gallery.appendChild(img);
+
+        allImages.push({
+            name: file.name,
+            fileType: blob.type,
+            base64String: compressedBase64String
+        });
+    }
+
+    save();
+}
+
+
+
+/* allow drop */
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+
+/* remove highlight */
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+});
+
+/* handle drop */
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+});
+
 
 
 function save() {
@@ -69,6 +98,11 @@ function renderImages() {
         gallery.innerHTML += `<img src="${image.base64String}" alt="${image.name}">`;
     });
 }
+
+['dragover', 'drop'].forEach(event => {
+    document.addEventListener(event, e => e.preventDefault());
+});
+
 
 
 function compressImage(file, maxWidth, maxHeight, quality) {
