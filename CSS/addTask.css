@@ -558,17 +558,30 @@ body {
 
 #gallery {
     display: flex;
+    flex-direction: initial;
     gap: 8px;
-    margin-top: 8px;
-    flex-wrap: nowrap;
-    width: 100%;
-    img {
-        width: 120px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 8px;
-        cursor: pointer;
-    }
+    overflow: auto;
+    height: 88px;
+}
+
+#gallery img{
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#gallery img:hover {
+  filter: brightness(0.7);
+}
+
+.delete-img-cotainer {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 @media(max-width: 531px) {
