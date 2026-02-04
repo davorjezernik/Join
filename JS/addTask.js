@@ -53,6 +53,7 @@ async function handleFiles(files) {
     }
 
     save();
+    renderImages();
 }
 
 
@@ -95,9 +96,17 @@ function loadImages() {
 function renderImages() {
     gallery.innerHTML = '';
     allImages.forEach(image => {
-        gallery.innerHTML += `<img src="${image.base64String}" alt="${image.name}">`;
+        gallery.innerHTML += `
+        <div class="image-container">
+            <img src="${image.base64String}" alt="${image.name}" class="main-image">
+            <div class="delete-icon">
+                <img src="./img/trash.svg" alt="Delete">
+            </div>
+        </div>`;
     });
 }
+
+
 
 ['dragover', 'drop'].forEach(event => {
     document.addEventListener(event, e => e.preventDefault());

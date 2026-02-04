@@ -1,0 +1,82 @@
+.drop-area {
+    border: 1px dashed rgb(168, 168, 168);
+    border-radius: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(242, 242, 242);
+    gap: 8px;
+    color: rgb(168, 168, 168);
+}
+
+.none {
+    display: none;
+}
+
+.attachments-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    color: gray;
+    margin-top: 4px;
+}
+
+.attachments-delete {
+    color: black;
+}
+
+.plus-button {
+    cursor: pointer;
+}
+
+#gallery {
+    display: flex;
+    flex-direction: initial;
+    gap: 8px;
+    overflow: auto;
+    height: 88px;
+}
+
+#gallery img:hover {
+  filter: brightness(0.7);
+}
+
+.image-container img{
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.delete-img-cotainer {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.main-image {
+    display: block;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+}
+
+.delete-icon img {
+    width: 24px;
+    height: 24px;
+}

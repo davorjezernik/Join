@@ -523,67 +523,6 @@ body {
     font-size: 12px;
 }
 
-.none {
-    display: none;
-}
-
-.attachments-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    color: gray;
-    margin-top: 4px;
-}
-
-.attachments-delete {
-    color: black;
-}
-
-.plus-button {
-    cursor: pointer;
-}
-
-.drop-area {
-    border: 1px dashed rgb(168, 168, 168);
-    border-radius: 10px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(242, 242, 242);
-    gap: 8px;
-    color: rgb(168, 168, 168);
-}
-
-#gallery {
-    display: flex;
-    flex-direction: initial;
-    gap: 8px;
-    overflow: auto;
-    height: 88px;
-}
-
-#gallery img{
-    width: 120px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-#gallery img:hover {
-  filter: brightness(0.7);
-}
-
-.delete-img-cotainer {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 @media(max-width: 531px) {
     .button-prio-width {
         justify-content: space-evenly;
