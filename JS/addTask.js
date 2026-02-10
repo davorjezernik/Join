@@ -343,6 +343,7 @@ async function addTask() {
     const lastClickedButton = localStorage.getItem('lastClickedButton');
     const selectedCategory = localStorage.getItem('selectedCategory');
     const dragCategory = localStorage.getItem('dragCategory');
+    const allImages = JSON.parse(localStorage.getItem('allImages')) || [];
     const task = createTaskObject(taskTitle.value, taskDescription.value, date.value, lastClickedButton, selectedCategory, contacts, subtasks);
     await handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer, dragCategory);
 }
@@ -394,7 +395,8 @@ function createTaskObject(name, description, date, priority, category, contacts,
         category,
         contacts,
         subtasks: subtasksArray,
-        dragCategory: localStorage.getItem('dragCategory') || "todo"
+        dragCategory: localStorage.getItem('dragCategory') || "todo",
+        allImages: JSON.parse(localStorage.getItem('allImages')) || []
     };
 }
 
