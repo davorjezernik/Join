@@ -158,6 +158,13 @@ function resetForm(assignedContactsContainer, date, subtasksContainer) {
     localStorage.removeItem('dragCategory');
     localStorage.removeItem('subtasks');
     localStorage.removeItem('lastClickedButton');
+    deleteAllImagesLocalStorage();
+}
+
+function deleteAllImagesLocalStorage() {
+    allImages = [];
+    localStorage.removeItem('allImages');
+    renderImages();
 }
 
 
