@@ -34,6 +34,13 @@ function resetForm(assignedContactsContainer, date, subtasksContainer) {
     localStorage.removeItem('dragCategory');
     localStorage.removeItem('subtasks');
     localStorage.removeItem('lastClickedButton');
+    deleteAllImages();
+}
+
+function deleteAllImages() {
+    allImages = [];
+    localStorage.removeItem('allImages');
+    renderImages();
 }
 
 

@@ -424,6 +424,7 @@ function removeAllInput() {
     document.getElementById("selectContact").textContent = "Search Contact"; 
     document.getElementById("contactsDisplayBubble").innerHTML = ""; 
     document.getElementById("date").value = "";
+    document.getElementById('gallery').innerHTML = '';
     const priorityButtons = document.querySelectorAll(".button-prio");
     priorityButtons.forEach(button => {
         button.classList.remove("mediumSelected", "lowSelected", "urgentSelected");  
@@ -445,6 +446,7 @@ function removeAllInput() {
     clearTitleError();
     clearDateError();
     clearCategoryError();
+    renderImages();
 }
 
 
