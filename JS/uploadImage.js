@@ -101,8 +101,14 @@ function deleteImage(imageName) {
 function deleteAllImages() {
     if (!allImages || allImages.length === 0) return;
     allImages.length = 0;
+    deleteAllImagesLocalStorage();
     save();
     renderImages();
+}
+
+function deleteAllImagesLocalStorage() {
+    allImages = [];
+    localStorage.removeItem('allImages');
 }
 
 
