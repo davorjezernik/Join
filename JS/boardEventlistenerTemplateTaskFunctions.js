@@ -196,6 +196,20 @@ function generateSubtasksHtml(subtasks, i) {
 }
 
 
+function generateAllImages(allImages, i) {
+    if (!allImages || allImages.length === 0) return '';
+    let result = '';        
+    for (let j = 0; j < allImages.length; j++) {
+        const image = allImages[j];
+        result += `
+        <div class="image-container">
+            <img src="${image.base64String}" alt="${image.name}" class="main-image">
+        </div>
+        `;
+    }
+    return result;
+}
+
 /**
  * This function searches for the correct contact based on the initials
  * 

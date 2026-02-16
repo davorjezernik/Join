@@ -75,6 +75,16 @@ function generateModalContent(task, i) {
                 <div>${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
             </div>
         </div>
+
+
+        <div>
+           <div>Attachments</div>
+                <div class="assigned-contacts-container">
+                    <div>${generateAllImages(task['task']['allImages'], i)}</div>
+                </div>
+        </div>
+
+
         <div>
             <div class="details-container">Subtasks</div>
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
@@ -116,6 +126,13 @@ function generateEditModalContent(task, i) {
                     <div id="contactsDisplayBubbleInEdit" class="assigned-contacts-container"></div>
                 </div>
             </div>
+
+
+            <div>
+            <label for="editTaskTitle${i}" class="margin-span">Attachments</label>
+            </div>
+
+
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
             <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
             <span id="correctDateEdit${i}" class="error-msg"></span>
