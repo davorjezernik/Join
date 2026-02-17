@@ -77,9 +77,9 @@ function generateModalContent(task, i) {
         </div>
 
 
-        <div>
+        <div class="attachments-container">
            <div>Attachments</div>
-                <div class="assigned-contacts-container">
+                <div class="images-container">
                     <div>${generateAllImages(task['task']['allImages'], i)}</div>
                 </div>
         </div>
@@ -126,13 +126,6 @@ function generateEditModalContent(task, i) {
                     <div id="contactsDisplayBubbleInEdit" class="assigned-contacts-container"></div>
                 </div>
             </div>
-
-
-            <div>
-            <label for="editTaskTitle${i}" class="margin-span">Attachments</label>
-            </div>
-
-
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
             <input id="dateEdit${i}" type="date" class="task-input-field date" value="${task.date}">
             <span id="correctDateEdit${i}" class="error-msg"></span>
@@ -173,12 +166,16 @@ function generateEditModalContent(task, i) {
         <div class="subtasks-opened" id="subtasksContainer${i}">
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
+
+
         <div class="inputs-flex">
             <span>Data upload</span>
                 <input id="fileUpload" type="file" class="none">
                 <button onclick="fileUpload.click()">Upload</button>
                 <div class="inputs-flex" id="gallery"></div>
         </div>
+
+
         <div class="align-center justify-center">
             <button class="button-dark color-blue-button" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>

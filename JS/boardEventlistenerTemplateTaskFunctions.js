@@ -118,6 +118,9 @@ function closeModalEdit(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
+    // remove any temporary image data left from edit
+    localStorage.removeItem('allImages');
+    localStorage.removeItem('toBeEditedAllImages');
 }
 
 

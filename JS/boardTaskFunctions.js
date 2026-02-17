@@ -334,6 +334,14 @@ async function editTask(i) {
     localStorage.setItem('toBeEditedCategory', JSON.stringify(category));
     const priority = todos[i]['task']["priority"];
     localStorage.setItem('toBeEditedPriority', JSON.stringify(priority));
+    const allImages = todos[i]['task']["allImages"];
+    if (allImages) {
+        localStorage.setItem('allImages', JSON.stringify(allImages));
+        localStorage.setItem('toBeEditedAllImages', JSON.stringify(allImages));
+    } else {
+        localStorage.removeItem('allImages');
+        localStorage.removeItem('toBeEditedAllImages');
+    }
     let title = task.name;
     let description = task.description;
     if (task) {
@@ -354,6 +362,9 @@ async function editTask(i) {
     displayNamesOfContactsEdit();
     displayAssignedContactsInEdit();
     onInputChangeEdit();
+    if (typeof loadImages === 'function') {
+        loadImages();
+    }
 }
 
 

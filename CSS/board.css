@@ -411,6 +411,10 @@ h1 {
     display: flex;
 }
 
+.attachments-container {
+    margin-top: 12px;
+}
+
 .names-style {
     font-weight: 500;
 }

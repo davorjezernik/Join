@@ -144,6 +144,14 @@ function getTaskContacts() {
 }
 
 
+function getTaskAllImages() {
+    // the uploadImage module writes to 'allImages'; use that key so
+    // any additions/deletions performed during edit are returned here.
+    const allImages = JSON.parse(localStorage.getItem('allImages')) || [];
+    return allImages;
+}
+
+
 /**
  * This function gets the assigned priority for saving
  * 
@@ -236,13 +244,18 @@ async function saveTask(i) {
         category: toBeEditedCategory,
         dragCategory: toBeEditedDragCategory,
         subtasks: subtasks,
-        priority: newPriority
+        priority: newPriority,
+        // preserve any attachments uploaded during edit
+        allImages: getTaskAllImages()
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
     await displayOpenTasks();
     const modal = document.getElementById(`myModal${i}`);
     closeModal(modal); 
     localStorage.removeItem('contacts');
+    // clear temporary image storage used during editing
+    localStorage.removeItem('allImages');
+    localStorage.removeItem('toBeEditedAllImages');
 }
 
 
