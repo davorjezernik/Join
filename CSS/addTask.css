@@ -317,7 +317,7 @@ body {
 .menu-open {
     display: block;
     opacity: 1;
-    min-height: 200px;
+    min-height: 96px;
 }
 
 ::-webkit-scrollbar {
@@ -430,7 +430,6 @@ body {
 }
 
 .subtask-container {
-    height: 70px;
     overflow: auto;
 }
 

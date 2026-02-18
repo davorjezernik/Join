@@ -81,9 +81,9 @@ function renderImages() {
     allImages.forEach(image => {
         gallery.innerHTML += `
         <div class="image-container">
-            <img src="${image.base64String}" alt="${image.name}" class="main-image">
-            <div class="delete-icon">
-                <img src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">
+            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}">
+            <div class="trashcan-container">
+                <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">
             </div>
         </div>`;
     });

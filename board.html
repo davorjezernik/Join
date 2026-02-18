@@ -42,25 +42,6 @@
                                             id="description"></textarea>
                                     </div>
                                     <div class="inputs-flex">
-                                        <span>Assigned to</span>
-                                        <div class="drop-down">
-                                            <div class="select">
-                                                <span class="selected" id="selectContact">Search Contact</span>
-                                                <div class="caret"></div>
-                                            </div>
-                                            <ul class="menu" id="contactList"></ul>
-                                        </div>
-                                        <div class="bubble-setup">
-                                            <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="seperate-container">
-                            </div>
-                            <div class="add-task-set-up-two-container">
-                                <div class="add-task-set-up-two">
-                                    <div class="inputs-flex">
                                         <span>Due date<b style="color: orange;">*</b></span>
                                         <input id="date" type="date" class="task-input-field date">
                                         <div id="correctDate" class="correct-incorrect"></div>
@@ -68,8 +49,8 @@
                                     <div class="inputs-flex">
                                         <span>Prio</span>
                                         <div class="button-prio-width">
-                                            <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton"
-                                        type="button" class="button-prio">
+                                            <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton" 
+                                            type="button" class="button-prio">
                                         <div class="center">
                                             <div class="button-txt-img">Urgent
                                                 <svg class="prio-photos" width="18" height="12" viewBox="0 0 18 12"
@@ -143,6 +124,33 @@
                                         </div>
                                         <div id="correctCategory" class="correct-incorrect"></div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="seperate-container">
+                            </div>
+                            <div class="add-task-set-up-two-container">
+                                <div class="add-task-set-up-two">
+                                    <div class="inputs-flex">
+                                        <div>
+                                            <span>Attachments</span>
+                                            <div class="attachments-info">
+                                                <p>Allowed file types are JPEG and PNG</p>
+                                                <div class="delete-img-cotainer" onclick="deleteAllImages()">
+                                                    <img src="./img/delete_img.svg">
+                                                    <d class="attachments-delete">Delete all</d>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <input id="fileUpload" type="file" class="none" accept="image/*"> 
+                                            <div class="drop-area" id="dropZone">
+                                                <d>Drag a file ore browse</d>
+                                                <img class="plus-button" src="./img/plus.svg" onclick="fileUpload.click()">
+                                            </div>
+                                            <div class="inputs-flex" id="gallery"></div>
+                                        </div>
+                                    
+
+                                    
                                     <div class="inputs-flex">
                                         <span>Subtask</span>
                                         <div class="input-with-img">
@@ -168,6 +176,19 @@
                                             </div>
                                         </div>
                                         <div class="subtask-container" id="subtasksContainer"></div>
+                                    </div>
+                                    <div class="inputs-flex">
+                                        <span>Assigned to</span>
+                                        <div class="drop-down">
+                                            <div class="select">
+                                                <span class="selected" id="selectContact">Search Contact</span>
+                                                <div class="caret"></div>
+                                            </div>
+                                            <ul class="menu" id="contactList"></ul>
+                                        </div>
+                                        <div class="bubble-setup">
+                                            <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

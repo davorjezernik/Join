@@ -36,15 +36,18 @@
     flex-direction: initial;
     gap: 8px;
     overflow: auto;
-    height: 88px;
 }
 
-#gallery img:hover {
+.main-image-upload {
+    transition: filter 0.3s ease;
+}
+
+.main-image-upload:hover {
   filter: brightness(0.7);
 }
 
 .image-container img{
-    width: 112px;
+    width: 104px;
     height: 80px;
     object-fit: cover;
     border-radius: 8px;
@@ -68,7 +71,7 @@
     display: block;
 }
 
-.delete-icon {
+.trashcan-container {
     position: absolute;
     top: 50%;
     right: 50%;
@@ -76,7 +79,18 @@
     cursor: pointer;
 }
 
-.delete-icon img {
-    width: 24px;
+.traschcan-img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.trashcan-container img{
+    width: auto;
     height: 24px;
+}
+
+
+
+.image-container:hover .traschcan-img {
+    opacity: 1;
 }
