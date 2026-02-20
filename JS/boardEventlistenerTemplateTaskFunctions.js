@@ -176,6 +176,12 @@ function generateSubtasksEditHtml(subtasks, i) {
 }
 
 
+function generateImagesEditHtml(allImages, i) {
+    if (!allImages || allImages.length === 0) return '';
+    let result = '';
+    
+}
+
 /**
  * This function generates the subtasks in an html element to display them
  * 

@@ -86,10 +86,14 @@
 
 .trashcan-container img{
     width: auto;
-    height: 24px;
+    height: 16px;
 }
 
-
+.trashcan-container:hover {
+    background-color: rgb(41, 171, 227);
+    border-radius: 100%;
+    padding: 4px 4px 0px 4px;
+}
 
 .image-container:hover .traschcan-img {
     opacity: 1;

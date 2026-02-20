@@ -164,15 +164,27 @@ function generateEditModalContent(task, i) {
             </div>
         </div>
         <div class="subtasks-opened" id="subtasksContainer${i}">
-            ${generateSubtasksEditHtml(task.subtasks, i)}
+            ${generateImagesEditHtml(allImages, i)}
         </div>
 
 
-        <div class="inputs-flex">
-            <span>Data upload</span>
-                <input id="fileUpload" type="file" class="none">
-                <button onclick="fileUpload.click()">Upload</button>
-                <div class="inputs-flex" id="gallery"></div>
+        <div>
+            <span>Attachments</span>
+            <div class="attachments-info">
+                <p>Allowed file types are JPEG and PNG</p>
+                <div class="delete-img-cotainer" onclick="deleteAllImages()">
+                    <img src="./img/delete_img.svg">
+                    <d class="attachments-delete">Delete all</d>
+                </div>
+            </div>
+        </div>
+            <input id="fileUpload" type="file" class="none" accept="image/*"> 
+            <div class="drop-area" id="dropZone">
+                <d>Drag a file ore browse</d>
+                <img class="plus-button" src="./img/plus.svg" onclick="fileUpload.click()">
+            </div>
+            <div class="inputs-flex" id="gallery">
+            </div>
         </div>
 
 
