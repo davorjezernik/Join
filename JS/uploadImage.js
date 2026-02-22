@@ -83,7 +83,12 @@ function renderImages() {
         <div class="image-container">
             <img class="main-image-upload" src="${image.base64String}" alt="${image.name}">
             <div class="trashcan-container">
+            <div>
                 <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">
+                <div class="image-name">
+                    <p class="image-name-text">${image.name}</p>
+                </div>
+            </div>
             </div>
         </div>`;
     });

@@ -179,7 +179,17 @@ function generateSubtasksEditHtml(subtasks, i) {
 function generateImagesEditHtml(allImages, i) {
     if (!allImages || allImages.length === 0) return '';
     let result = '';
-    
+    for (let j = 0; j < allImages.length; j++) {
+        const image = allImages[j];
+        result += /*html*/`
+        <div class="image-container">
+            <img src="${image.base64String}" alt="${image.name}" class="main-image">
+            <div class="delete-edit">
+                <img src="./img/addTaskImg/delete.svg" onclick="deleteImageEdit(${i}, ${j})">
+            </div>
+        </div>
+        `;
+    }   
 }
 
 /**

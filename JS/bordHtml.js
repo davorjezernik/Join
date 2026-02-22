@@ -164,7 +164,7 @@ function generateEditModalContent(task, i) {
             </div>
         </div>
         <div class="subtasks-opened" id="subtasksContainer${i}">
-            ${generateImagesEditHtml(allImages, i)}
+            ${generateSubtasksEditHtml(subtasks, i)}
         </div>
 
 
@@ -184,6 +184,7 @@ function generateEditModalContent(task, i) {
                 <img class="plus-button" src="./img/plus.svg" onclick="fileUpload.click()">
             </div>
             <div class="inputs-flex" id="gallery">
+            ${generateImagesEditHtml(allImages, i)}
             </div>
         </div>
 

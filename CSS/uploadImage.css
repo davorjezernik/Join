@@ -98,3 +98,21 @@
 .image-container:hover .traschcan-img {
     opacity: 1;
 }
+
+.image-name {
+    font-size: 16px;
+    color: gray;
+    white-space: nowrap;
+    width: 104px;
+    background-color: white;
+    padding: 4px 0px 4px 0px;
+    border: 1px solid rgb(168, 168, 168);
+}
+
+.image-name-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    margin: 0px;
+}
