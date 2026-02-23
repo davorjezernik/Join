@@ -65,6 +65,9 @@
 .image-container {
     position: relative;
     display: inline-block;
+    border: 1px solid rgb(168, 168, 168);
+    background-color: white;
+    border-radius: 8px;
 }
 
 .main-image {
@@ -105,8 +108,9 @@
     white-space: nowrap;
     width: 104px;
     background-color: white;
-    padding: 4px 0px 4px 0px;
-    border: 1px solid rgb(168, 168, 168);
+
+    position: absolute;
+    top: 72%;
 }
 
 .image-name-text {
