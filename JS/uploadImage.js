@@ -2,6 +2,31 @@ let allImages = [];
 
 const fileUpload = document.getElementById('fileUpload');
 
+const modal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const closeModal = document.getElementById('closeModal');
+
+function openImageModal(src) {
+    modal.style.display = 'flex';
+    modalImage.src = src; // Works with base64
+    document.body.style.overflow = 'hidden';
+}
+
+closeModal.addEventListener('click', closeImageModal);
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeImageModal();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeImageModal();
+});
+
+function closeImageModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
 /**
  * This function uploads files and displays them in the gallery
  */
@@ -81,7 +106,7 @@ function renderImages() {
     allImages.forEach(image => {
         gallery.innerHTML += `
         <div class="image-container">
-            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}">
+            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">
             <div class="trashcan-container">
                 <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">     
             </div>
