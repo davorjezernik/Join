@@ -111,8 +111,8 @@ function renderImages() {
                 <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">     
             </div>
             <div class="image-name">
-                    <p class="image-name-text">${image.name}</p>
-                </div>
+                <p class="image-name-text">${image.name}</p>
+            </div>
         </div>`;
     });
 }

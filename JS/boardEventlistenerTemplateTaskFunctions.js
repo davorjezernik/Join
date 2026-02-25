@@ -222,11 +222,20 @@ function generateAllImages(allImages, i) {
         const image = allImages[j];
         result += `
         <div class="image-container">
-            <img src="${image.base64String}" alt="${image.name}" class="main-image">
+            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">    
+            <div class="image-name">
+                <p class="image-name-text">${image.name}</p>
+            </div>
         </div>
         `;
     }
     return result;
+}
+
+function openImageModal(src) {
+    modal.style.display = 'flex';
+    modalImage.src = src; // Works with base64
+    document.body.style.overflow = 'hidden';
 }
 
 /**
