@@ -1,40 +1,65 @@
 let allImages = [];
 
-const fileUpload = document.getElementById('fileUpload');
-
-const modal = document.getElementById('imageModal');
-const modalImage = document.getElementById('modalImage');
-const closeModal = document.getElementById('closeModal');
-
+// open/close helpers grab elements lazily so script order doesn't matter
 function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    if (!modal || !modalImage) return;
     modal.style.display = 'flex';
     modalImage.src = src; // Works with base64
     document.body.style.overflow = 'hidden';
 }
 
-closeModal.addEventListener('click', closeImageModal);
-
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeImageModal();
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeImageModal();
-});
-
 function closeImageModal() {
-    modal.style.display = 'none';
+    const modal = document.getElementById('imageModal');
+    if (modal) modal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
 
-/**
- * This function uploads files and displays them in the gallery
- */
-const gallery = document.getElementById('gallery');
-const dropZone = document.getElementById('dropZone');
+// wire up listeners after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const fileUpload = document.getElementById('fileUpload');
+    const gallery = document.getElementById('gallery');
+    const dropZone = document.getElementById('dropZone');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalElem = document.getElementById('imageModal');
 
-fileUpload.addEventListener('change', () => {
-    handleFiles(fileUpload.files);
+    if (fileUpload) {
+        fileUpload.addEventListener('change', () => {
+            handleFiles(fileUpload.files);
+        });
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeImageModal);
+    }
+
+    if (modalElem) {
+        modalElem.addEventListener('click', (e) => {
+            if (e.target === modalElem) closeImageModal();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeImageModal();
+    });
+
+    if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+    }
 });
 
 async function handleFiles(files) {
@@ -81,8 +106,7 @@ dropZone.addEventListener('dragleave', () => {
 dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    handleFiles(e.dataTransfer.files);
-});
+    handleFiles(e.dataTransfer.files);});
 
 
 
