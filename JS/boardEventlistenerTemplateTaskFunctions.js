@@ -190,6 +190,7 @@ function generateImagesEditHtml(allImages, i) {
         </div>
         `;
     }   
+    return result;
 }
 
 /**
