@@ -183,9 +183,12 @@ function generateImagesEditHtml(allImages, i) {
         const image = allImages[j];
         result += /*html*/`
         <div class="image-container">
-            <img src="${image.base64String}" alt="${image.name}" class="main-image">
-            <div class="delete-edit">
-                <img src="./img/addTaskImg/delete.svg" onclick="deleteImageEdit(${i}, ${j})">
+            <img src="${image.base64String}" alt="${image.name}" class="main-image-upload" onclick="openImageModal(this.src)">
+            <div class="trashcan-container">
+                <img class="traschcan-img" src="./img/trash.svg" onclick="deleteImage('${image.name}')">
+            </div>
+            <div class="image-name">
+                <p class="image-name-text">${image.name}</p>
             </div>
         </div>
         `;

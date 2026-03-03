@@ -256,6 +256,10 @@ async function saveTask(i) {
     // clear temporary image storage used during editing
     localStorage.removeItem('allImages');
     localStorage.removeItem('toBeEditedAllImages');
+    // also clear module state so the next add/edit starts fresh
+    if (typeof allImages !== 'undefined') {
+        allImages.length = 0;
+    }
 }
 
 

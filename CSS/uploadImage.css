@@ -8,6 +8,7 @@
     background-color: rgb(242, 242, 242);
     gap: 8px;
     color: rgb(168, 168, 168);
+    margin: 8px 0px 8px 0px;
 }
 
 .none {
@@ -40,6 +41,7 @@
 
 .main-image-upload {
     transition: filter 0.3s ease;
+    border-radius: 8px;
 }
 
 .main-image-upload:hover {
@@ -50,7 +52,6 @@
     width: 104px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
     cursor: pointer;
 }
 
@@ -108,7 +109,6 @@
     white-space: nowrap;
     width: 104px;
     background-color: white;
-
     position: absolute;
     top: 72%;
 }
