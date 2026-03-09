@@ -364,6 +364,7 @@ async function addContactsToTask() {
  */
 async function handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer) {
     await postTask('/users/' + uid + '/tasks', task);
+    localStorage.removeItem('allImages');
     resetForm(assignedContactsContainer, date, subtasksContainer);
     if (window.location.pathname.includes('board.html')) {
         displayOpenTasks();

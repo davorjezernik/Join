@@ -81,7 +81,7 @@ function addCategoryEventListenerEdit() {
  * This function adds drop down event listener to different elements
  */
 function addEventListenerDropDown() {
-    const dropDowns = ['dropDownEdit']; // Add the IDs of each dropdown
+    const dropDowns = ['dropDownEdit']; 
     dropDowns.forEach(dropDownId => {
         const dropDown = document.getElementById(dropDownId);
         const select = dropDown.querySelector('.select');
@@ -118,7 +118,6 @@ function closeModalEdit(modal) {
     modal.style.display = "none";
     document.body.style.overflow = "auto";
     window.onclick = null;
-    // remove any temporary image data left from edit
     localStorage.removeItem('allImages');
     localStorage.removeItem('toBeEditedAllImages');
 }
@@ -162,7 +161,7 @@ function generateSubtasksEditHtml(subtasks, i) {
     let result = '';
     for (let j = 0; j < subtasks.length; j++) {
         const subtask = subtasks[j];
-        result += /*html*/`
+        result += `
         <div class="subtask-Txt">
             <div id="subtask${i}-${j}">${subtask.text}</div>
             <div class="delete-edit">
@@ -176,12 +175,12 @@ function generateSubtasksEditHtml(subtasks, i) {
 }
 
 
-function generateImagesEditHtml(allImages, i) {
+function generateImagesEditHtml(allImages) {
     if (!allImages || allImages.length === 0) return '';
     let result = '';
     for (let j = 0; j < allImages.length; j++) {
         const image = allImages[j];
-        result += /*html*/`
+        result += `
         <div class="image-container">
             <img src="${image.base64String}" alt="${image.name}" class="main-image-upload" onclick="openImageModal(this.src)">
             <div class="trashcan-container">
@@ -238,7 +237,7 @@ function generateAllImages(allImages, i) {
 
 function openImageModal(src) {
     modal.style.display = 'flex';
-    modalImage.src = src; // Works with base64
+    modalImage.src = src; 
     document.body.style.overflow = 'hidden';
 }
 

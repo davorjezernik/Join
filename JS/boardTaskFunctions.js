@@ -356,6 +356,29 @@ async function editTask(i) {
         }
     }
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    // Attach upload listeners for the edit modal
+    const fileUpload = document.getElementById(`fileUpload${i}`);
+    const dropZone = document.getElementById(`dropZone${i}`);
+    window.gallery = document.getElementById(`gallery${i}`);
+    if (fileUpload) {
+        fileUpload.addEventListener('change', () => {
+            handleFiles(fileUpload.files);
+        });
+    }
+    if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+    }
     addEventListenerDropDown();
     addPrioEventListenersEdit();
     changeColor(document.querySelector('.button-prio-selected'));

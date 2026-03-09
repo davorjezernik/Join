@@ -245,7 +245,6 @@ async function saveTask(i) {
         dragCategory: toBeEditedDragCategory,
         subtasks: subtasks,
         priority: newPriority,
-        // preserve any attachments uploaded during edit
         allImages: getTaskAllImages()
     };
     await updateUserTasks(uid, toBeEditedTaskId, task);
@@ -253,13 +252,8 @@ async function saveTask(i) {
     const modal = document.getElementById(`myModal${i}`);
     closeModal(modal); 
     localStorage.removeItem('contacts');
-    // clear temporary image storage used during editing
     localStorage.removeItem('allImages');
     localStorage.removeItem('toBeEditedAllImages');
-    // also clear module state so the next add/edit starts fresh
-    if (typeof allImages !== 'undefined') {
-        allImages.length = 0;
-    }
 }
 
 

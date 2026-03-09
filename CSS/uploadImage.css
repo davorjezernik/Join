@@ -11,6 +11,11 @@
     margin: 8px 0px 8px 0px;
 }
 
+.drop-area.dragover {
+    background-color: lightblue;
+    border-color: blue;
+}
+
 .none {
     display: none;
 }
@@ -143,6 +148,11 @@
     font-size: 40px;
     color: white;
     cursor: pointer;
+}
+
+.inputs-flex-modal {
+    display: flex;
+    gap: 8px;
 }
 
 

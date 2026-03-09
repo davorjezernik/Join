@@ -178,12 +178,12 @@ function generateEditModalContent(task, i) {
                 </div>
             </div>
         </div>
-            <input id="fileUpload" type="file" class="none" accept="image/*"> 
-            <div class="drop-area" id="dropZone">
+            <input id="fileUpload${i}" type="file" class="none" accept="image/*"> 
+            <div class="drop-area" id="dropZone${i}">
                 <d>Drag a file ore browse</d>
-                <img class="plus-button" src="./img/plus.svg" onclick="fileUpload.click()">
+                <img class="plus-button" src="./img/plus.svg" onclick="document.getElementById('fileUpload${i}').click()">
             </div>
-            <div class="inputs-flex" id="gallery">
+            <div class="inputs-flex-modal" id="gallery${i}">
             ${generateImagesEditHtml(task.allImages, i)}
             </div>
         </div>

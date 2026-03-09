@@ -6,7 +6,7 @@ function openImageModal(src) {
     const modalImage = document.getElementById('modalImage');
     if (!modal || !modalImage) return;
     modal.style.display = 'flex';
-    modalImage.src = src; // Works with base64
+    modalImage.src = src; 
     document.body.style.overflow = 'hidden';
 }
 
@@ -18,7 +18,7 @@ function closeImageModal() {
 
 // wire up listeners after DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const fileUpload = document.getElementById('fileUpload');
+     window.fileUpload = document.getElementById('fileUpload');
     const gallery = document.getElementById('gallery');
     const dropZone = document.getElementById('dropZone');
     const closeModalBtn = document.getElementById('closeModal');
@@ -70,13 +70,11 @@ async function handleFiles(files) {
             error.textContent = 'Please upload only image files.';
             continue;
         }
-
+        if (allImages.some(img => img.name === file.name)) {
+            continue; 
+        }
         const blob = new Blob([file], { type: file.type });
         const compressedBase64String = await compressImage(file, 800, 800, 0.7);
-
-        const img = document.createElement('img');
-        img.src = compressedBase64String;
-        gallery.appendChild(img);
 
         allImages.push({
             name: file.name,
@@ -88,25 +86,6 @@ async function handleFiles(files) {
     save();
     renderImages();
 }
-
-
-
-/* allow drop */
-dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-});
-
-/* remove highlight */
-dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-});
-
-/* handle drop */
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    handleFiles(e.dataTransfer.files);});
 
 
 
