@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
             handleFiles(e.dataTransfer.files);
         });
     }
+
+    // Load existing images from localStorage
+    loadImages();
 });
 
 async function handleFiles(files) {
@@ -102,6 +105,9 @@ function loadImages() {
         renderImages();
     }
 }
+
+// Make loadImages available globally
+window.loadImages = loadImages;
 
 
 function renderImages() {

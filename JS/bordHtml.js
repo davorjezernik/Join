@@ -184,7 +184,6 @@ function generateEditModalContent(task, i) {
                 <img class="plus-button" src="./img/plus.svg" onclick="document.getElementById('fileUpload${i}').click()">
             </div>
             <div class="inputs-flex-modal" id="gallery${i}">
-            ${generateImagesEditHtml(task.allImages, i)}
             </div>
         </div>
 

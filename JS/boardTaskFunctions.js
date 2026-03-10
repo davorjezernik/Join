@@ -337,29 +337,17 @@ async function editTask(i) {
     const allImages = todos[i]['task']["allImages"];
     if (allImages) {
         localStorage.setItem('allImages', JSON.stringify(allImages));
-        localStorage.setItem('toBeEditedAllImages', JSON.stringify(allImages));
     } else {
         localStorage.removeItem('allImages');
-        localStorage.removeItem('toBeEditedAllImages');
     }
     let title = task.name;
     let description = task.description;
-    if (task) {
-        const keys = Object.keys(tasks);
-        for (let i = 0; i < keys.length; i++) {
-            const taskId = keys[i];
-            let taskTitleInFirebase = tasks[taskId]["name"]
-            let taskDescriptionInFirebase = tasks[taskId]["description"]
-            if (taskTitleInFirebase == title && taskDescriptionInFirebase == description) {
-                localStorage.setItem('toBeEditedTaskId', taskId);
-            }
-        }
-    }
+    localStorage.setItem('toBeEditedTaskId', todos[i].id);
     modalContentEdit.innerHTML = generateEditModalContent(task, i);
-    // Attach upload listeners for the edit modal
     const fileUpload = document.getElementById(`fileUpload${i}`);
     const dropZone = document.getElementById(`dropZone${i}`);
     window.gallery = document.getElementById(`gallery${i}`);
+    window.loadImages();
     if (fileUpload) {
         fileUpload.addEventListener('change', () => {
             handleFiles(fileUpload.files);
@@ -368,13 +356,16 @@ async function editTask(i) {
     if (dropZone) {
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             dropZone.classList.add('dragover');
         });
-        dropZone.addEventListener('dragleave', () => {
+        dropZone.addEventListener('dragleave', (e) => {
+            e.stopPropagation();
             dropZone.classList.remove('dragover');
         });
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             dropZone.classList.remove('dragover');
             handleFiles(e.dataTransfer.files);
         });
