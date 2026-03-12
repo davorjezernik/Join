@@ -173,6 +173,12 @@ function openAddTaskInBoard() {
     addTask.classList.remove('d-none'); addTask.classList.add('addTask-container-background');
     let addTaskWindow = document.getElementById('addTaskPopUp');
     addTaskWindow.classList.add('bring-out-addTask-window');
+    if (window.gallery !== document.getElementById('gallery')) {
+        window.gallery = document.getElementById('gallery');
+    }
+    if (window.dropZone !== document.getElementById('dropZone')) {
+        window.dropZone = document.getElementById('dropZone');
+    }
 }
 
 
@@ -347,6 +353,7 @@ async function editTask(i) {
     const fileUpload = document.getElementById(`fileUpload${i}`);
     const dropZone = document.getElementById(`dropZone${i}`);
     window.gallery = document.getElementById(`gallery${i}`);
+    if (typeof gallery !== 'undefined') gallery = window.gallery;
     window.loadImages();
     if (fileUpload) {
         fileUpload.addEventListener('change', () => {

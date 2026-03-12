@@ -1,6 +1,11 @@
 let allImages = [];
+let gallery = null;
+let dropZone = null;
 
-// open/close helpers grab elements lazily so script order doesn't matter
+
+/**
+ * This function opens/close helpers grab elements lazily so script order doesn't matter
+ */
 function openImageModal(src) {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
@@ -10,64 +15,91 @@ function openImageModal(src) {
     document.body.style.overflow = 'hidden';
 }
 
+
+/**
+ * 
+ */
 function closeImageModal() {
     const modal = document.getElementById('imageModal');
     if (modal) modal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
 
-// wire up listeners after DOM is ready
+
+/**
+ * This function wire up listeners after DOM is ready
+ */
 document.addEventListener('DOMContentLoaded', () => {
-     window.fileUpload = document.getElementById('fileUpload');
-    const gallery = document.getElementById('gallery');
-    const dropZone = document.getElementById('dropZone');
+    window.fileUpload = document.getElementById('fileUpload');
+    // cache gallery and drop zone references globally
+    gallery = document.getElementById('gallery');
+    dropZone = document.getElementById('dropZone');
+    window.gallery = gallery;
+    window.dropZone = dropZone;
     const closeModalBtn = document.getElementById('closeModal');
     const modalElem = document.getElementById('imageModal');
+    handleFilesHelp(fileUpload);
+    handleCloseModal(closeModalBtn, modalElem);
+    handleDrop(dropZone);
+    loadImages();
+});
 
+
+/**
+ * 
+ */
+function handleFilesHelp(fileUpload) {
     if (fileUpload) {
         fileUpload.addEventListener('change', () => {
             handleFiles(fileUpload.files);
         });
     }
+}
 
+
+/**
+ * 
+ */
+function handleCloseModal(closeModalBtn, modalElem) {
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', closeImageModal);
     }
-
     if (modalElem) {
         modalElem.addEventListener('click', (e) => {
             if (e.target === modalElem) closeImageModal();
         });
     }
-
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeImageModal();
     });
+}
 
-    if (dropZone) {
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
 
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
+/**
+ * 
+ */
+function handleDrop(dropZone) {
+    if (!dropZone) return;
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+}
 
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            handleFiles(e.dataTransfer.files);
-        });
-    }
 
-    // Load existing images from localStorage
-    loadImages();
-});
-
+/**
+ * 
+ */
 async function handleFiles(files) {
     if (!files || files.length === 0) return;
-
     for (const file of Array.from(files)) {
         if (!file.type.startsWith('image/')) {
             error.textContent = 'Please upload only image files.';
@@ -78,26 +110,38 @@ async function handleFiles(files) {
         }
         const blob = new Blob([file], { type: file.type });
         const compressedBase64String = await compressImage(file, 800, 800, 0.7);
-
         allImages.push({
-            name: file.name,
-            fileType: blob.type,
-            base64String: compressedBase64String
+            name: file.name, fileType: blob.type, base64String: compressedBase64String
         });
     }
-
-    save();
-    renderImages();
+    helperFunction();
 }
 
 
+/**
+ * 
+ */
+function helperFunction() {
+    save();
+    renderImages();
+    if (window.fileUpload) {
+        window.fileUpload.value = '';
+    }
+}
 
+
+/**
+ * 
+ */
 function save() {
     let allImagesString = JSON.stringify(allImages);
     localStorage.setItem('allImages', allImagesString);
 }
 
 
+/**
+ * 
+ */
 function loadImages() {
     let allImagesString = localStorage.getItem('allImages');
     if (allImagesString) {
@@ -106,14 +150,22 @@ function loadImages() {
     }
 }
 
-// Make loadImages available globally
+
+/**
+ * 
+ */
 window.loadImages = loadImages;
 
 
+/**
+ * 
+ */
 function renderImages() {
-    gallery.innerHTML = '';
+    const target = window.gallery || gallery || document.getElementById('gallery');
+    if (!target) return;
+    target.innerHTML = '';
     allImages.forEach(image => {
-        gallery.innerHTML += `
+        target.innerHTML += `
         <div class="image-container">
             <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">
             <div class="trashcan-container">
@@ -126,6 +178,10 @@ function renderImages() {
     });
 }
 
+
+/**
+ * 
+ */
 function deleteImage(imageName) {
     const index = allImages.findIndex(image => image.name === imageName);
     if (index > -1) {
@@ -135,6 +191,10 @@ function deleteImage(imageName) {
     renderImages();
 }
 
+
+/**
+ * 
+ */
 function deleteAllImages() {
     if (!allImages || allImages.length === 0) return;
     allImages.length = 0;
@@ -143,12 +203,19 @@ function deleteAllImages() {
     renderImages();
 }
 
+
+/**
+ * 
+ */
 function deleteAllImagesLocalStorage() {
     allImages = [];
     localStorage.removeItem('allImages');
 }
 
 
+/**
+ * 
+ */
 ['dragover', 'drop'].forEach(event => {
     document.addEventListener(event, e => e.preventDefault());
 });
@@ -166,30 +233,30 @@ function compressImage(file, maxWidth, maxHeight, quality) {
 
         reader.addEventListener('error', () => reject('File reading failed'));
 
-        img.addEventListener('load', () => {
-            let width = img.width;
-            let height = img.height;
-
-            if (width > maxWidth || height > maxHeight) {
-                const scale = Math.min(maxWidth / width, maxHeight / height);
-                width = Math.round(width * scale);
-                height = Math.round(height * scale);
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const compressedBase64 = canvas.toDataURL(file.type, quality);
-            resolve(compressedBase64);
-        });
+        helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve);
 
         img.addEventListener('error', () => reject('Image loading failed'));
 
         reader.readAsDataURL(file);
+    });
+}
+
+function helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve) {
+    img.addEventListener('load', () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth || height > maxHeight) {
+            const scale = Math.min(maxWidth / width, maxHeight / height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const compressedBase64 = canvas.toDataURL(file.type, quality);
+        resolve(compressedBase64);
     });
 }
 

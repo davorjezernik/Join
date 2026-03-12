@@ -155,4 +155,10 @@
     gap: 8px;
 }
 
+@media(max-width: 1025px) {
+    .traschcan-img {
+        opacity: 1;
+    }
+}
+
 
