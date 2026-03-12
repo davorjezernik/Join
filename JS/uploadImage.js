@@ -17,7 +17,7 @@ function openImageModal(src) {
 
 
 /**
- * 
+ * Closes the image modal and restores page scrolling.
  */
 function closeImageModal() {
     const modal = document.getElementById('imageModal');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * 
+ * Attaches a change event listener to a file input element to handle file uploads when the user selects files.
  */
 function handleFilesHelp(fileUpload) {
     if (fileUpload) {
@@ -58,7 +58,7 @@ function handleFilesHelp(fileUpload) {
 
 
 /**
- * 
+ * Registers event listeners to close an image modal.
  */
 function handleCloseModal(closeModalBtn, modalElem) {
     if (closeModalBtn) {
@@ -76,7 +76,7 @@ function handleCloseModal(closeModalBtn, modalElem) {
 
 
 /**
- * 
+ * Enables drag-and-drop file upload behavior for a given drop zone element.
  */
 function handleDrop(dropZone) {
     if (!dropZone) return;
@@ -96,7 +96,7 @@ function handleDrop(dropZone) {
 
 
 /**
- * 
+ * Processes a list of uploaded files by validating their types, compressing images, and storing them in an array for later rendering.
  */
 async function handleFiles(files) {
     if (!files || files.length === 0) return;
@@ -119,7 +119,7 @@ async function handleFiles(files) {
 
 
 /**
- * 
+ * Executes post-processing after files are handled.
  */
 function helperFunction() {
     save();
@@ -131,7 +131,7 @@ function helperFunction() {
 
 
 /**
- * 
+ * Saves the current list of images to the browser's localStorage.
  */
 function save() {
     let allImagesString = JSON.stringify(allImages);
@@ -140,7 +140,7 @@ function save() {
 
 
 /**
- * 
+ *  Loads previously saved images from localStorage and restores them into the application state, then triggers rendering to display them in the gallery.
  */
 function loadImages() {
     let allImagesString = localStorage.getItem('allImages');
@@ -221,26 +221,27 @@ function deleteAllImagesLocalStorage() {
 });
 
 
-
+/**
+ * 
+ */
 function compressImage(file, maxWidth, maxHeight, quality) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         const img = new Image();
-
         reader.addEventListener('load', event => {
             img.src = event.target.result;
         });
-
         reader.addEventListener('error', () => reject('File reading failed'));
-
         helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve);
-
         img.addEventListener('error', () => reject('Image loading failed'));
-
         reader.readAsDataURL(file);
     });
 }
 
+
+/**
+ * 
+ */
 function helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve) {
     img.addEventListener('load', () => {
         let width = img.width;
