@@ -27,12 +27,14 @@ function selectCategory(categoryName) {
     categoryChosen.textContent = '';
 }
 
+
 function clearTitleError() {
     const taskTitle = document.getElementById('taskTitle');
     const titleChosen = document.getElementById('correctTitle');
     taskTitle.style.borderColor = '';
     titleChosen.textContent = '';
 }
+
 
 function clearDateError() {
     const date = document.getElementById('date');
@@ -41,12 +43,14 @@ function clearDateError() {
     dateChosen.textContent = '';
 }
 
+
 function clearTitleError() {
     const taskTitle = document.getElementById('taskTitle');
     const titleChosen = document.getElementById('correctTitle');
     taskTitle.style.borderColor = '';
     titleChosen.textContent = '';
 }
+
 
 function validateTitle() {
     const taskTitle = document.getElementById('taskTitle');
@@ -61,12 +65,14 @@ function validateTitle() {
     return true;
 }
 
+
 function clearDateError() {
     const date = document.getElementById('date');
     const dateChosen = document.getElementById('correctDate');
     date.style.borderColor = '';
     dateChosen.textContent = '';
 }
+
 
 function validateDate() {
     const date = document.getElementById('date');
@@ -81,12 +87,14 @@ function validateDate() {
     return true;
 }
 
+
 function clearCategoryError() {
     const categoryContainer = document.getElementById('selectCategoryContainer');
     const categoryChosen = document.getElementById('correctCategory');
     categoryContainer.style.borderColor = '';
     categoryChosen.textContent = '';
 }
+
 
 function validateCategory() {
     const categoryContainer = document.getElementById('selectCategoryContainer');
@@ -102,6 +110,7 @@ function validateCategory() {
     return true;
 }
 
+
 function validateAndAddTask() {
     const isTitleValid = validateTitle();
     const isDateValid = validateDate();
@@ -110,6 +119,7 @@ function validateAndAddTask() {
         addTask();
     }
 }
+
 
 /**
  * This function executes the addPrioEventListeners and addCategoryEventListener functions
@@ -220,6 +230,7 @@ function loadSubtasksFromLocalStorage() {
     }
 }
 
+
 /**
  * This function edits the subtasks
  * 
@@ -234,8 +245,6 @@ function editSubtask(taskIndex, subtaskIndex) {
     document.getElementById('subtask-Txt-' + taskIndex + '-' + subtaskIndex).remove();
     onInputChange();
 }
-
-
 
 
 /**
@@ -261,7 +270,6 @@ function deleteSubtask(taskIndex, subtaskIndex) {
         subtaskElement.remove();
     }
 }
-
 
 
 /**
@@ -353,6 +361,7 @@ async function addContactsToTask() {
     
 }
 
+
 /**
  * This function post the task to the server, reset the form, updates the tasks and shows
  * a confirmation for creating the task
@@ -416,6 +425,7 @@ function createSubtasksArray(subtasks) {
     }));
 }
 
+
 /**
  * This function clears all inputs on AddTask
  */
@@ -449,5 +459,3 @@ function removeAllInput() {
     clearCategoryError();
     renderImages();
 }
-
-

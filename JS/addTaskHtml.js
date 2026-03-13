@@ -69,7 +69,3 @@ function addSubtaskHtml(taskIndex, subtaskIndex, subtask) {
         </div>
     `;
 }
-
-
-
-

@@ -207,7 +207,6 @@ async function moveTo(category) {
  * @param {element} category 
  * @param {number} i 
  */
-
 async function moveToFromMenu(event, category, i) {
     event.stopPropagation();
     todos[i]['task']['dragCategory'] = category;
@@ -290,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function allowDrop(event) {
     event.preventDefault();
 }
-////////////////////////////////////////
+
 
 /**
  * This function shows or hides the menu
@@ -302,4 +301,3 @@ function toggleMoveToMenu(event, i) {
     event.stopPropagation();
     document.getElementById(`moveToMenu${i}`).classList.toggle('d-none');
 }
-

@@ -265,7 +265,6 @@ async function editOpenedContactInMobileView() {
     const email = document.getElementById('emailOfContact').innerHTML;
     let userData = await loadSpecificUserDataFromLocalStorage();
     let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
-    
     if (ToBeEditedContactId) {
         dialogEditContact.innerHTML = getEditContactHtmlMobileView(
             document.getElementById('nameOfContact').innerHTML, 
@@ -281,7 +280,6 @@ async function editOpenedContactInMobileView() {
         await loadDataAfterChanges();
     }
 }
-
 
 
 /**

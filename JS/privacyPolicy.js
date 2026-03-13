@@ -5,8 +5,8 @@ function initPolicy() {
 }
 
 /**
- * This function add or remove the characteristic to scroll the webside based on the screen width
- */
+* This function add or remove the characteristic to scroll the webside based on the screen width
+*/
 function addClassScroll() {
     const screenWidth = window.innerWidth;
     const parentContainer = document.getElementById('ppParentCont');

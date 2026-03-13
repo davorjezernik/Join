@@ -195,6 +195,7 @@ function generateImagesEditHtml(allImages) {
     return result;
 }
 
+
 /**
  * This function generates the subtasks in an html element to display them
  * 
@@ -235,11 +236,13 @@ function generateAllImages(allImages, i) {
     return result;
 }
 
+
 function openImageModal(src) {
     modal.style.display = 'flex';
     modalImage.src = src; 
     document.body.style.overflow = 'hidden';
 }
+
 
 /**
  * This function searches for the correct contact based on the initials

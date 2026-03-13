@@ -1,8 +1,8 @@
 /**
- * This function loads an external HTML document into an existing HTML document
- * 
- * @returns ends the function
- */
+* This function loads an external HTML document into an existing HTML document
+* 
+* @returns ends the function
+*/
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     z = document.getElementsByTagName("*");
@@ -28,10 +28,10 @@ function includeHTML() {
 
 
 /**
- * This function stops an event so that some views are not closed when entered
- * 
- * @param {object} event 
- */
+* This function stops an event so that some views are not closed when entered
+* 
+* @param {object} event 
+*/
 function doNotClose(event) {
   event.stopPropagation();
 }

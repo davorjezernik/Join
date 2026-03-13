@@ -231,8 +231,7 @@ function getTodayDate() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('date');
-    dateInput.setAttribute('min', getTodayDate());
+    document.addEventListener('DOMContentLoaded', () => {
+        const dateInput = document.getElementById('date');
+        dateInput.setAttribute('min', getTodayDate());
 });
-

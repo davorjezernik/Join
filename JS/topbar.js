@@ -19,6 +19,7 @@ function showLoggedUserInitials() {
     }
 }
 
+
 /**
  * This function hide or display the menu
  */

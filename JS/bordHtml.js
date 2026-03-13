@@ -6,12 +6,10 @@ function getToDoTaskHtml(task, i) {
         { key: 'awaitfeedback', label: 'Await Feedback' },
         { key: 'done', label: 'Done' }
     ];
-
     const moveToOptions = categories
         .filter(category => category.key !== currentCategory)
         .map(category => `<li class="category-to-moveTo" onclick="moveToFromMenu(event, '${category.key}', ${i})">${category.label}</li>`)
         .join('');
-
     return /*html*/`
     <div draggable="true" ondragstart="startDragging(${i})" class="todo-class" onclick="zoomTaskInfo(${i})" id="task${i}">
         <div class="task-category">
@@ -47,8 +45,6 @@ function getToDoTaskHtml(task, i) {
 }
 
 
-
-
 function generateModalContent(task, i) {
     return /*html*/`
         <div class="category-opened-container">
@@ -75,16 +71,12 @@ function generateModalContent(task, i) {
                 <div>${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
             </div>
         </div>
-
-
         <div class="attachments-container">
            <div>Attachments</div>
                 <div class="images-container">
                     <div>${generateAllImages(task['task']['allImages'], i)}</div>
                 </div>
         </div>
-
-
         <div>
             <div class="details-container">Subtasks</div>
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
@@ -166,8 +158,6 @@ function generateEditModalContent(task, i) {
         <div class="subtasks-opened" id="subtasksContainer${i}">
             ${generateSubtasksEditHtml(task.subtasks, i)}
         </div>
-
-
         <div>
             <span>Attachments</span>
             <div class="attachments-info">
@@ -186,8 +176,6 @@ function generateEditModalContent(task, i) {
             <div class="inputs-flex-modal" id="gallery${i}">
             </div>
         </div>
-
-
         <div class="align-center justify-center">
             <button class="button-dark color-blue-button" id="createTaskBtn" type="submit" onclick="saveTask(${i})">OK <img src="./img/check.png"></button>
         </div>

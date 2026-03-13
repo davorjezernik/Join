@@ -102,7 +102,6 @@ function getAddNewContactHtml() {
 }
 
 
-
 function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId) {
     return `
         <div onclick="doNotClose(event)" id="editNewContact" class="add-new-contact">
@@ -141,8 +140,6 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
             </div>
         </div>`;
 }
-
-
 
 
 function getEditContactHtmlMobileView(name, email, number, contactId) {

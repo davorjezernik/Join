@@ -140,7 +140,8 @@ function save() {
 
 
 /**
- *  Loads previously saved images from localStorage and restores them into the application state, then triggers rendering to display them in the gallery.
+ * Loads previously saved images from localStorage and restores them into the 
+ * application state, then triggers rendering to display them in the gallery.
  */
 function loadImages() {
     let allImagesString = localStorage.getItem('allImages');
@@ -152,13 +153,13 @@ function loadImages() {
 
 
 /**
- * 
+ * Exposes the loadImages function globally so it can be accessed.
  */
 window.loadImages = loadImages;
 
 
 /**
- * 
+ * Renders all stored images into the gallery container.
  */
 function renderImages() {
     const target = window.gallery || gallery || document.getElementById('gallery');
@@ -180,7 +181,7 @@ function renderImages() {
 
 
 /**
- * 
+ * Deletes an image from the global `allImages` array by its name.
  */
 function deleteImage(imageName) {
     const index = allImages.findIndex(image => image.name === imageName);
@@ -193,7 +194,7 @@ function deleteImage(imageName) {
 
 
 /**
- * 
+ * Deletes all images from the global `allImages` array.
  */
 function deleteAllImages() {
     if (!allImages || allImages.length === 0) return;
@@ -205,7 +206,7 @@ function deleteAllImages() {
 
 
 /**
- * 
+ * Deletes all images from the local storage `allImages` array.
  */
 function deleteAllImagesLocalStorage() {
     allImages = [];
@@ -214,7 +215,7 @@ function deleteAllImagesLocalStorage() {
 
 
 /**
- * 
+ * Prevents the default behavior for 'dragover' and 'drop' events on the entire document to allow for custom drag-and-drop functionality without triggering unintended browser actions.
  */
 ['dragover', 'drop'].forEach(event => {
     document.addEventListener(event, e => e.preventDefault());
@@ -222,7 +223,15 @@ function deleteAllImagesLocalStorage() {
 
 
 /**
- * 
+ * Compresses an image file by resizing it to fit within specified
+ * dimensions and adjusting its quality, returning a Base64 string.
+ *
+ * @param {File} file - The image file to compress.
+ * @param {number} maxWidth - The maximum width of the output image.
+ * @param {number} maxHeight - The maximum height of the output image.
+ * @param {number} quality - The compression quality (0 to 1).
+ * @returns {Promise<string>} A promise that resolves with the compressed
+ * image as a Base64-encoded string.
  */
 function compressImage(file, maxWidth, maxHeight, quality) {
     return new Promise((resolve, reject) => {
@@ -240,7 +249,9 @@ function compressImage(file, maxWidth, maxHeight, quality) {
 
 
 /**
- * 
+ * Helper function that resizes and compresses an image once it is loaded.
+ * Draws the image onto a canvas scaled to the specified maximum dimensions,
+ * applies the requested quality, and resolves the result as a Base64 string.
  */
 function helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve) {
     img.addEventListener('load', () => {

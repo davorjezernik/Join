@@ -11,6 +11,7 @@ async function initBoard() {
     changeBgColorMenu();
 }
 
+
 /**
  * This function displays the tasks
  */
@@ -118,7 +119,6 @@ function closeModal(modal) {
 async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
-
     if (contacts && contacts.length > 0) {
         const maxInitialsToShow = 3; 
         const extraContactsCount = contacts.length - maxInitialsToShow; 
@@ -317,6 +317,7 @@ async function deleteTask(i) {
 
 
 const emptyArray = [];
+
 
 /**
  * This function saves the changes to an edited task and displays them

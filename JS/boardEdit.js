@@ -257,7 +257,6 @@ async function saveTask(i) {
 }
 
 
-
 /**
  * This function title is chosen
  * 
@@ -307,7 +306,6 @@ function validateEditDate(date, i) {
 }
 
 
-
 /**
  * This function gets the details of the task (description, name and date) for saving
  * 
@@ -320,7 +318,6 @@ function getTaskDetails(i) {
     const dateEdit = document.getElementById(`dateEdit${i}`).value || '';
     return { nameEdit, descriptionEdit, dateEdit };
 }
-
 
 
 /**

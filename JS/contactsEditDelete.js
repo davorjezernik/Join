@@ -73,18 +73,15 @@ async function saveEditContact(contactId) {
 }
 
 
-
 /**
  * This function create and save an new contact
  * 
  * @param {number} i 
  */
 async function createNewContact() {
-    // Validating using static IDs for new contact creation and passing the message element IDs
     let isNameValid = validateName('name', 'nameCorrectIncorrect');
     let isEmailValid = validateEmail('email', 'emailCorrectIncorrect');
     let isNumberValid = validateNumber('number', 'numberCorrectIncorrect');
-
     if (isNameValid && isEmailValid && isNumberValid) {
         let uid = localStorage.getItem('uid');
         let name = document.getElementById('name').value.trim();
@@ -92,7 +89,6 @@ async function createNewContact() {
         let number = document.getElementById('number').value.trim();
         let color = getRandomColor();
         let contact = { name: name, email: email, number: number, backgroundcolor: color };
-
         await postContacts('/users/' + uid + '/contacts', contact);
         await loadDataAfterChanges();
         closeDialog();
@@ -107,7 +103,6 @@ function validateName(id, messageId) {
     let nameField = document.getElementById(id);
     let nameMessage = document.getElementById(messageId);
     let name = nameField ? nameField.value.trim() : '';
-
     if (!nameField || !/^\w+(\s+\w+){1,}$/.test(name)) {
         if (nameField) nameField.style.borderColor = 'red';  
         if (nameMessage) {
@@ -124,6 +119,7 @@ function validateName(id, messageId) {
         return true;
     }
 }
+
 
 function validateEmail(id, messageId) {
     let emailField = document.getElementById(id);
@@ -147,6 +143,7 @@ function validateEmail(id, messageId) {
     }
 }
 
+
 function validateNumber(id, messageId) {
     let numberField = document.getElementById(id);
     let numberMessage = document.getElementById(messageId);
@@ -168,12 +165,6 @@ function validateNumber(id, messageId) {
         return true;
     }
 }
-
-
-
-
-
-
 
 
 /**
@@ -295,6 +286,7 @@ async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
         await updateUserTasks(uid, taskId, task);
     }
 }
+
 
 /**
  * This function deletes the removed contact from the user data

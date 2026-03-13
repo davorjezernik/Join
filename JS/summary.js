@@ -12,6 +12,7 @@ async function initSummary() {
     changeBgColorMenu();
 }
 
+
 /**
  * This function load all tasks of an user from the local storage
  */
@@ -231,4 +232,3 @@ function changeBgColorMenu() {
         document.getElementById('privacyPolicyExtern').style.backgroundColor = '#091931';
     }
 }
-

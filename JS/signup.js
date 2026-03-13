@@ -129,7 +129,6 @@ function togglePassword(inputId) {
 }
 
 
-
 /**
  * This function checks whether the first and last name have been entered
  */
@@ -147,7 +146,6 @@ function validateName() {
         correctIncorrect.style.color = 'red';
     }
 }
-
 
 
 /**
@@ -199,6 +197,7 @@ function validatePassword() {
     }
 }
 
+
 function validatePolicyAcceptance(event) {
     const checkbox = document.getElementById('acceptPolicy');
     const errorMsg = document.getElementById('policyErrorMsg');
@@ -206,14 +205,11 @@ function validatePolicyAcceptance(event) {
     
     if (checkbox.checked) {
         label.style.color = 'green';
-        errorMsg.textContent = ''; // Clear any previous error
+        errorMsg.textContent = ''; 
     } else {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); 
         label.style.color = 'red';
         errorMsg.textContent = '- Please accept the privacy policy';
         errorMsg.style.color = 'red';
     }
 }
-
-
-
