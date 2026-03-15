@@ -1,20 +1,61 @@
 let allImages = [];
 let gallery = null;
 let dropZone = null;
+let currentImageIndex = -1;
 
 
 /**
  * This function opens/close helpers grab elements lazily so script order doesn't matter
  */
 function openImageModal(src) {
+    currentImageIndex = allImages.findIndex(img => img.base64String === src);
+    if (currentImageIndex === -1) return;
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     if (!modal || !modalImage) return;
-    modal.style.display = 'flex';
     modalImage.src = src; 
+    updateModalInfo();
+    modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
+function nextImage() {
+    if (currentImageIndex < allImages.length - 1) {
+        currentImageIndex++;
+        document.getElementById('modalImage').src =
+            allImages[currentImageIndex].base64String;
+            updateModalInfo();
+    }
+}
+
+function prevImage() {
+    if (currentImageIndex > 0) {
+        currentImageIndex--;
+        document.getElementById('modalImage').src =
+            allImages[currentImageIndex].base64String;
+            updateModalInfo();
+    }
+}
+
+function deleteCurrentImage() {
+    if (currentImageIndex === -1) return;
+    allImages.splice(currentImageIndex, 1);
+    save();
+    renderImages();
+    closeImageModal();
+}
+
+function updateModalInfo() {
+    if (currentImageIndex === -1) return;
+
+    const image = allImages[currentImageIndex];
+
+    const nameSpan = document.querySelector('.image-info p:nth-child(1) span');
+    const sizeSpan = document.querySelector('.image-info p:nth-child(2) span');
+
+    if (nameSpan) nameSpan.textContent = image.name;
+    if (sizeSpan) sizeSpan.textContent = formatBytes(image.size);
+}
 
 /**
  * Closes the image modal and restores page scrolling.
@@ -42,7 +83,33 @@ document.addEventListener('DOMContentLoaded', () => {
     handleCloseModal(closeModalBtn, modalElem);
     handleDrop(dropZone);
     loadImages();
+    createErrorModal();
 });
+
+
+/**
+ * Creates a custom error modal for displaying validation messages.
+ */
+function createErrorModal() {
+    const modal = document.createElement('div');
+    modal.id = 'errorModal';
+    modal.className = 'error-modal';
+    const content = document.createElement('div');
+    content.id = 'errorModalContent';
+    content.className = 'error-modal-content';
+    const message = document.createElement('p');
+    message.id = 'errorMessage';
+    const closeBtn = document.createElement('button');
+    closeBtn.id = 'closeErrorModal';
+    closeBtn.textContent = 'OK';
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    content.appendChild(message);
+    content.appendChild(closeBtn);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+}
 
 
 /**
@@ -101,20 +168,47 @@ function handleDrop(dropZone) {
 async function handleFiles(files) {
     if (!files || files.length === 0) return;
     for (const file of Array.from(files)) {
-        if (!file.type.startsWith('image/')) {
-            error.textContent = 'Please upload only image files.';
-            continue;
-        }
+        if (!validateFile(file)) continue;
         if (allImages.some(img => img.name === file.name)) {
             continue; 
         }
         const blob = new Blob([file], { type: file.type });
         const compressedBase64String = await compressImage(file, 800, 800, 0.7);
         allImages.push({
-            name: file.name, fileType: blob.type, base64String: compressedBase64String
+            name: file.name, fileType: blob.type, size: file.size, base64String: compressedBase64String
         });
     }
     helperFunction();
+}
+
+
+/**
+ * Validates a file for upload: checks if it's an image and under 1 MB, showing error modals for issues.
+ * @param {File} file - The file to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
+function validateFile(file) {
+    if (!file.type.startsWith('image/')) {
+        showErrorModal('Please upload only image files.');
+        return false;
+    }
+    if (file.size > 1024 * 1024) {
+        showErrorModal('File size exceeds 1 MB. Please choose a smaller image.');
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * Displays the custom error modal with a given message.
+ * @param {string} message - The error message to display.
+ */
+function showErrorModal(message) {
+    const modal = document.getElementById('errorModal');
+    const msg = document.getElementById('errorMessage');
+    msg.textContent = message;
+    modal.style.display = 'flex';
 }
 
 
@@ -270,6 +364,19 @@ function helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve) {
         const compressedBase64 = canvas.toDataURL(file.type, quality);
         resolve(compressedBase64);
     });
+}
+
+
+/**
+ * This stores the image size in a human-readable format (e.g., KB, MB) for display purposes.
+ */
+function formatBytes(bytes, decimals = 2) {
+    if (!bytes || bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
 

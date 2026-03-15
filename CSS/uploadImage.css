@@ -49,6 +49,44 @@
     border-radius: 8px;
 }
 
+.error-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.error-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    text-align: center;
+}
+
+#errorMessage {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+#closeErrorModal {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 .main-image-upload:hover {
   filter: brightness(0.7);
 }
@@ -153,6 +191,56 @@
 .inputs-flex-modal {
     display: flex;
     gap: 8px;
+}
+
+.image-container-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    height: 64px;
+}
+
+.traschcan-img-modal {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.prev-img-modal, .next-img-modal {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.image-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    height: 64px;
+}
+
+.download-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+}
+
+.download-button {
+    color: white;
+    border: none;
+    padding: 8px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
 }
 
 @media(max-width: 1025px) {

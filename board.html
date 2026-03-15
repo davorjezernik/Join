@@ -305,10 +305,30 @@
     </div>
     </div>
 
-    <div id="imageModal" class="image-modal">
+        <div id="imageModal" class="image-modal">
         <span id="closeModal">&times;</span>
-        <img id="modalImage">
+        <div class="image-container-modal">
+            <img id="modalImage">
+            <div class="modal-controls">
+                <div>
+                    <div class="modal-info"></div>
+                    <div class="modal-buttons">
+                        <img class="prev-img-modal" src="./img/arrow_right.png" alt="Delete" onclick="prevImage()">
+                        <img class="traschcan-img-modal" src="./img/trash.svg" alt="Delete" onclick="deleteCurrentImage()">
+                        <img class="next-img-modal" src="./img/arrow_left.png" alt="Delete" onclick="nextImage()">
+                    </div>
+                </div>
+                <div class="image-info">
+                    <p>Name: <span id="modalImageName"></span></p> 
+                    <p>Size: <span id="modalImageSize"></span></p>
+                </div>
+                <div class="download-button-container">
+                    <button class="download-button">Download</button>
+                </div>
+            </div>
+        </div>
     </div>
+
 </body>
 <script src="./JS/include.js"></script>
 <script src="./JS/storage.js"></script>
