@@ -175,6 +175,9 @@ function generateSubtasksEditHtml(subtasks, i) {
 }
 
 
+/**
+ * Generates the html for the images in the edit view, including a trashcan icon to delete them and displays them
+ */
 function generateImagesEditHtml(allImages) {
     if (!allImages || allImages.length === 0) return '';
     let result = '';
@@ -219,6 +222,12 @@ function generateSubtasksHtml(subtasks, i) {
 }
 
 
+/**
+ * Generates the html for displaying all images in the edit view.
+ * @param {Array} allImages - An array of image objects.
+ * @param {number} i - The index of the task for which to generate image html.
+ * @returns {string} The generated html for the images.
+ */
 function generateAllImages(allImages, i) {
     if (!allImages || allImages.length === 0) return '';
     let result = '';        
@@ -237,9 +246,14 @@ function generateAllImages(allImages, i) {
 }
 
 
+/**
+ * Opens the image modal and displays the specified image.
+ */
 function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
     modal.style.display = 'flex';
-    modalImage.src = src; 
+    modalImage.src = src;
     document.body.style.overflow = 'hidden';
 }
 

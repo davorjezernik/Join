@@ -19,6 +19,10 @@ function openImageModal(src) {
     document.body.style.overflow = 'hidden';
 }
 
+
+/**
+ * Displays the next image in the modal if available, updating the modal content accordingly.
+ */
 function nextImage() {
     if (currentImageIndex < allImages.length - 1) {
         currentImageIndex++;
@@ -28,6 +32,10 @@ function nextImage() {
     }
 }
 
+
+/**
+ * Displays the previous image in the modal if available, updating the modal content accordingly.
+ */
 function prevImage() {
     if (currentImageIndex > 0) {
         currentImageIndex--;
@@ -37,6 +45,10 @@ function prevImage() {
     }
 }
 
+
+/**
+ * Deletes the currently displayed image.
+ */
 function deleteCurrentImage() {
     if (currentImageIndex === -1) return;
     allImages.splice(currentImageIndex, 1);
@@ -45,17 +57,19 @@ function deleteCurrentImage() {
     closeImageModal();
 }
 
+
+/**
+ * Updates the information displayed in the image modal based on the current image.
+ */
 function updateModalInfo() {
     if (currentImageIndex === -1) return;
-
     const image = allImages[currentImageIndex];
-
     const nameSpan = document.querySelector('.image-info p:nth-child(1) span');
     const sizeSpan = document.querySelector('.image-info p:nth-child(2) span');
-
     if (nameSpan) nameSpan.textContent = image.name;
     if (sizeSpan) sizeSpan.textContent = formatBytes(image.size);
 }
+
 
 /**
  * Closes the image modal and restores page scrolling.
@@ -72,7 +86,6 @@ function closeImageModal() {
  */
 document.addEventListener('DOMContentLoaded', () => {
     window.fileUpload = document.getElementById('fileUpload');
-    // cache gallery and drop zone references globally
     gallery = document.getElementById('gallery');
     dropZone = document.getElementById('dropZone');
     window.gallery = gallery;
@@ -105,10 +118,9 @@ function createErrorModal() {
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
-    content.appendChild(message);
-    content.appendChild(closeBtn);
-    modal.appendChild(content);
-    document.body.appendChild(modal);
+    content.append(message, closeBtn);
+    modal.append(content);
+    document.body.append(modal);
 }
 
 
@@ -391,4 +403,19 @@ function blobToBase64(blob) {
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(blob);
     });
+}
+
+
+/**
+ * Downloads the currently displayed image in the modal.
+ */
+function downloadCurrentImage() {
+    const img = document.getElementById('modalImage');
+    const name = document.getElementById('modalImageName').textContent;
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.download = name || 'image';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }

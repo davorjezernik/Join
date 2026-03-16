@@ -209,7 +209,7 @@ function addSubtask(taskIndex) {
     let container = document.getElementById('subtasksContainer');
     let subtask = document.getElementById('inputFieldSubtask').value;
     if (subtask.trim() !== '') {
-        let subtaskIndex = subtasks.length; // Set the subtask index based on the array length
+        let subtaskIndex = subtasks.length; 
         subtasks.push(subtask);
         localStorage.setItem('subtasks', JSON.stringify(subtasks));
         container.innerHTML += addSubtaskHtml(taskIndex, subtaskIndex, subtask);
