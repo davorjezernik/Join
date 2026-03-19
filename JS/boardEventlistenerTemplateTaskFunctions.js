@@ -228,14 +228,14 @@ function generateSubtasksHtml(subtasks, i) {
  * @param {number} i - The index of the task for which to generate image html.
  * @returns {string} The generated html for the images.
  */
-function generateAllImages(allImages, i) {
+function generateAllImages(allImages) {
     if (!allImages || allImages.length === 0) return '';
     let result = '';        
     for (let j = 0; j < allImages.length; j++) {
         const image = allImages[j];
         result += `
         <div class="image-container">
-            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">    
+            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" data-task-images='${JSON.stringify(allImages)}' onclick="openTaskImageModal(this)">
             <div class="image-name">
                 <p class="image-name-text">${image.name}</p>
             </div>
@@ -249,12 +249,9 @@ function generateAllImages(allImages, i) {
 /**
  * Opens the image modal and displays the specified image.
  */
-function openImageModal(src) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    modal.style.display = 'flex';
-    modalImage.src = src;
-    document.body.style.overflow = 'hidden';
+function openTaskImageModal(imgElement) {
+    allImages = JSON.parse(imgElement.dataset.taskImages);
+    openImageModal(imgElement.src);
 }
 
 
