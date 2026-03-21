@@ -24,12 +24,9 @@ function openImageModal(src) {
  * Displays the next image in the modal if available, updating the modal content accordingly.
  */
 function nextImage() {
-    if (currentImageIndex < allImages.length - 1) {
-        currentImageIndex++;
-        document.getElementById('modalImage').src =
-            allImages[currentImageIndex].base64String;
-            updateModalInfo();
-    }
+    currentImageIndex = (currentImageIndex + 1) % allImages.length;
+    document.getElementById('modalImage').src = allImages[currentImageIndex].base64String;
+    updateModalInfo();
 }
 
 
@@ -37,13 +34,31 @@ function nextImage() {
  * Displays the previous image in the modal if available, updating the modal content accordingly.
  */
 function prevImage() {
-    if (currentImageIndex > 0) {
-        currentImageIndex--;
-        document.getElementById('modalImage').src =
-            allImages[currentImageIndex].base64String;
-            updateModalInfo();
-    }
+    currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+    document.getElementById('modalImage').src = allImages[currentImageIndex].base64String;
+    updateModalInfo();
 }
+
+
+/**
+ * Keydown event listener to navigate through images in the modal using left and right arrow keys.
+ */
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+        nextImage();
+    }
+    if (event.key === 'ArrowLeft') {
+        prevImage();
+    }
+});
+
+
+document.addEventListener('keydown', (event) => {
+    const modal = document.getElementById('modal');
+    if (!modal || modal.style.display !== 'block') return;
+    if (event.key === 'ArrowRight') nextImage();
+    if (event.key === 'ArrowLeft') prevImage();
+});
 
 
 /**

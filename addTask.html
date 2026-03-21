@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="./CSS/uploadImage.css">
 </head>
 <body onload="onloadFunction()">
-    <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
-    <div class="content-container">
-        <div class="header-container" w3-include-html="./templates/topbar.html"></div>
-        <div class="parent-container">
+    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
+    <main class="content-container">
+        <header class="header-container" w3-include-html="./templates/topbar.html"></header>
+        <section class="parent-container">
             <div id="addedToBoard" class="added-to-board d-none">
                 <div>Task added to board</div>
                 <img src="./img/addTaskImg/board-white.png">
@@ -26,29 +26,29 @@
                 <div class="aot-task-container">
                     <div class="add-task-title">Add Task</div>
                 </div>
-                <div class="main-container-task-one-two">
+                <section class="main-container-task-one-two">
                     <div class="add-task-set-up-one-container">
-                        <div class="add-task-set-up-one">
-                            <div class="inputs-flex">
-                                <span>Title<b style="color: orange;">*</b></span>
+                        <section class="add-task-set-up-one">
+                            <fieldset class="inputs-flex">
+                                <label>Title<b style="color: orange;">*</b></label>
                                 <input id="taskTitle" placeholder="Enter a title..." minlength="4"
                                        class="task-input-field" onkeyup="clearTitleError()">
                                 <div id="correctTitle" class="correct-incorrect"></div>
-                            </div>
-                            <div class="inputs-flex">
-                                <span>Description</span>
+                            </fieldset>
+                            <fieldset class="inputs-flex">
+                                <label>Description</label>
                                 <textarea style="height: 80px; resize: none;" id="taskDescription"
                                     placeholder="Enter a Description..." minlength="4" class="task-input-field"
                                     id="description"></textarea>
-                            </div>
-                            <div class="inputs-flex">
-                                <span>Due date<b style="color: orange;">*</b></span>
+                            </fieldset>
+                            <fieldset class="inputs-flex">
+                                <label>Due date<b style="color: orange;">*</b></label>
                                 <input id="date" type="date" class="task-input-field date" onchange="clearDateError()">
                                 <div id="correctDate" class="correct-incorrect"></div>
-                            </div>
-                            <div class="inputs-flex">
-                                <span>Prio</span>
-                                <div class="button-prio-width">
+                            </fieldset>
+                            <fieldset class="inputs-flex">
+                                <label>Prio</label>
+                                <section class="button-prio-width">
                                     <button onclick="addPrioEventListeners(); changeColor(this)" id="urgentButton"
                                         type="button" class="button-prio">
                                         <div class="center">
@@ -107,10 +107,10 @@
                                             </div>
                                         </div>
                                     </button>
-                                </div>
-                            </div>
-                            <div class="inputs-flex">
-                                <span>Category<b style="color: orange;">*</b></span>
+                                </section>
+                            </fieldset>
+                            <fieldset class="inputs-flex">
+                                <label>Category<b style="color: orange;">*</b></label>
                                 <div class="drop-down pointer">
                                     <div class="select" id="selectCategoryContainer">
                                         <span class="selected" id="selectCategory">Select task category</span>
@@ -123,18 +123,16 @@
                                     </ul>
                                 </div>
                                 <div id="correctCategory" class="correct-incorrect"></div>
-                            </div>
-                        </div>
+                            </fieldset>
+                        </section>
                     </div>
                     <div class="seperate-container">
                     </div>
                     <div class="add-task-set-up-two-container">
-                        <div class="add-task-set-up-two">
-
-
-                        <div class="inputs-flex">
-                            <div>
-                                <span>Attachments</span>
+                    <section class="add-task-set-up-two">
+                        <fieldset class="inputs-flex">
+                            <section>
+                                <label>Attachments</label>
                                 <div class="attachments-info">
                                     <p>Allowed file types are JPEG and PNG</p>
                                     <div class="delete-img-cotainer" onclick="deleteAllImages()">
@@ -142,19 +140,17 @@
                                         <d class="attachments-delete">Delete all</d>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                                 <input id="fileUpload" type="file" class="none" accept="image/*"> 
                                 <div class="drop-area" id="dropZone">
                                     <d>Drag a file ore browse</d>
                                     <img class="plus-button" src="./img/plus.svg" onclick="fileUpload.click()">
                                 </div>
-                                <div class="inputs-flex" id="gallery"></div>
-                            </div>
-
-                            
-                            <div class="inputs-flex">
-                                <span>Subtask</span>
-                                <div class="input-with-img">
+                                <fieldset class="inputs-flex" id="gallery"></fieldset>
+                            </section>         
+                            <fieldset class="inputs-flex">
+                                <label>Subtask</label>
+                                <section class="input-with-img">
                                     <div style="display: flex; align-items: center; width: 100%;">
                                         <input placeholder="Add new subtask" class="task-input-with-img"
                                             oninput="onInputChange()" id="inputFieldSubtask">
@@ -170,11 +166,11 @@
                                                 class="subtaskButtons" alt="accept">
                                         </button>
                                     </div>
-                                </div>
+                                </section>
                                 <div class="subtask-container" id="subtasksContainer"></div>
-                            </div>
-                            <div class="inputs-flex">
-                                <span>Assigned to</span>
+                            </fieldset>
+                            <fieldset class="inputs-flex">
+                                <label>Assigned to</label>
                                 <div class="drop-down pointer">
                                     <div class="select">
                                         <span class="selected" id="selectContact">Search Contact</span>
@@ -185,11 +181,11 @@
                                 <div class="bubble-setup">
                                     <div id="contactsDisplayBubble" class="assigned-contacts-container"></div>
                                 </div>
-                            </div>
-                        </div>
+                            </fieldset>
+                        </fieldset>
                     </div>
-                </div>
-                <div class="button-end-process-container">
+                </section>
+                <section class="button-end-process-container">
                     <span><b style="color: orange;">*</b>This field is required</span>
                     <div class="creat-and-close-buttons">
                         <button type="button" class="color-white-button clear-button" onclick="removeAllInput()">
@@ -201,11 +197,11 @@
                             </div>
                         </button>
                     </div>
-                </div>
+                </section>
             </form>
-        </div>
-    </div>
-    <div id="imageModal" class="image-modal">
+        </section>
+    </main>
+    <section id="imageModal" class="image-modal">
         <span id="closeModal">&times;</span>
         <div class="image-container-modal">
             <img id="modalImage">
@@ -224,7 +220,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </body>
 <script src="./JS/storage.js"></script>
 <script src="./JS/include.js"></script>

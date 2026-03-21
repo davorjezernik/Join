@@ -134,8 +134,6 @@ body {
 
 .add-task-set-up-two-container {
     width: 50%;
-    display: flex;
-    justify-content: flex-end;
 }
 
 .add-task-title {
@@ -520,6 +518,10 @@ body {
 
 .correct-incorrect {
     font-size: 12px;
+}
+
+fieldset {
+    border: none;
 }
 
 @media(max-width: 531px) {
