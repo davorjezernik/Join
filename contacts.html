@@ -15,11 +15,11 @@
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
 <body onload="init()">
-    <div class="main-content">
+    <main class="main-content">
         <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
-        <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
-        <div class="content-container">
-            <div class="header-container" w3-include-html="./templates/topbar.html"></div>
+        <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
+        <section class="content-container">
+            <header class="header-container" w3-include-html="./templates/topbar.html"></header>
             <div class="parent-container">
                 <div class="contact-box">
                     <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
@@ -30,7 +30,7 @@
                         <img src="./img/contactsImg/dot_menu.svg">
                     </button>
                     <div id="editDeleteMenuBox" class="edit-delete-menu-box d-none"></div>
-                    <div id="contactsContainer" class="contacts-container">
+                    <fieldset id="contactsContainer" class="contacts-container">
                         <div class="add-contact-box">
                             <button onclick="openAddNewContact()" class="button-add-contacts">
                                 <div class="button-txt">Add New Contact</div>
@@ -40,8 +40,8 @@
                         <div class="scroll">
                             <div id="filteredContactsContainer"></div>
                         </div>
-                    </div>
-                    <div id="contactBigContainer" class="contact-big-container">
+                    </fieldset>
+                    <fieldset id="contactBigContainer" class="contact-big-container">
                         <div id="contactHeadline" class="contact-headline">
                             <div class="fat-contacts-headline">Contacts</div>
                             <div class="seperator-and-text-container">
@@ -52,11 +52,11 @@
                         <div>
                             <div id="contactInfos" class="contact-infos"></div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
     <div class="success-box d-none" id="successBox">
         <div class="success-message" id="successMessage">Contact succesfully created</div>
     </div>

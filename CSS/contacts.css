@@ -475,6 +475,10 @@
     cursor: pointer;
 }
 
+fieldset {
+    border: none;
+}
+
 @media (max-width: 1300px) {
     .close-add-contact img:hover {
         background-color: #D1D1D1;

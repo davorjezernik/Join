@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="background">
+    <main class="background">
         <div>
             <a href="index.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
             <img class="join-icon-signup" src="./img/Capa 2.png">
@@ -21,7 +21,7 @@
         <form onsubmit="signUp('/users'); return false;" class="main-container-signup">
             <div class="signup-headline">Sign up</div>
             <div class="blue-seperator"></div>
-            <div class="data-container">
+            <section class="data-container">
                 <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
                 <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
 
@@ -41,12 +41,11 @@
                         class="password-input" onkeyup="validatePassword()" />
                     <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
                 </div>
-
                 <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>
 
-            </div>
+            </section>
 
-            <div class="accept-policy-container">
+            <section class="accept-policy-container">
                 <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox">
                 <div>
                     <div id="acceptText" class="accept-text">
@@ -54,15 +53,15 @@
                     </div>
                     <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
                 </div>
-            </div>
+            </section>
             <button class="sign-up-button pointer color-blue-button" type="submit" onclick="validatePolicyAcceptance(event)">Sign up</button>
             
         </form>
-        <div class="legal-privacy-container">
+        <section class="legal-privacy-container">
             <a href="privacyPolicyExtern.html" class="privacy-policy-extern">Privacy policy</a>
             <a href="legalNoticeExtern.html" class="privacy-policy-extern">Legal notice</a>
-        </div>
-    </div>
+        </section>
+    </main>
     <div id="successfull-container" class="signup-successful-container d-none">
         <div id="succesfull-signup" class="succesfull-signup">You signed up successfully</div>
     </div>

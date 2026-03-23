@@ -16,21 +16,21 @@
 </head>
 
 <body onload="initSummary()">
-    <div class="main-content">
-        <div class="tools-container" w3-include-html="./templates/bluebar.html"></div>
+    <main class="main-content">
+        <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
         <div class="content-container">
-            <div class="header-container" w3-include-html="./templates/topbar.html"></div>
-            <div class="parent-container">
-                <div class="summary-headline">
+            <header class="header-container" w3-include-html="./templates/topbar.html"></header>
+            <section class="parent-container">
+                <fieldset class="summary-headline">
                     <div class="join-360">Join 360</div>
                     <div class="seperator-and-text-container">
                         <div class="vertical-seperator"></div>
                         <div>Key Metrics at a Glance</div>
                     </div>
-                </div>
-                <div class="greeting-and-todos-container">
+                </fieldset>
+                <section class="greeting-and-todos-container">
                     <div class="todos-container">
-                        <div class="todos-box">
+                        <fieldset class="todos-box">
                             <a href="board.html" class="todo color-black">
                             
                                 <div class="icon-box small-icon">
@@ -57,7 +57,7 @@
                                     <div class="todos-text-container">Done</div>
                                 </div>
                             </a href="board.html">
-                        </div>
+                        </fieldset>
                         <a href="board.html" class="urgent-todo-container color-black">
                             <div class="urgent-box">
                                 <img class="small-icon" src="./img/urgent.png">
@@ -72,7 +72,7 @@
                                 <div class="todos-text-container">Upcoming Deadline</div>
                             </div>
                         </a href="board.html">
-                        <div class="undone-todos-container">
+                        <fieldset class="undone-todos-container">
                             <a href="board.html" class="todo-in-progress color-black">
                                 <div style="text-align: center;">
                                     <div id="allTasksNumber" class="todos-number-container"></div>
@@ -91,17 +91,16 @@
                                     <div>Awaiting Feedback</div>
                                 </div>
                             </a>
-                        </div>
-
+                        </fieldset>
                     </div>
                     <div class="greeting-container">
                         <div id="greeting" class="greeting"></div>
                         <div id="userNameContainer" class="user-name"></div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </section>
         </div>
-    </div>
+    </main>
 </body>
 <script src="./JS/summary.js"></script>
 <script src="./JS/include.js"></script>

@@ -423,3 +423,7 @@ body {
 .correct-incorrect {
     font-size: 12px;
 }
+
+fieldset {
+    border: none;
+}

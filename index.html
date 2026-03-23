@@ -19,18 +19,16 @@
     <img class="intro-img" src="./img/Capa 2.png">
     <div class="background-animation"></div>
     <img class="intro-img-responsive" src="./img/Capa2White.png">
-    <div class="background">
+    <main class="background">
         <form onsubmit="logIn(); return false" class="main-container">
             <div class="login-headline">Log in</div>
             <div class="blue-seperator"></div>
-            <div class="data-container">
+            <section class="data-container">
                 <input id="loginEmail" placeholder="Email" required class="email-input" type="email">
-
                 <div class="password-container">
                     <input id="loginPassword" placeholder="Password" required class="password-input" type="password">
                     <div class="toggle-password" onclick="togglePassword('loginPassword')"></div>
                 </div>
-                
                 <div class="remember-container">
                     <input type="checkbox" id="rememberMeCheckbox" class="remember-me-checkbox">
                     <label for="rememberMeCheckbox" class="remember-text">Remember me</label>
@@ -40,17 +38,17 @@
                     <button type="button" onclick="guestLogin()" class="guest-button pointer color-white-button">Guest
                         log in</button>
                 </div>
-            </div>
+            </section>
         </form>
-        <div class="not-user-container">
+        <section class="not-user-container">
             <div class="not-user-text">Not a Join user?</div>
             <a href="signup.html"><button class="sign-up-button pointer color-blue-button">Sign up</button></a>
-        </div>
-        <div class="legal-privacy-container">
+        </section>
+        <section class="legal-privacy-container">
             <a href="privacyPolicyExtern.html" class="privacy-policy-extern">Privacy policy</a>
             <a href="legalNoticeExtern.html" class="privacy-policy-extern">Legal notice</a>
-        </div>
-    </div>
+        </section>
+    </main>
 </body>
 <script src="./JS/storage.js"></script>
 <script src="./JS/login.js"></script>
