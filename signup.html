@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./CSS/font.css">
     <link rel="stylesheet" href="./CSS/signupLoginResponsive.css">
     <link rel="stylesheet" href="./CSS/legalPolicyExtern.css">
+    <link rel="stylesheet" href="./CSS/responsive.css">
     <title>Sign up</title>
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
@@ -15,30 +16,37 @@
 <body>
     <main class="background">
         <div>
-            <a href="index.html"><img class="arrow-left-line" src="./img/arrow-left-line.png"></a>
             <img class="join-icon-signup" src="./img/Capa 2.png">
         </div>
         <form onsubmit="signUp('/users'); return false;" class="main-container-signup">
-            <div class="signup-headline">Sign up</div>
-            <div class="blue-seperator"></div>
+            <section class="header">
+                <div class="arrowcontainer">
+                    <a href="index.html">
+                        <img class="arrow-left-line" src="./img/arrow-left-line.png">
+                    </a>
+                </div>
+                <div class="aot">
+                    <div class="text-container">
+                        <div class="signup-headline">Sign up</div>
+                        <div class="blue-seperator"></div>
+                    </div>
+                </div>
+            </section>
             <section class="data-container">
-                <input id="name" placeholder="Name" type="text" required class="name-input" onkeyup="validateName()">
+                <input id="name" placeholder="Name" type="text" required class="name-input margin-input" onkeyup="validateName()">
                 <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
 
-                <input id="email" placeholder="Email" type="email" required class="email-input"
-                    onkeyup="validateEmailS()">
+                <input id="email" placeholder="Email" type="email" required class="email-input margin-input" onkeyup="validateEmailS()">
                 <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
 
                 <div class="password-container">
-                    <input id="password" placeholder="Password" type="password"
-                        required class="password-input" onkeyup="validatePassword()" />
+                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onkeyup="validatePassword()" />
                         <div class="toggle-password" onclick="togglePassword('password')"></div>
                 </div>
                 <div id="passwordOneCorrectIncorrect" class="correct-incorrect"></div>
 
                 <div class="password-container">
-                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required
-                        class="password-input" onkeyup="validatePassword()" />
+                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onkeyup="validatePassword()" />
                     <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
                 </div>
                 <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>

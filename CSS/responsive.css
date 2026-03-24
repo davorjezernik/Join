@@ -31,7 +31,6 @@
 }
 
 @media (max-width: 1024px) {
-
     .scroll {
         overflow-x: hidden;
     }
@@ -264,5 +263,15 @@
 
     .date-container {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 680px) {
+    .background {
+        position: static;
+        height: 960px;
+    }
+    .arrowcontainer {
+        margin-left: 16px;
     }
 }
