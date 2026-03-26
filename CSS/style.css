@@ -169,7 +169,7 @@ body {
     align-items: center;
     position: relative;
     width: 100%; 
-    margin-bottom: 32px;
+    margin-bottom: 48px;
 }
 
 .aot {
@@ -324,10 +324,18 @@ body {
 }
 
 .accept-policy-container {
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 16px 0px;
+}
+
+.accept-container {
+    display: flex;
+    align-items: center;
     gap: 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .accept-text {

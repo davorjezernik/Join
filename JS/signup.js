@@ -155,7 +155,7 @@ function validateEmailS() {
     const emailInput = document.getElementById('email');
     const emailValue = emailInput.value.trim();
     const correctIncorrect = document.getElementById('emailCorrectIncorrectS');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]+)+$/;
     if (emailRegex.test(emailValue)) {
         emailInput.style.borderColor = 'green'; 
         correctIncorrect.textContent = '';  
@@ -198,18 +198,28 @@ function validatePassword() {
 }
 
 
-function validatePolicyAcceptance(event) {
-    const checkbox = document.getElementById('acceptPolicy');
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
     const errorMsg = document.getElementById('policyErrorMsg');
-    const label = document.getElementById('acceptText');
-    
-    if (checkbox.checked) {
-        label.style.color = 'green';
-        errorMsg.textContent = ''; 
-    } else {
-        event.preventDefault(); 
-        label.style.color = 'red';
-        errorMsg.textContent = '- Please accept the privacy policy';
-        errorMsg.style.color = 'red';
+    errorMsg.textContent = '';
+
+    // Manual check instead of browser UI
+    const inputs = form.querySelectorAll('input[required]');
+    const allFilled = [...inputs].every(input => input.value.trim() !== '');
+
+    if (!allFilled) {
+        errorMsg.textContent = 'Please fill out all fields.';
+        return;
     }
+
+    const checkbox = document.getElementById('acceptPolicy');
+    if (!checkbox.checked) {
+        errorMsg.textContent = 'Please accept the privacy policy.';
+        return;
+    }
+
+    signUp('/users');
 }
+

@@ -18,7 +18,7 @@
         <div>
             <img class="join-icon-signup" src="./img/Capa 2.png">
         </div>
-        <form onsubmit="signUp('/users'); return false;" class="main-container-signup">
+        <form onsubmit="handleSubmit(event)" novalidate class="main-container-signup">
             <section class="header">
                 <div class="arrowcontainer">
                     <a href="index.html">
@@ -54,15 +54,15 @@
             </section>
 
             <section class="accept-policy-container">
-                <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox">
-                <div>
-                    <div id="acceptText" class="accept-text">
-                        I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy policy</a>
-                    </div>
-                    <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
+                <div class="accept-container">
+                    <input id="acceptPolicy" class="accept-policy-checkbox" type="checkbox">
+                    <div id="acceptText" class="accept-text">I accept the <a href="privacyPolicyExtern.html" class="policy-link">Privacy policy</a></div>
                 </div>
+                <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
             </section>
-            <button class="sign-up-button pointer color-blue-button" type="submit" onclick="validatePolicyAcceptance(event)">Sign up</button>
+            <button class="sign-up-button pointer color-blue-button" type="submit">
+                Sign up
+            </button>
             
         </form>
         <section class="legal-privacy-container">
