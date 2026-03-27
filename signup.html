@@ -25,7 +25,7 @@
                         <img class="arrow-left-line" src="./img/arrow-left-line.png">
                     </a>
                 </div>
-                <div class="aot">
+                <div class="aot-signup-container">
                     <div class="text-container">
                         <div class="signup-headline">Sign up</div>
                         <div class="blue-seperator"></div>
@@ -40,13 +40,13 @@
                 <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
 
                 <div class="password-container">
-                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onkeyup="validatePassword()" />
-                        <div class="toggle-password" onclick="togglePassword('password')"></div>
+                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onkeyup="validatePassword(this)"/>
+                    <div class="toggle-password" onclick="togglePassword('password')"></div>
                 </div>
                 <div id="passwordOneCorrectIncorrect" class="correct-incorrect"></div>
 
                 <div class="password-container">
-                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onkeyup="validatePassword()" />
+                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onkeyup="validatePassword(this)"/>
                     <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
                 </div>
                 <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>

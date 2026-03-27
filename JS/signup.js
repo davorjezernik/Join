@@ -170,19 +170,29 @@ function validateEmailS() {
 /**
  * This function checks whethter the password was entered correctly
  */
-function validatePassword() {
+function validatePassword(activeInput) {
     const passwordInput = document.getElementById('password');
     const confirmedPasswordInput = document.getElementById('confirmedPassword');
     let correctIncorrectOne = document.getElementById('passwordOneCorrectIncorrect');
     let correctIncorrectTwo = document.getElementById('passwordTwoCorrectIncorrect');
     const passwordValue = passwordInput.value.trim();
     const confirmedPasswordValue = confirmedPasswordInput.value.trim();
+    const value = activeInput.value.trim();
+    if (value.length === 0) {
+        activeInput.style.backgroundImage = "url('../img/lock.png')";
+    } else {
+        if (activeInput.type === "password") {
+            activeInput.style.backgroundImage = "url('./img/visibility_off.png')";
+        } else {
+            activeInput.style.backgroundImage = "url('./img/visibility.png')";
+        }
+    }
     if (passwordValue.length >= 3) {
         passwordInput.style.borderColor = 'green'; 
         correctIncorrectOne.textContent = '';
     } else {
         passwordInput.style.borderColor = 'red'; 
-        correctIncorrectOne.textContent = 'Input a minumum of 3 signs';
+        correctIncorrectOne.textContent = 'Input a minimum of 3 signs';
         correctIncorrectOne.style.color = 'red';
     }
     if (confirmedPasswordValue === passwordValue && confirmedPasswordValue.length >= 3) {
@@ -190,7 +200,7 @@ function validatePassword() {
         correctIncorrectTwo.textContent = "";
     } else if (confirmedPasswordValue.length > 0) {
         confirmedPasswordInput.style.borderColor = 'red'; 
-        correctIncorrectTwo.textContent = "Password dosen't match";
+        correctIncorrectTwo.textContent = "Password doesn't match";
         correctIncorrectTwo.style.color = 'red';
     } else {
         confirmedPasswordInput.style.borderColor = ''; 
@@ -198,28 +208,25 @@ function validatePassword() {
 }
 
 
+/**
+ * This function checks whether all fields are filled and the checkbox is checked, if not an error message is displayed 
+ */
 function handleSubmit(event) {
     event.preventDefault();
-
     const form = event.target;
     const errorMsg = document.getElementById('policyErrorMsg');
     errorMsg.textContent = '';
-
-    // Manual check instead of browser UI
     const inputs = form.querySelectorAll('input[required]');
     const allFilled = [...inputs].every(input => input.value.trim() !== '');
-
     if (!allFilled) {
         errorMsg.textContent = 'Please fill out all fields.';
         return;
     }
-
     const checkbox = document.getElementById('acceptPolicy');
     if (!checkbox.checked) {
         errorMsg.textContent = 'Please accept the privacy policy.';
         return;
     }
-
     signUp('/users');
 }
 

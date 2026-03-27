@@ -77,12 +77,6 @@
         background-position: 250px;
     }
 
-    .remember-container {
-        padding-left: unset;
-        margin-bottom: unset;
-        padding-right: 130px;
-    }
-
     .login-buttons-container {
         flex-direction: column;
         gap: 21px;
@@ -279,5 +273,8 @@
 @media (max-height: 601px) {
     .header {
         margin-bottom: 24px;
+    }
+    .not-user-container {
+        top: 16px;
     }
 }
