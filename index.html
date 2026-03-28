@@ -20,29 +20,30 @@
     <div class="background-animation"></div>
     <img class="intro-img-responsive" src="./img/Capa2White.png">
     <main class="background">
-        <form onsubmit="logIn(); return false" class="main-container">
+        <form onsubmit="logIn(); return false" novalidate class="main-container">
             <div class="login-headline">Log in</div>
             <div class="blue-seperator"></div>
             <section class="data-container">
                 <input id="loginEmail" placeholder="Email" required class="email-input margin-input" type="email">
                 <div class="password-container">
-                    <input id="loginPassword" placeholder="Password" required class="password-input margin-input" type="password">
+                    <input id="loginPassword" placeholder="Password" required class="password-input margin-input margin-8" type="password">
                     <div class="toggle-password" onclick="togglePassword('loginPassword')"></div>
                 </div>
                 <div class="remember-container">
                     <input type="checkbox" id="rememberMeCheckbox" class="remember-me-checkbox">
                     <label for="rememberMeCheckbox" class="remember-text">Remember me</label>
                 </div>
+                <div id="loginErrorMsg" class="error-message" style="color: red;"></div>
                 <div class="login-buttons-container">
-                    <button class="login-button pointer color-blue-button">Log in</button>
-                    <button type="button" onclick="guestLogin()" class="guest-button pointer color-white-button">Guest
-                        log in</button>
+                    <button class="login-button pointer color-blue-button font-size-21">Log in</button>
+                    <button type="button" onclick="guestLogin()" class="guest-button pointer color-white-button font-size-21">Guest log in</button>
+                </div>
                 </div>
             </section>
         </form>
         <section class="not-user-container">
             <div class="not-user-text">Not a Join user?</div>
-            <a href="signup.html"><button class="sign-up-button pointer color-blue-button">Sign up</button></a>
+            <a href="signup.html"><button class="sign-up-button pointer color-blue-button font-size-21">Sign up</button></a>
         </section>
         <section class="legal-privacy-container">
             <a href="privacyPolicyExtern.html" class="privacy-policy-extern">Privacy policy</a>

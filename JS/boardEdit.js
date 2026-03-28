@@ -145,8 +145,6 @@ function getTaskContacts() {
 
 
 function getTaskAllImages() {
-    // the uploadImage module writes to 'allImages'; use that key so
-    // any additions/deletions performed during edit are returned here.
     const allImages = JSON.parse(localStorage.getItem('allImages')) || [];
     return allImages;
 }

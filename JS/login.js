@@ -5,14 +5,31 @@
  * @returns 
  */
 async function logIn() {
-    let email = document.getElementById('loginEmail').value;
-    let password = document.getElementById('loginPassword').value;
+    let emailInput = document.getElementById('loginEmail');
+    let passwordInput = document.getElementById('loginPassword');
+    let errorMsg = document.getElementById('loginErrorMsg');
+    let email = emailInput.value.trim();
+    let password = passwordInput.value.trim();
+    errorMsg.textContent = "";
+    emailInput.style.borderColor = "";
+    passwordInput.style.borderColor = "";
+    if (!email || !password) {
+        errorMsg.textContent = "Please fill out all fields";
+        return;
+    }
+    await checkLogInData(email, password, errorMsg);
+}
+
+
+async function checkLogInData(email, password, errorMsg) {
     let data = await loadUserData("users");
     let users = Object.entries(data);
-    let foundUser = users.find(([uid, u]) => u.email === email && u.password === password);
+    let foundUser = users.find(
+        ([uid, u]) => u.email === email && u.password === password
+    );
     if (!foundUser) {
-        wrongPassword();
-        return null;
+        errorMsg.textContent = "Wrong email or password";
+        return;
     }
     let userUID = foundUser[0];
     await setLoggedInUser(userUID);
@@ -20,10 +37,12 @@ async function logIn() {
     let rememberMe = rememberMeCheckbox.checked;
     localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
     if (rememberMe) {
-        localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
+        localStorage.setItem('loggedInUser', JSON.stringify({
+            email: email,
+            password: password
+        }));
     }
     window.location.href = "summary.html";
-    return userUID;
 }
 
 

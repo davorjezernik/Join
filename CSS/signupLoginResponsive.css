@@ -45,10 +45,6 @@
         padding-left: unset;
     }
 
-    .login-button {
-        width: 140px;
-    }
-
     .main-container-signup {
         width: 310px;
     }
@@ -61,6 +57,22 @@
     .signup-headline {
         height: 60px;
         font-size: 48px;
+    }
+
+    .font-size-21 {
+        font-size: 16px;
+    }
+    .login-button {
+        width: 168px;
+    }
+}
+
+@media (max-width: 680px) {
+    .background-animation {
+        animation: backgroundAnimationResponsive ease-in-out 2000ms;
+        animation-fill-mode: forwards;
+        background-color: #2A3647;
+        height: 960px;
     }
 }
 
@@ -91,13 +103,6 @@
         animation: moveUpResponsiveWhite ease-in-out 1500ms;
         animation-fill-mode: forwards;
         display: unset;
-    }
-
-    .background-animation {
-        animation: backgroundAnimationResponsive ease-in-out 2000ms;
-        animation-fill-mode: forwards;
-        background-color: #2A3647;
-        height: 100vh;
     }
 
     .main-container-signup {
