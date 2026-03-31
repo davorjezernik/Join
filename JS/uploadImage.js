@@ -7,18 +7,26 @@ let currentImageIndex = -1;
 /**
  * This function opens/close helpers grab elements lazily so script order doesn't matter
  */
-function openImageModal(src) {
-    currentImageIndex = allImages.findIndex(img => img.base64String === src);
-    if (currentImageIndex === -1) return;
+function openImageModal(src, hideTrash = false) {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     if (!modal || !modalImage) return;
-    modalImage.src = src; 
+
+    currentImageIndex = allImages.findIndex(img => img.base64String === src);
+    if (currentImageIndex === -1) return;
+
+    modalImage.src = src;
     updateModalInfo();
+
+    // Hide or show trash icon
+    const deleteBtn = document.getElementById('deleteRemove');
+    if (deleteBtn) {
+        deleteBtn.style.display = hideTrash ? 'none' : '';
+    }
+
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
-
 
 /**
  * Displays the next image in the modal if available, updating the modal content accordingly.
@@ -91,8 +99,12 @@ function updateModalInfo() {
  */
 function closeImageModal() {
     const modal = document.getElementById('imageModal');
-    if (modal) modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+
+    const deleteBtn = document.getElementById('deleteRemove');
+    if (deleteBtn) deleteBtn.style.display = '';
 }
 
 

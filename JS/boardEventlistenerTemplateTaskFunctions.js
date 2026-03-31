@@ -228,14 +228,18 @@ function generateSubtasksHtml(subtasks, i) {
  * @param {number} i - The index of the task for which to generate image html.
  * @returns {string} The generated html for the images.
  */
-function generateAllImages(allImages) {
+function generateAllImages(allImages, hideTrash = false) {
     if (!allImages || allImages.length === 0) return '';
-    let result = '';        
+    let result = '';
     for (let j = 0; j < allImages.length; j++) {
         const image = allImages[j];
         result += `
         <div class="image-container">
-            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" data-task-images='${JSON.stringify(allImages)}' onclick="openTaskImageModal(this)">
+            <img class="main-image-upload"
+                 src="${image.base64String}"
+                 alt="${image.name}"
+                 data-task-images='${JSON.stringify(allImages)}'
+                 onclick="openTaskImageModal(this, ${hideTrash})">
             <div class="image-name">
                 <p class="image-name-text">${image.name}</p>
             </div>
@@ -247,11 +251,29 @@ function generateAllImages(allImages) {
 
 
 /**
+ * Removes the trash icon.
+ */
+function hideTrashIcon() {
+    const deleteBtn = document.getElementById('deleteRemove');
+    if (deleteBtn) deleteBtn.style.display = 'none';
+}
+
+
+/**
+ * Shows the trash icon.
+ */
+function showTrashIcon() {
+    const deleteBtn = document.getElementById('deleteRemove');
+    if (deleteBtn) deleteBtn.style.display = '';
+}
+
+
+/**
  * Opens the image modal and displays the specified image.
  */
-function openTaskImageModal(imgElement) {
+function openTaskImageModal(imgElement, hideTrash = false) {
     allImages = JSON.parse(imgElement.dataset.taskImages);
-    openImageModal(imgElement.src);
+    openImageModal(imgElement.src, hideTrash);
 }
 
 

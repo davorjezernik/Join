@@ -177,16 +177,7 @@ function validatePassword(activeInput) {
     let correctIncorrectTwo = document.getElementById('passwordTwoCorrectIncorrect');
     const passwordValue = passwordInput.value.trim();
     const confirmedPasswordValue = confirmedPasswordInput.value.trim();
-    const value = activeInput.value.trim();
-    if (value.length === 0) {
-        activeInput.style.backgroundImage = "url('../img/lock.png')";
-    } else {
-        if (activeInput.type === "password") {
-            activeInput.style.backgroundImage = "url('./img/visibility_off.png')";
-        } else {
-            activeInput.style.backgroundImage = "url('./img/visibility.png')";
-        }
-    }
+    handleInputIcon(activeInput);
     if (passwordValue.length >= 3) {
         passwordInput.style.borderColor = 'green'; 
         correctIncorrectOne.textContent = '';
@@ -204,6 +195,23 @@ function validatePassword(activeInput) {
         correctIncorrectTwo.style.color = 'red';
     } else {
         confirmedPasswordInput.style.borderColor = ''; 
+    }
+}
+
+
+/**
+ * This function displays the lock icon when no password is entered and the visibility icon when a password is entered
+ */
+function handleInputIcon(activeInput) {
+    const value = activeInput.value.trim();
+    if (value.length === 0) {
+        activeInput.style.backgroundImage = "url('../img/lock.png')";
+    } else {
+        if (activeInput.type === "password") {
+            activeInput.style.backgroundImage = "url('./img/visibility_off.png')";
+        } else {
+            activeInput.style.backgroundImage = "url('./img/visibility.png')";
+        }
     }
 }
 

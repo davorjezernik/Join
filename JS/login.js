@@ -21,6 +21,9 @@ async function logIn() {
 }
 
 
+/**
+ * This function check the entered user data with the saved user data and if they are correct, the user is logged in
+ */
 async function checkLogInData(email, password, errorMsg) {
     let data = await loadUserData("users");
     let users = Object.entries(data);

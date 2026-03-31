@@ -74,7 +74,7 @@ function generateModalContent(task, i) {
         <div class="attachments-container">
            <div>Attachments</div>
                 <div class="images-container">
-                    <div>${generateAllImages(task['task']['allImages'], i)}</div>
+                    <div>${generateAllImages(task['task']['allImages'], true)}</div>
                 </div>
         </div>
         <div>
