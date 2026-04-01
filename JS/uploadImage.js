@@ -11,19 +11,14 @@ function openImageModal(src, hideTrash = false) {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     if (!modal || !modalImage) return;
-
     currentImageIndex = allImages.findIndex(img => img.base64String === src);
     if (currentImageIndex === -1) return;
-
     modalImage.src = src;
     updateModalInfo();
-
-    // Hide or show trash icon
     const deleteBtn = document.getElementById('deleteRemove');
     if (deleteBtn) {
         deleteBtn.style.display = hideTrash ? 'none' : '';
     }
-
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -231,8 +226,8 @@ function validateFile(file) {
         showErrorModal('Please upload only image files.');
         return false;
     }
-    if (file.size > 1024 * 1024) {
-        showErrorModal('File size exceeds 1 MB. Please choose a smaller image.');
+    if (file.size > 50 * 1024 * 1024) {
+        showErrorModal('File size exceeds 50 MB. Please choose a smaller image.');
         return false;
     }
     return true;

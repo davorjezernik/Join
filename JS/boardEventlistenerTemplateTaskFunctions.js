@@ -251,24 +251,6 @@ function generateAllImages(allImages, hideTrash = false) {
 
 
 /**
- * Removes the trash icon.
- */
-function hideTrashIcon() {
-    const deleteBtn = document.getElementById('deleteRemove');
-    if (deleteBtn) deleteBtn.style.display = 'none';
-}
-
-
-/**
- * Shows the trash icon.
- */
-function showTrashIcon() {
-    const deleteBtn = document.getElementById('deleteRemove');
-    if (deleteBtn) deleteBtn.style.display = '';
-}
-
-
-/**
  * Opens the image modal and displays the specified image.
  */
 function openTaskImageModal(imgElement, hideTrash = false) {

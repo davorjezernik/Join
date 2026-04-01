@@ -136,13 +136,14 @@ function validateName() {
     const nameInput = document.getElementById('name');
     let correctIncorrect = document.getElementById('nameCorrectIncorrectS');
     const nameValue = nameInput.value.trim();
-    if (nameValue.split(' ').length >= 2) {
+    const nameRegex = /^[A-Za-z]+(\s+[A-Za-z]+)+$/;
+    if (nameRegex.test(nameValue)) {
         nameInput.style.borderColor = 'green'; 
         correctIncorrect.textContent = '';
         correctIncorrect.style.color = 'green';
     } else {
         nameInput.style.borderColor = 'red'; 
-        correctIncorrect.textContent = '-Input Name Surname';
+        correctIncorrect.textContent = '- Input Name Surname (letters only)';
         correctIncorrect.style.color = 'red';
     }
 }

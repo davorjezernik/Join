@@ -103,10 +103,10 @@ function validateName(id, messageId) {
     let nameField = document.getElementById(id);
     let nameMessage = document.getElementById(messageId);
     let name = nameField ? nameField.value.trim() : '';
-    if (!nameField || !/^\w+(\s+\w+){1,}$/.test(name)) {
+    if (!nameField || !/^[\p{L}]+([ '\-][\p{L}]+)+$/u.test(name)) {
         if (nameField) nameField.style.borderColor = 'red';  
         if (nameMessage) {
-            nameMessage.textContent = '-Input Name surname';
+            nameMessage.textContent = '-Input Name surname (letters only)';
             nameMessage.style.color = 'red';
         }
         return false;
@@ -125,8 +125,7 @@ function validateEmail(id, messageId) {
     let emailField = document.getElementById(id);
     let emailMessage = document.getElementById(messageId);
     let email = emailField ? emailField.value.trim() : '';
-
-    if (!emailField || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!emailField || !/^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]+)+$/.test(email)) {
         if (emailField) emailField.style.borderColor = 'red';  
         if (emailMessage) {
             emailMessage.textContent = 'Input email: exampel@mail.com';
@@ -148,8 +147,7 @@ function validateNumber(id, messageId) {
     let numberField = document.getElementById(id);
     let numberMessage = document.getElementById(messageId);
     let number = numberField ? numberField.value.trim() : '';
-
-    if (!numberField || !/^\d{7,15}$/.test(number)) {
+    if (!numberField || !/^\+?\d{7,15}$/.test(number)) {
         if (numberField) numberField.style.borderColor = 'red';  
         if (numberMessage) {
             numberMessage.textContent = 'Incorrect number. It should be 7-15 digits.';

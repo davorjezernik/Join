@@ -194,7 +194,7 @@ function getInitials(name) {
     let upperChars = "";
     let words = name.split(" ");
     for (let word of words) {
-        if (word.length > 0) {
+        if (word.length > 0 && upperChars.length < 2) {
             upperChars += word[0].toUpperCase();
         }
     }
