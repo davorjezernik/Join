@@ -98,7 +98,9 @@ async function createNewContact() {
 }
 
 
-
+/**
+ * This function validate the name of a contact. It should contain only letters and be in the format "Name Surname"
+ */
 function validateName(id, messageId) {
     let nameField = document.getElementById(id);
     let nameMessage = document.getElementById(messageId);
@@ -111,6 +113,8 @@ function validateName(id, messageId) {
         }
         return false;
     } else {
+        const formattedName = formatName(name);
+        nameField.value = formattedName;
         nameField.style.borderColor = 'green';  
         if (nameMessage) {
             nameMessage.textContent = '';
@@ -121,6 +125,18 @@ function validateName(id, messageId) {
 }
 
 
+function formatName(name) {
+    return name
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+
+/**
+ * This function validate the email of a contact. It should be in the format "
+ */
 function validateEmail(id, messageId) {
     let emailField = document.getElementById(id);
     let emailMessage = document.getElementById(messageId);
@@ -143,6 +159,9 @@ function validateEmail(id, messageId) {
 }
 
 
+/**
+ * This function validate the number of a contact. It should contain only digits and can start with a plus sign. The length should be between 7 and 15 digits.
+ */
 function validateNumber(id, messageId) {
     let numberField = document.getElementById(id);
     let numberMessage = document.getElementById(messageId);

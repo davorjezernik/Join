@@ -158,6 +158,10 @@ a:hover {
         width: 186px;
         gap: 10px;
     }
-
-
 }
+
+@media (max-width: 600px) {
+    .content-container {
+        height: 90vh;   
+    }  
+} 

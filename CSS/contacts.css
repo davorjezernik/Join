@@ -218,7 +218,7 @@
 
 .add-new-contact {
     height: 594px;
-    width: 90%;
+    width: 1440px;
     display: flex;
     border-radius: 30px;
     transform: translateX(113%);
@@ -479,6 +479,12 @@ fieldset {
     border: none;
 }
 
+@media (max-width: 1500px) {
+    .add-new-contact {
+        width: 90%;
+    }
+}
+
 @media (max-width: 1300px) {
     .close-add-contact img:hover {
         background-color: #D1D1D1;
@@ -545,7 +551,7 @@ fieldset {
 
     .add-contact-data {
         padding: unset;
-        margin: 50px 0 24px 0;
+        margin: 40px 0 8px 0;
     }
 
     .contact-info {
@@ -731,8 +737,15 @@ fieldset {
         width: -webkit-fill-available;
     }
 
+    .edit-img,
+    .shorts-name-big {
+        height: 80px;
+        width: 80px;
+        font-size: 28px;
+    }
+
     .contact-img {
-        top: 30%;
+        top: 28%;
     }
 
     .edit-img {

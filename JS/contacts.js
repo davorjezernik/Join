@@ -216,6 +216,7 @@ function openAddNewContact() {
     let dialogEditContact = document.getElementById('dialogNewEditContact');
     dialogEditContact.innerHTML = getAddNewContactHtml();
     document.getElementById('dialogNewEditContact').classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
     let addNewContact = document.getElementById('addNewContact');
     addNewContact.style.transform = "translateX(113%)";
     setTimeout(() => {
@@ -231,6 +232,7 @@ function openAddNewContact() {
 function closeDialog() {
     document.getElementById('dialogNewEditContact').classList.add('d-none');
     document.getElementById('editDeleteMenuBox').classList.add('d-none');
+    document.body.style.overflow = 'auto';
 }
 
 
@@ -265,6 +267,7 @@ async function editOpenedContactInMobileView() {
     const email = document.getElementById('emailOfContact').innerHTML;
     let userData = await loadSpecificUserDataFromLocalStorage();
     let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
+    document.body.style.overflow = 'hidden';
     if (ToBeEditedContactId) {
         dialogEditContact.innerHTML = getEditContactHtmlMobileView(
             document.getElementById('nameOfContact').innerHTML, 
