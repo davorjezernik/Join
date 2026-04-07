@@ -204,8 +204,11 @@ function getInitials(name) {
 
 /**
  * This function adds subtasks to the tasks 
+ * @param {Event} event - The click event to prevent default behavior
+ * @param {number} [taskIndex] - Optional task index
  */
-function addSubtask(taskIndex) {
+function addSubtask(event, taskIndex) {
+    if (event) event.preventDefault();
     let container = document.getElementById('subtasksContainer');
     let subtask = document.getElementById('inputFieldSubtask').value;
     if (subtask.trim() !== '') {
@@ -250,7 +253,8 @@ function editSubtask(taskIndex, subtaskIndex) {
 /**
  * This function empties the input field after saving the task
  */
-function clearSubtaskInput() {
+function clearSubtaskInput(event) {
+    if (event) event.preventDefault();
     let inpultField = document.getElementById('inputFieldSubtask');
     inpultField.value = '';
     onInputChange();

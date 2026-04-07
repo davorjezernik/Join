@@ -22,7 +22,7 @@
                 <div>Task added to board</div>
                 <img src="./img/addTaskImg/board-white.png">
             </div>
-            <form onsubmit="validateAndAddTask(); return false" class="main-container-task">
+            <form onsubmit="validateAndAddTask(); return false" novalidate class="main-container-task">
                 <div class="aot-task-container">
                     <div class="add-task-title">Add Task</div>
                 </div>
@@ -152,11 +152,11 @@
                                     </div>
                                     <div class="check-cross-position" id="closeOrAccept">
                                         <button type="button" class="button-transparacy">
-                                            <img onclick="clearSubtaskInput()" src="./img/addTaskImg/close.svg"
+                                            <img onclick="clearSubtaskInput(event)" src="./img/addTaskImg/close.svg"
                                                 class="subtaskButtons" alt="close">
                                         </button>
                                         <button type="button" class="button-transparacy">
-                                            <img onclick="addSubtask()" src="./img/addTaskImg/checkBlack.svg"
+                                            <img onclick="addSubtask(event)" src="./img/addTaskImg/checkBlack.svg"
                                                 class="subtaskButtons" alt="accept">
                                         </button>
                                     </div>

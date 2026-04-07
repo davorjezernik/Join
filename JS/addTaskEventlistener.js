@@ -214,7 +214,7 @@ function changeColor(clickedButton) {
 const subtaskInput = document.getElementById('inputFieldSubtask');
 subtaskInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        addSubtask();
+        addSubtask(event);
     }
 });
 
