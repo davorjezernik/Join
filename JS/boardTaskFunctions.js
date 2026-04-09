@@ -384,7 +384,6 @@ async function editTask(i) {
     displayNamesOfContactsEdit();
     displayAssignedContactsInEdit();
     onInputChangeEdit();
-    showTrashIcon();
     if (typeof loadImages === 'function') {
         loadImages();
     }

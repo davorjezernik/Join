@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     rememberMeCheckbox.checked = rememberMe;
     if (rememberMe) {
         let storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
-        if (storedUser && storedUser.email !== 'guest@email.com') {
+        if (storedUser && storedUser.email !== 'guest.user@email.com') {
             document.getElementById('loginEmail').value = storedUser.email;
             document.getElementById('loginPassword').value = storedUser.password;
         }

@@ -149,10 +149,11 @@ body {
 }
 
 .task-input-field {
-    padding: 12px 8px 8px 12px;
+    padding: 8px 8px 8px 8px;
     border-radius: 10px;
     border: 1px solid rgb(209, 209, 209);
     font-family: 'Inter';
+    font-size: 14px;
 }
 
 .add-task-set-up-two {
@@ -256,7 +257,7 @@ body {
 
 .select {
     background-color: rgb(255, 255, 255);
-    padding: 10px 8px 8px 10px;
+    padding: 8px 8px 8px 8px;
     border-radius: 10px;
     border: 1px solid rgb(209, 209, 209);
     border: 1px solid rgb(209, 209, 209);
@@ -357,6 +358,7 @@ body {
     border-width: 0px 0px 0px 0px;
     outline: unset;
     font-family: 'Inter';
+    font-size: 14px;
 }
 
 .input-field-svg {
@@ -418,7 +420,7 @@ body {
 
 .initial-style {
     color: white;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .initial-centering {
@@ -517,7 +519,8 @@ body {
 }
 
 .correct-incorrect {
-    font-size: 12px;
+    font-size: 14px;
+    height: 8px;
 }
 
 fieldset {
