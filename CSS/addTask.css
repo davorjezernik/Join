@@ -57,6 +57,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 18px;
 }
 
@@ -82,11 +83,10 @@ body {
 }
 
 .aot-task-container {
-    width: 80%;
+    width: 1400px;
     height: 15%;
     display: flex;
     align-items: center;
-    margin: 24px 65px 0 74px;
 }
 
 .aot-task-container-small {
@@ -103,7 +103,7 @@ body {
 .main-container-task-one-two-small {
     display: flex;
     gap: 32px;
-    margin: 0 65px 0 74px;
+    width: 1400px;
 }
 
 .button-end-process-container,
@@ -113,7 +113,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 70px 65px 24px 74px;
+    width: 1400px;
 }
 
 .button-end-process-container-small {
@@ -525,17 +525,4 @@ body {
 
 fieldset {
     border: none;
-}
-
-@media(max-width: 531px) {
-    .button-prio-width {
-        justify-content: space-evenly;
-        margin: 1px;
-    }
-}
-
-@media(max-width: 350px) {
-    .button-prio-width {
-        flex-wrap: nowrap;
-    }
 }

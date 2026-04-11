@@ -1,3 +1,13 @@
+@media(max-width: 1680px) {
+    .summary-headline {
+        width: 90%;
+    }
+    .greeting-and-todos-container {
+        width: 90%;
+        margin-left: 10%;
+    }
+}
+
 @media (max-width: 1350px) {
     .greeting-container {
         width: 30%;
@@ -15,8 +25,8 @@
 
 @media (max-width: 1024px) {
     .greeting-and-todos-container {
-        /* height: 80%; */
         align-items: flex-start;
+        margin-left: 0%;
     }
 
     .parent-container {
@@ -60,7 +70,7 @@
 @media (max-width: 950px) {
     .parent-container {
         width: 100vw;
-        height: 80%;
+        height: 100%;
     }
 
     .summary-headline {
@@ -114,23 +124,29 @@
     }
 }
 
+@media (max-height: 800px) {
+    .parent-container {
+        height: 100vh;
+    }
+}
 
-
-@media (max-width: 550px) {
+@media (max-width: 620px) {
     .main-container {
         margin-top: 100px;
     }
 
+    .parent-container {
+        height: 800px;
+    }
+
     .todos-box {
         width: 95%;
-        gap: 24px;
-        gap: 24px;
+        gap: 8px;
     }
 
     .urgent-todo-container {
         width: 95%;
         padding: 24px;
-        gap: 20px;
         gap: 20px;
     }
 
@@ -154,6 +170,14 @@
         height: 40px;
     }
 
+    .todo {
+        width: 160px;
+    }
+
+    .todo-in-progress {
+        width: 108px;
+    }
+
     .todos-text-container {
         font-size: 14px;
     }
@@ -164,10 +188,22 @@
     }
 
     .todos-text-container {
-            font-size: 14px;
+        font-size: 14px;
     }
 
     .date-container {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 345px) {
+    .todo{
+        width: 144px;
+    }
+    .todo-in-progress {
+        width: 96px;
+    }
+    .undone-todos-container {
+        gap: 4px;
     }
 }

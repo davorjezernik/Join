@@ -152,12 +152,6 @@ a:hover {
     .menu-tool img {
         padding-left: unset;
     }
-
-    .todo {
-        height: 110px;
-        width: 186px;
-        gap: 10px;
-    }
 }
 
 @media (max-width: 600px) {

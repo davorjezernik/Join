@@ -1,3 +1,20 @@
+@media(max-width: 1680px) {
+    .aot-task-container {
+        width: 100%;
+    }
+    .main-container-task-one-two,
+    .main-container-task-one-two-small {
+        width: 100%;
+    }
+    .button-end-process-container,
+    .button-end-process-container-small {
+        width: 100%; 
+    }   
+    .main-container-task {
+        margin: 16px 32px;
+    }
+}
+
 @media (max-width: 1200px) {
     .attachments-info {
         flex-direction: column;
@@ -27,6 +44,7 @@
         overflow-x: scroll;
         padding: 0 16px;
         margin: unset;
+        width: 100%;
     }
 
     .main-container-task-one-two-small {
@@ -63,5 +81,12 @@
 
     .seperate-container {
         display: none;
+    }
+}
+
+@media(max-width: 531px) {
+    .button-prio-width {
+        justify-content: space-evenly;
+        margin: 1px;
     }
 }
