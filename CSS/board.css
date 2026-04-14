@@ -72,7 +72,7 @@ body {
 
 
 .aot {
-    width: 90%;
+    width: 1400px;
     height: 20%;
     display: flex;
     align-items: flex-end;
@@ -164,7 +164,7 @@ h1 {
 }
 
 .board-position-lower {
-    width: 90%;
+    width: 1400px;
     height: 70%;
     display: flex;
     justify-content: space-between;

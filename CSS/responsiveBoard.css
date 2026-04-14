@@ -1,3 +1,13 @@
+@media(max-width: 1700px) {
+    .aot {
+        width: 90%;
+    }
+
+     .board-position-lower {
+        width: 90%;
+    }
+}
+
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;
