@@ -524,12 +524,21 @@ h1 {
 .parent-Container-for-addTask-board {
     border-radius: 30px;
     background-color: white;
-    width: 80%;
-    height: 75%;
+    width: 1440px;
+    height: 800px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     overflow: hidden;
+}
+
+.main-container-task-board {
+    width: 1400px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 
 .drag-area-text {

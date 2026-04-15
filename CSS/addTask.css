@@ -90,7 +90,7 @@ body {
 }
 
 .aot-task-container-small {
-    margin: 24px 0 32px 46px;
+    margin: 24px 0 32px 16px;
 }
 
 .inputs-flex {
@@ -114,11 +114,6 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 1400px;
-}
-
-.button-end-process-container-small {
-    margin: 0px 65px 0px 74px;
-    height: 70px;
 }
 
 .add-task-set-up-one-container {
@@ -525,4 +520,15 @@ body {
 
 fieldset {
     border: none;
+}
+
+@media(max-width: 1680px) {
+    .main-container-task-one-two,
+    .main-container-task-one-two-small {
+        width: 100%;
+    }
+    .button-end-process-container,
+    .button-end-process-container-small {
+        width: 100%; 
+    }   
 }
