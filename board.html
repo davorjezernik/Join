@@ -18,8 +18,31 @@
     <link rel="stylesheet" href="./CSS/uploadImage.css">
 </head>
 <body  onload="initBoard(); onloadFunction()">
-    <main onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
-        <section onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
+    <section id="imageModal" class="image-modal">
+        <span id="closeModal">&times;</span>
+        <div class="image-container-modal">
+            <img id="modalImage">
+            <div class="modal-controls">
+                <div>
+                    <div class="modal-info"></div>
+                    <div class="modal-buttons">
+                        <img class="prev-img-modal" src="./img/arrow_right.png" alt="Delete" onclick="prevImage()">
+                        <img class="traschcan-img-modal" src="./img/trash.svg" alt="Delete" onclick="deleteCurrentImage()" id="deleteRemove">
+                        <img class="next-img-modal" src="./img/arrow_left.png" alt="Delete" onclick="nextImage()">
+                    </div>
+                </div>
+                <div class="image-info">
+                    <p>Name: <span id="modalImageName"></span></p> 
+                    <p>Size: <span id="modalImageSize"></span></p>
+                </div>
+                <div class="download-button-container">
+                    <button class="download-button" onclick="downloadCurrentImage()">Download</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section onclick="closeAddTaskInBoard()" id="addTaskContainerInBoard" class="addTask-window-container d-none">
+        <div onclick="doNotClose(event)" id="addTaskPopUp" class="parent-Container-for-addTask-board addTask-window">
             <form class="main-container-task-board" novalidate>
                 <div class="board-form">
                     <div class="aot-task-container-small">
@@ -202,11 +225,10 @@
                     </fieldset>
                 </div>
             </form>
-        </section>
-    </main>
-    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
+        </div>
+    </section>
+    <header class="header-container" w3-include-html="./templates/topbar.html"></header>
     <main class="content-container-board">
-        <header class="header-container" w3-include-html="./templates/topbar.html"></header>
         <div class="open-tasks-container">
             <section class="aot">
                 <h1>Board</h1>
@@ -293,30 +315,7 @@
             </section>
         </div>
     </main>
-    </div>
-    <section id="imageModal" class="image-modal">
-        <span id="closeModal">&times;</span>
-        <div class="image-container-modal">
-            <img id="modalImage">
-            <div class="modal-controls">
-                <div>
-                    <div class="modal-info"></div>
-                    <div class="modal-buttons">
-                        <img class="prev-img-modal" src="./img/arrow_right.png" alt="Delete" onclick="prevImage()">
-                        <img class="traschcan-img-modal" src="./img/trash.svg" alt="Delete" onclick="deleteCurrentImage()" id="deleteRemove">
-                        <img class="next-img-modal" src="./img/arrow_left.png" alt="Delete" onclick="nextImage()">
-                    </div>
-                </div>
-                <div class="image-info">
-                    <p>Name: <span id="modalImageName"></span></p> 
-                    <p>Size: <span id="modalImageSize"></span></p>
-                </div>
-                <div class="download-button-container">
-                    <button class="download-button" onclick="downloadCurrentImage()">Download</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
 </body>
 <script src="./JS/include.js"></script>
 <script src="./JS/storage.js"></script>

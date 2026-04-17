@@ -48,9 +48,10 @@ body {
 .parent-container {
     box-sizing: border-box;
     background-color: #F6F7F8;
-    height: 90%;
+    height: calc(100% + 40px);
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .main-container-task {

@@ -439,14 +439,12 @@ function removeAllInput() {
     document.getElementById("selectContact").textContent = "Search Contact";
     document.getElementById("contactsDisplayBubble").innerHTML = "";
     document.getElementById("date").value = "";
-    // Clear images in memory and localStorage
     if (typeof allImages !== 'undefined') {
         allImages.length = 0;
     }
     localStorage.removeItem('allImages');
     document.getElementById('gallery').innerHTML = '';
     renderImages();
-    // Reset priority buttons
     const priorityButtons = document.querySelectorAll(".button-prio");
     priorityButtons.forEach(button => {
         button.classList.remove("mediumSelected", "lowSelected", "urgentSelected");
@@ -454,12 +452,10 @@ function removeAllInput() {
     const mediumButton = document.getElementById("mediumButton");
     mediumButton.classList.add("mediumSelected");
     document.getElementById("selectCategory").textContent = "Select task category";
-    // Reset subtasks
     document.getElementById("inputFieldSubtask").value = "";
     document.getElementById("subtasksContainer").innerHTML = "";
     subtasks = [];
     localStorage.removeItem('subtasks');
-    // Reset checkboxes and contact styles
     const checkboxes = document.querySelectorAll('.assign-contact-checkbox');
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;

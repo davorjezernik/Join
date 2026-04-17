@@ -15,11 +15,16 @@
     <link rel="icon" type="image/x-icon" href="./img/Capa 2.png">
 </head>
 <body onload="init()">
+    <div class="success-box d-none" id="successBox">
+        <div class="success-message" id="successMessage">Contact succesfully created</div>
+    </div>
+    <div class="success-delete-box d-none" id="successDeleteBox">
+        <div class="success-delete-message" id="successDeleteMessage">Contact succesfully deleted</div>
+    </div>
+    <header class="header-container" w3-include-html="./templates/topbar.html"></header>
     <main class="main-content">
         <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
-        <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
         <section class="content-container">
-            <header class="header-container" w3-include-html="./templates/topbar.html"></header>
             <div class="parent-container">
                 <div class="contact-box">
                     <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
@@ -57,12 +62,7 @@
             </div>
         </section>
     </main>
-    <div class="success-box d-none" id="successBox">
-        <div class="success-message" id="successMessage">Contact succesfully created</div>
-    </div>
-    <div class="success-delete-box d-none" id="successDeleteBox">
-        <div class="success-delete-message" id="successDeleteMessage">Contact succesfully deleted</div>
-    </div>
+    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
 </body>
 <script src="./JS/include.js"></script>
 <script src="./JS/topbar.js"></script>

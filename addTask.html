@@ -14,9 +14,28 @@
     <link rel="stylesheet" href="./CSS/uploadImage.css">
 </head>
 <body onload="onloadFunction()">
-    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
+    <section id="imageModal" class="image-modal">
+        <span id="closeModal">&times;</span>
+        <div class="image-container-modal">
+            <img id="modalImage">
+            <div class="modal-controls">
+                <div>
+                    <div class="modal-info"></div>
+                    <div class="modal-buttons">
+                        <img class="prev-img-modal" src="./img/arrow_right.png" alt="Delete" onclick="prevImage()">
+                        <img class="traschcan-img-modal" src="./img/trash.svg" alt="Delete" onclick="deleteCurrentImage()">
+                        <img class="next-img-modal" src="./img/arrow_left.png" alt="Delete" onclick="nextImage()">
+                    </div>
+                </div>
+                <div class="image-info">
+                    <p>Name: <span id="modalImageName"></span></p> 
+                    <p>Size: <span id="modalImageSize"></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header class="header-container" w3-include-html="./templates/topbar.html"></header>
     <main class="content-container">
-        <header class="header-container" w3-include-html="./templates/topbar.html"></header>
         <section class="parent-container">
             <div id="addedToBoard" class="added-to-board d-none">
                 <div>Task added to board</div>
@@ -195,26 +214,7 @@
             </form>
         </section>
     </main>
-    <section id="imageModal" class="image-modal">
-        <span id="closeModal">&times;</span>
-        <div class="image-container-modal">
-            <img id="modalImage">
-            <div class="modal-controls">
-                <div>
-                    <div class="modal-info"></div>
-                    <div class="modal-buttons">
-                        <img class="prev-img-modal" src="./img/arrow_right.png" alt="Delete" onclick="prevImage()">
-                        <img class="traschcan-img-modal" src="./img/trash.svg" alt="Delete" onclick="deleteCurrentImage()">
-                        <img class="next-img-modal" src="./img/arrow_left.png" alt="Delete" onclick="nextImage()">
-                    </div>
-                </div>
-                <div class="image-info">
-                    <p>Name: <span id="modalImageName"></span></p> 
-                    <p>Size: <span id="modalImageSize"></span></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer class="tools-container" w3-include-html="./templates/bluebar.html"></footer>
 </body>
 <script src="./JS/storage.js"></script>
 <script src="./JS/include.js"></script>
