@@ -21,12 +21,25 @@
 @media (max-width: 1024px) {
     .parent-container {
         width: 100vw;
+        height: 100vh;
     }
 
     .button-end-process-container {
         margin-bottom: 10%;
     }
+
+    .content-container {
+        width: 100%;
+        margin: unset;
+    }
 }
+
+@media (max-height: 1024px) {
+    .parent-container {
+        height: calc(100% + 96px);
+    }
+}
+
 
 @media (max-width: 900px) {
     .main-container-task-one-two {
@@ -42,13 +55,23 @@
         width: 100%;
     }
 
+    .main-container-task {
+        margin: 16px 8px;
+        height: 80vh;
+        gap: 0px;
+    }
+
+    .main-container-task-one-two-small {
+        overflow: auto;
+    }
+
     .main-container-task-one-two-small {
         flex-direction: column;
         gap: unset !important;
     }
 
     .button-end-process-container {
-        position: sticky;
+        position: fixed;
         bottom: 10%;
         padding-left: 12px;
         padding-right: 12px;
@@ -63,7 +86,7 @@
     }
 
     .aot-task-container {
-        margin: 24px 16px 0;
+        margin: 16px 0px 0px 16px;
     }
 
     .aot-task-container-small {
@@ -73,6 +96,10 @@
 
     .seperate-container {
         display: none;
+    }
+
+    .content-container {
+        height: auto;
     }
 }
 

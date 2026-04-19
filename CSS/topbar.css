@@ -81,6 +81,7 @@
         height: 10%;
         padding-left: 20px;
         width: 100vw;
+        position: fixed;
     }
 
     .help-container {
