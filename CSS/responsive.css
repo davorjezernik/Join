@@ -30,12 +30,6 @@
     }
 }
 
-@media (max-width: 1024px) {
-    .scroll {
-        overflow-x: hidden;
-    }
-}
-
 @media (max-width: 900px) {
     .add-new-contact {
         transform: translateY(110%);
