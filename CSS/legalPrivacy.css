@@ -46,7 +46,6 @@ a:hover {
     gap: 30px;
     width: 100%;
     height: 100px;
-    margin: 110px 32px 32px 0;
 }
 
 .arrow-left:hover {
@@ -99,11 +98,27 @@ a:hover {
     color: #29ABE2
 }
 
-.scroll {
-    height: calc(100vh - 10%);;
+.scroll-help {
+    height: calc(100vh - 10%);
     display: flex;
     justify-content: center;
     overflow: auto;
+}
+
+.scroll-imprint {
+    height: calc(100vh - 10%);
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.content-container-legal {
+    height: 100vh;
+    width: calc(100vw - 232px);
+    margin-left: 232px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .legal-policy-box {
@@ -181,6 +196,7 @@ p, h2, h3, ul, li {
         width: 100vw;
     }
 
+    .content-container-legal,
     .content-container-help {
         width: 100vw;
         margin-left: 0;
@@ -216,5 +232,18 @@ p, h2, h3, ul, li {
 
     .text-help {
         width: 100%;
+        list-style: none;
+        padding: 0px;
+    }
+
+    .scroll-imprint,
+    .scroll-help {
+        height: calc(100vh - 20%);
+        overflow-x: hidden;
+    }
+
+    .content-container-legal,
+    .content-container-help {
+        align-items: center;
     }
 }

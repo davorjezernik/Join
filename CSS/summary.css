@@ -16,8 +16,20 @@ body {
     justify-content: center;
 }
 
+.main-content-privacy {
+    height: 100vh;
+    display: flex;
+    align-items: flex-end; 
+}
+
 .content-container {
     height: 100vh;
+    width: calc(100vw - 232px);
+    margin-left: 232px;
+}
+
+.content-container-privacy {
+    height: calc(100vh - 10%);
     width: calc(100vw - 232px);
     margin-left: 232px;
 }
@@ -219,4 +231,20 @@ body {
     font-size: 55px;
     font-weight: 700;
     color: #29ABE2;
+}
+
+@media (max-width: 1024px)  {
+    .main-content-privacy {
+        align-items: center; 
+    }
+
+    .content-container-privacy {
+        height: calc(100vh - 20%);
+        width: 100vw;
+        margin-left: 0;  
+    }
+    
+    .parent-container-privacy {
+        height: calc(100vh - 20%);
+    } 
 }
