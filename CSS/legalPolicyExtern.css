@@ -12,10 +12,34 @@
     .tools-container {
         display: none;
     }
+    .extern-height {
+        height: calc(100vh - 92px);
+    }
+    .extern-end {
+        align-items: flex-end;
+    }
+    .exttra-height {
+        height: calc(100vh - 10%);
+    }
+    .height-100 {
+        height: 100vh;
+    }
+    .overflow-hidden {
+        overflow: hidden;
+    }
+    .margin-bottom {
+        margin-bottom: 64px;
+    }
 }
 
 @media (max-width: 900px) {
     .parent-container {
         height: calc(100vh - 92px)
+    }
+    .parent-extern {
+        height: calc(100vh - 10%)
+    }
+    .height-100 {
+        height: 100vh;
     }
 }

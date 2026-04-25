@@ -177,10 +177,11 @@ p, h2, h3, ul, li {
     height: 100%;
     overflow-x: auto;
     padding-right: 12px;
+    padding-bottom: 64px;
 }
 
 .margin-bottom {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
 
 .content-container-help {
@@ -209,8 +210,8 @@ p, h2, h3, ul, li {
     }
 
     .help-legal-privacy {
-        padding: 0 16px;
-        width: 90%;
+        width: 100%;
+        padding: 0px;
     }
 
     .help-legal-privacy-headline {
