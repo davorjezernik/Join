@@ -34,6 +34,14 @@
         flex-direction: column;
     }
 
+    .adjust-width {
+        width: 100%;
+    }
+
+     .board-task-set-up {
+        flex-direction: column;
+    }
+
     .board-task-set-up {
         display: flex;
         gap: 8px;
@@ -53,7 +61,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 8px;
-        overflow-y: auto;
+        overflow: auto;
         padding: 3px;
     }
 
@@ -86,8 +94,9 @@
     }
 
     .open-tasks-container {
-        height: 80%;
+        height: 90%;
         width: 100vw;
+        overflow-x: hidden;
     }
 
     .task-width {
@@ -166,6 +175,16 @@
 
    .details-container {
     gap: 12px;
+   }
+
+   .adjust-width {
+    width: 70%;
+   }
+}
+
+@media(max-width: 400px) {
+   .adjust-width {
+    width: 65%;
    }
 }
 

@@ -92,11 +92,12 @@ h1 {
 }
 
 .open-tasks-container {
-    height: 90%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-x: auto;
+    justify-content: flex-end;
 }
 
 .find-task-button-and-input {
