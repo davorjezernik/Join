@@ -4,6 +4,7 @@
     width: 456px;
     background-color: white;
     box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
+    overflow: auto;
 }
 
 .contact-box {
@@ -13,9 +14,10 @@
 }
 
 .add-contact-box {
-    display: flex;
-    justify-content: center;
-    height: 101px;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    padding: 8px 120px 8px 8px;
+    top: 10%;
 }
 
 .button-add-contacts {
@@ -33,6 +35,10 @@
     border: unset;
     gap: 16px;
     box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.margin-top {
+    margin-top: 101px;
 }
 
 .button-edit-contacts {
@@ -69,7 +75,6 @@
 
 #filteredContactsContainer {
     width: 100%;
-    padding: 0 20px 0 20px;
 }
 
 .seperator {
@@ -87,6 +92,14 @@
     font-size: 20px;
     padding-left: 20px;
     border-radius: 10px;
+}
+
+.content-container-contacts {
+    height: 100vh;
+    width: calc(100vw - 232px);
+    margin-left: 232px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .contact-data:hover {
@@ -213,7 +226,7 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    z-index: 5;
+    z-index: 999;
 }
 
 .add-new-contact {
@@ -223,6 +236,12 @@
     border-radius: 30px;
     transform: translateX(113%);
     transition: transform 0.4s;
+}
+
+.parent-container {
+    height: calc(100vh - 10%);
+    width: 100%;
+    overflow: hidden;
 }
 
 .add-contact-left {
@@ -506,12 +525,28 @@ fieldset {
 }
 
 @media(max-width: 1024px) {
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
     .parent-container {
         width: 100vw;
         height: 100% !important;
     }
     .contact-box {
         overflow-y: auto;
+    }
+    .content-container-contacts {
+        margin-left: 0px;
+        width: 100vw;
+    }
+    .content-container-contacts {
+        height: 80vh;
+    }
+    .add-contact-box {
+        padding: 8px 96px 8px 8px;
     }
 }
 
