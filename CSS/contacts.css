@@ -1,4 +1,4 @@
-.contacts-container {
+.contacts-container-contacts {
     display: flex;
     flex-direction: column;
     width: 456px;
@@ -16,7 +16,6 @@
 .add-contact-box {
     position: fixed;
     background-color: rgb(255, 255, 255);
-    padding: 8px 120px 8px 8px;
     top: 10%;
 }
 
@@ -545,9 +544,6 @@ fieldset {
     .content-container-contacts {
         height: 80vh;
     }
-    .add-contact-box {
-        padding: 8px 96px 8px 8px;
-    }
 }
 
 @media (max-width: 1150px) {
@@ -650,6 +646,11 @@ fieldset {
         display: none;
     }
 
+    .contacts-container-contacts {
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+
     .contacts-container {
         width: 100%;
         flex-direction: column-reverse;
@@ -662,6 +663,10 @@ fieldset {
 
     .button-txt {
         display: none;
+    }
+
+    .margin-top {
+        margin-top: 0;
     }
 
     .button-add-contacts,
@@ -679,6 +684,7 @@ fieldset {
         margin: 0 16px 32px 0;
         height: unset;
         right: 0;
+        top: 74%;
         bottom: 80px;
     }
 
@@ -707,7 +713,7 @@ fieldset {
     }
 
     .initial-box {
-        width: 90%;
+        width: 100%;
     }
 
     #filteredContactsContainer {

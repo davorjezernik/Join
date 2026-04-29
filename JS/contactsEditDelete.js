@@ -41,6 +41,20 @@ function closeContactMobile() {
 function openEditSmallMenu() {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
     editDeleteMenuBox.classList.remove('d-none');
+    setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutsideEditMenu);
+    }, 0);
+}
+
+/**
+ * Handles closing the edit menu when clicking outside of it
+ */
+function handleClickOutsideEditMenu(event) {
+    const menu = document.getElementById('editDeleteMenuBox');
+    if (menu && !menu.classList.contains('d-none') && !menu.contains(event.target)) {
+        menu.classList.add('d-none');
+        document.removeEventListener('mousedown', handleClickOutsideEditMenu);
+    }
 }
 
 
