@@ -28,10 +28,18 @@ function closeContactMobile() {
     let contactsContainer = document.getElementById('contactsContainer');
     let contactHeadline = document.getElementById('contactHeadline');
     let arrowContact = document.getElementById('arrowContact');
+    let btnEditContacts = document.getElementById('btnEditContacts');
     contactBigContainer.style.display = 'none';
     contactsContainer.classList.remove('d-none');
     contactHeadline.style.display = 'none';
     arrowContact.style.display = 'none';
+    if (btnEditContacts) {
+        btnEditContacts.classList.add('d-none');
+    }
+    let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
+    if (editDeleteMenuBox) {
+        editDeleteMenuBox.classList.add('d-none');
+    }
 }
 
 

@@ -6,7 +6,7 @@
 
 @media (max-width: 1300px) {
     .contact-headline {
-        margin: 15px 0 32px 55px;
+        margin: 15px 0 32px 24px;
     }
 }
 
@@ -164,7 +164,7 @@
     }
 
     .contact-data {
-        gap: 18px;
+        gap: 8px;
     }
 
     .contacts-name {
