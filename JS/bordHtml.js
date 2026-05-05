@@ -82,9 +82,19 @@ function generateModalContent(task, i) {
             <div class="subtasks-opened">${generateSubtasksHtml(task['task']['subtasks'], i)}</div>
         </div>
         <div class="edit-delete-task-container">
-            <img onclick="deleteTask(${i})" class="pointer" src="./img/delete_contact.png">
+        <div class="edit-delete">
+            <img onclick="deleteTask(${i})" class="pointer" src="./img/delete.png">
+            <a class="font-color" onclick="deleteTask(${i})">
+                Delete
+            </a>
+        </div>     
             <div style="font-size: 12px;">|</div>
-            <img onclick="editTask(${i})" class="pointer" src="./img/edit_contacts.png">
+        <div class="edit-delete">
+            <img onclick="editTask(${i})" class="pointer" src="./img/edit.png">
+             <a class="font-color" onclick="editTask(${i})">
+                Edit
+            </a>
+        </div>     
         </div>
         </div>
     `;

@@ -182,7 +182,7 @@
 }
 
 .edit-delete-box img {
-    height: 24px;
+    height: 18px;
 }
 
 .edit-delete-box img:hover {
@@ -361,10 +361,6 @@
     gap: 16px;
 }
 
-.edit-delete-box img {
-    height: 24px;
-}
-
 .edit-delete-box img:hover {
     cursor: pointer;
 }
@@ -379,7 +375,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px;
+    align-items: center;
     bottom: 108px;
     right: 16px;
     z-index: 1;
@@ -492,6 +488,48 @@
 
 fieldset {
     border: none;
+}
+
+.font-color {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
+.edit-delete {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-delete-mobile {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+}
+
+.edit-delete img.pointer {
+    transition: filter 0.2s;
+}
+.edit-delete img.pointer:hover {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(749%) hue-rotate(156deg) brightness(97%) contrast(90%);
+}
+
+.edit-delete a.font-color {
+    transition: color 0.2s;
+}
+.edit-delete a.font-color:hover {
+    color: #29ABE2;
+}
+
+.edit-delete:hover img.pointer {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(749%) hue-rotate(156deg) brightness(97%) contrast(90%);
+}
+.edit-delete:hover a.font-color {
+    color: #29ABE2;
 }
 
 @media (max-width: 1500px) {

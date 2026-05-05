@@ -639,3 +639,36 @@ h1 {
     margin: 8px 0 0 -16px;
 }
 
+.font-color {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
+.edit-delete {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-delete img.pointer {
+    transition: filter 0.2s;
+}
+.edit-delete img.pointer:hover {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(749%) hue-rotate(156deg) brightness(97%) contrast(90%);
+}
+
+.edit-delete a.font-color {
+    transition: color 0.2s;
+}
+.edit-delete a.font-color:hover {
+    color: #29ABE2;
+}
+
+.edit-delete:hover img.pointer {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(749%) hue-rotate(156deg) brightness(97%) contrast(90%);
+}
+.edit-delete:hover a.font-color {
+    color: #29ABE2;
+}

@@ -81,6 +81,13 @@
 @media(max-width: 1025px) {
     .content-container-board {
         margin-left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .adjust-width {
+        width: 90%;
     }
 
     .board-position-lower {
@@ -94,9 +101,10 @@
     }
 
     .open-tasks-container {
-        height: 90%;
+        height: calc(100vh - 20%);
         width: 100vw;
         overflow-x: hidden;
+        justify-content: center;
     }
 
     .task-width {
@@ -163,28 +171,45 @@
     }
 }
 
+@media(max-width: 800px) {
+   .adjust-width {
+        width: 70%;
+    }
+
+}
+
 
 @media(max-width: 500px) {
     .parent-Container-for-addTask-board {
         width: 95%;
     }
+
+    .adjust-width {
+        width: 350px;
+    }
+
    .button-prio-width {
-    gap: 1px;
-    flex-wrap: wrap;
-   }
+        gap: 1px;
+        flex-wrap: wrap;
+    }
 
    .details-container {
-    gap: 12px;
-   }
+        gap: 12px;
+    }
 
-   .adjust-width {
-    width: 70%;
-   }
 }
 
 @media(max-width: 400px) {
    .adjust-width {
-    width: 65%;
+        width: 320px;
+    }
+
+   .txt-svg-cetering {
+        width: 90%;
+    }
+
+   .position-relative {
+        width: 90%;
    }
 }
 

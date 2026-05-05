@@ -32,8 +32,20 @@ function getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, emai
                 <div class="full-name">
                     <div id="nameOfContact">${name}</div>
                     <div class="edit-delete-box">
-                            <img onclick="openEditContact(${i})" src="./img/edit_contacts.png">
-                            <img onclick="deleteContact('${contactId}')" src="./img/delete_contact.png">
+                        <div class="edit-delete">
+                            <img onclick="openEditContact(${i})" src="./img/edit.png" class="pointer">
+                            <a onclick="openEditContact(${i})" class="font-color">
+                                Edit
+                            </a>
+                        </div>
+                            
+                        <div class="edit-delete">
+                            <img onclick="deleteContact('${contactId}')" src="./img/delete.png" class="pointer">
+                            <a onclick="deleteContact('${contactId}')" class="font-color">
+                                Delete
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -68,16 +80,12 @@ function getAddNewContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
                         <div class="add-contact-data">
-
                             <input id="name" placeholder="Name" type="text" class="name-input" onkeyup="validateName('name', 'nameCorrectIncorrect')">
                             <div id="nameCorrectIncorrect" class="correct-incorrect"></div>
-
                             <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onkeyup="validateEmail('email', 'emailCorrectIncorrect')">
                             <div id="emailCorrectIncorrect" class="correct-incorrect"></div>
-
                             <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onkeyup="validateNumber('number', 'numberCorrectIncorrect')">
                             <div id="numberCorrectIncorrect" class="correct-incorrect"></div>
-
                             <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">
@@ -184,7 +192,17 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
 
 function getEditDeleteMenuBoxHtml(contactId) {
     return `
-    <button onclick="editOpenedContactInMobileView()"><img src="./img/edit_contacts.png"></button>
-    <button onclick="deleteContactMobileView(${contactId})"><img src="./img/delete_contact.png"></button>
+    <div class="edit-delete-mobile">
+        <img src="./img/edit.png" onclick="editOpenedContactInMobileView()" class="pointer">
+        <a onclick="editOpenedContactInMobileView()" class="font-color">
+            Edit
+        </a>
+    </div>
+    <div class="edit-delete-mobile">
+        <img src="./img/delete.png" onclick="deleteContactMobileView(${contactId})" class="pointer">
+        <a onclick="deleteContactMobileView(${contactId})" class="font-color">
+            Delete
+        </a>
+    </div>
     `
 }
