@@ -100,6 +100,10 @@ h1 {
     justify-content: flex-end;
 }
 
+.inner-board-container {
+    height: calc(100% - 10%);
+}
+
 .find-task-button-and-input {
     display: flex;
     gap: 8px;
