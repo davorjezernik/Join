@@ -5,7 +5,7 @@
 
     .board-position-lower {
         width: 100%;
-        min-height: 0;
+        min-height: 920px;
         max-height: calc(100vh - 200px);
         overflow-x: auto;
         overflow-y: hidden;
@@ -48,11 +48,12 @@
     }
 
     .inner-board-container {
+        height: 100%;
         width: 90%;
     }
 
     .txt-svg-cetering {
-        width: 95%;
+        width: 94%;
     }
 
     .position-relative {
@@ -176,6 +177,14 @@
 
     .seperate-line {
         margin-top: 3px;
+    }
+
+    .upper-board {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
     .input-with-img-smal-scren {
