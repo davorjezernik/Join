@@ -823,3 +823,14 @@ fieldset {
     }
 }
 
+@media (max-width: 350px) {
+    #filteredContactsContainer {
+        margin: 0px;
+    }
+    .contact-box {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+

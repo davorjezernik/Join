@@ -113,4 +113,8 @@
         top: 20px;
         left: 20px;
     }
+
+    .signup-successful-container {
+        height: 150%;
+    }
 }
