@@ -9,12 +9,13 @@ function showLoggedUserInitials() {
         let spaceIndex = name.indexOf(' ');
         let firstLetterOfName = name.charAt(0);
         let firstLetterOfLastName = name.charAt(spaceIndex + 1);
-        if (name && name === 'Guest') {
-            let roundContainer = document.getElementById('userInitialsRoundContainer');
-            roundContainer.innerHTML = `${firstLetterOfName}`;
-        } else {
-            let roundContainer = document.getElementById('userInitialsRoundContainer');
-            roundContainer.innerHTML = `${firstLetterOfName}${firstLetterOfLastName}`;
+        let roundContainer = document.getElementById('userInitialsRoundContainer');
+        if (roundContainer) {
+            if (name && name === 'Guest') {
+                roundContainer.innerHTML = `${firstLetterOfName}`;
+            } else {
+                roundContainer.innerHTML = `${firstLetterOfName}${firstLetterOfLastName}`;
+            }
         }
     }
 }

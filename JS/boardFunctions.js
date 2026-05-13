@@ -120,10 +120,24 @@ function updateLoadBar(i) {
  */
 function filterTask() {
     let clickHere = document.getElementById('clickHere');
+    // Try both desktop and mobile search inputs
     let searchInput = document.getElementById('search');
-    let search = searchInput.value.toLowerCase();
+    let searchInputSmall = document.getElementById('searchSmall');
+    let search = '';
+    if (searchInput && searchInput === document.activeElement) {
+        search = searchInput.value.toLowerCase();
+    } else if (searchInputSmall && searchInputSmall === document.activeElement) {
+        search = searchInputSmall.value.toLowerCase();
+    } else if (searchInput && searchInput.value) {
+        search = searchInput.value.toLowerCase();
+    } else if (searchInputSmall && searchInputSmall.value) {
+        search = searchInputSmall.value.toLowerCase();
+    }
+    if (!clickHere) {
+        console.warn('Element with id "clickHere" not found.');
+    }
     if (search.length >= 3) {
-        clickHere.classList.remove('display-none-a');
+        if (clickHere) clickHere.classList.remove('display-none-a');
         filterWithSearchTerm(search.slice(0, 3));
         removeSpecificColorFromDragArea();
     } else if (search.length === 0) {
@@ -143,6 +157,12 @@ function filterWithSearchTerm(searchTerm) {
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);
         let taskCard = document.getElementById(`task${i}`);
+        if (!taskTitleElement) {
+            console.warn(`taskTitle${i} not found.`);
+        }
+        if (!taskCard) {
+            console.warn(`task${i} not found.`);
+        }
         if (taskTitleElement && taskCard) {
             let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
             if (taskTitle.includes(searchTerm)) {
@@ -153,7 +173,12 @@ function filterWithSearchTerm(searchTerm) {
             }
         }
     }
-    document.getElementById('taskCount').innerText = matchingTaskCount;
+    let taskCountElem = document.getElementById('taskCount');
+    if (taskCountElem) {
+        taskCountElem.innerText = matchingTaskCount;
+    } else {
+        console.warn('Element with id "taskCount" not found.');
+    }
 }
 
 
@@ -169,6 +194,7 @@ function clearClickHere() {
             taskCard.style.display = 'block';
         }
     }
+
     document.getElementById('taskCount').innerText = '0';
 }
 

@@ -56,6 +56,10 @@
         width: 94%;
     }
 
+    .board-position-lower {
+        min-height: 1280px;
+    }
+
     .position-relative {
         width: 90%;
    }

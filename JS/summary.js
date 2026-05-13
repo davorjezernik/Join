@@ -215,20 +215,28 @@ async function displayUpcomingDeadline() {
 
 function changeBgColorMenu() {
     if (window.location.pathname.includes('summary.html')) {
-        document.getElementById('summary').style.backgroundColor = '#091931';
+        let el = document.getElementById('summary');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('addTask.html')) {
-        document.getElementById('addTask').style.backgroundColor = '#091931';
+        let el = document.getElementById('addTask');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('board')) {
-        document.getElementById('board').style.backgroundColor = '#091931';
+        let el = document.getElementById('board');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('contacts.html')) {
-        document.getElementById('contact').style.backgroundColor = '#091931';
+        let el = document.getElementById('contact');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('legalNotice')) {
-        document.getElementById('legalNotice').style.backgroundColor = '#091931';
+        let el = document.getElementById('legalNotice');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('privacyPolicy')) {
-        document.getElementById('privacyPolicy').style.backgroundColor = '#091931';
+        let el = document.getElementById('privacyPolicy');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('legalNoticeExtern')) {
-        document.getElementById('legalNoticeExtern').style.backgroundColor = '#091931';
+        let el = document.getElementById('legalNoticeExtern');
+        if (el) el.style.backgroundColor = '#091931';
     } else if (window.location.pathname.includes('privacyPolicyExtern')) {
-        document.getElementById('privacyPolicyExtern').style.backgroundColor = '#091931';
+        let el = document.getElementById('privacyPolicyExtern');
+        if (el) el.style.backgroundColor = '#091931';
     }
 }

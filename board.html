@@ -249,9 +249,9 @@
                 </div>
             </div>
             <div class="input-with-img-smal-scren">
-                <input class="find-task-input" placeholder="Find Task">
+                <input class="find-task-input" placeholder="Find Task" id="searchSmall" minlength="4" onkeyup="filterTask()">
                 <div class="seperate-line"></div>
-                <img src="./img/boardImg/search.svg" class="input-svg">
+                <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
             </div> 
             </section>           
             <div id="clickHere" class="click-here-box display-none-a">
