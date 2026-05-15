@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: "Inter", sans-serif;
     height: 100vh;
+    background-color: rgb(245, 246, 247);
 }
 
 .signup-successful-container,
@@ -51,29 +52,6 @@ body {
     display: none;
 }
 
-.intro-img {
-    animation: moveUp ease-in-out 1500ms;
-    animation-fill-mode: forwards;
-    width: 100px;
-    height: 130px;
-    position: absolute;
-    top: 40%;
-    left: 47%;
-    z-index: 10;
-}
-
-.intro-img-responsive {
-    display: none;
-    animation: moveUp ease-in-out 1500ms;
-    animation-fill-mode: forwards;
-    height: 130px;
-    width: 100px;
-    position: absolute;
-    top: 40%;
-    left: 47%;
-    z-index: 10;
-}
-
 .join-icon-signup {
     position: absolute;
     width: 65px;
@@ -106,15 +84,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.not-user-container {
-    position: absolute;
-    top: 70px;
-    right: 100px;
-    display: flex;
-    align-items: center;
-    gap: 35px;
 }
 
 .no-user-text {
@@ -474,6 +443,130 @@ fieldset {
     height: 16px;
     display: flex;
     justify-content: center;
+}
+
+.header-login {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    width: 100%;
+    max-width: 1400px;
+
+    padding: 60px 24px;
+    margin: 0 auto;
+
+    box-sizing: border-box;
+}
+
+.not-user-container {
+    top: 70px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.not-user-container-phone {
+    display: none;
+}
+
+.not-user-container-desktop {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+
+    z-index: 50;
+}
+
+.intro-img {
+    width: 100px;
+    height: 120px;
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.8);
+    animation: introAnimation 2s ease-in-out forwards;
+}
+
+.intro-img-responsive {
+    display: none;
+    animation: moveUp 1500ms ease-in-out 900ms forwards;
+    animation-fill-mode: forwards;
+    height: 130px;
+    width: 100px;
+    position: absolute;
+    top: 40%;
+    left: 47%;
+    z-index: 10;
+}
+
+.intro-img-phone {
+    animation: fadeIn 400ms ease-in-out 600ms forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes introAnimation {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.8);
+    }
+    100% {
+        top: 56px;
+        left: calc((100vw - min(1400px, 100vw)) / 2 + 24px);
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+.intro-img-phone {
+    display: none;
+}
+
+@media (max-width: 1401px) {
+    .header-login {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .not-user-container-phone {
+        display: block;
+    }
+    .not-user-container-desktop {
+        display: none;
+    }
+
+    .logo-desktop {
+        display: none;
+    }
+
+    .intro-img-phone {
+        display: block;
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: 64px;
+        height: 80px;
+    }
+
+    .intro-img {
+        animation: moveUp ease-in-out 1500ms;
+        animation-fill-mode: forwards;
+        width: 100px;
+        height: 130px;
+        position: absolute;
+        top: 40%;
+        left: 47%;
+        z-index: 10;
+    }
 }
 
 @media (max-width: 680px) {

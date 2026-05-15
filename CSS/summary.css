@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: "Inter", sans-serif;
+    background-color: #F6F7F8;
 }
 
 .main-content {
@@ -8,12 +9,12 @@ body {
 }
 
 .parent-container-summary {
-    background-color: #F6F7F8;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    margin-left: 64px;
 }
 
 .main-content-privacy {
@@ -233,7 +234,17 @@ body {
     color: #29ABE2;
 }
 
+@media (max-width: 1200px) {
+    .parent-container-summary {
+        margin-left: 0px;
+    }
+}
+
 @media (max-width: 1024px)  {
+    .parent-container-summary {
+        align-items: center;
+    }
+
     .main-content-privacy {
         align-items: center; 
     }

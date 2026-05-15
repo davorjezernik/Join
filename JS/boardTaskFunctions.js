@@ -84,16 +84,19 @@ async function processTasks(containers) {
  * @param {number} i 
  */
 async function zoomTaskInfo(i) {
-    const modal = document.getElementById(`myModal${i}`);
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    setCategoryColorOpened(i);
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            closeModal(modal);
-        }
+    try {
+        const modal = document.getElementById(`myModal${i}`);
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+        setCategoryColorOpened(i);
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeModal(modal);
+            }
+        };
+        generatePriorityImgOpened(i);
+    } catch (error) {
     }
-    generatePriorityImgOpened(i);
 }
 
 

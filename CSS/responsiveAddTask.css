@@ -50,7 +50,7 @@
         justify-content: flex-start;
         height: calc(100vh - 54%);
         overflow-x: scroll;
-        padding: 0 16px;
+        padding: 0 8px;
         margin: unset;
         width: 100%;
     }
@@ -107,5 +107,11 @@
     .button-prio-width {
         justify-content: space-evenly;
         margin: 1px;
+    }
+}
+
+@media (max-width: 800px) {
+    .main-container-task {
+        margin-left: 0px;
     }
 }
