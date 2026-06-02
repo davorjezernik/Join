@@ -234,6 +234,10 @@ body {
     color: #29ABE2;
 }
 
+.intern-display-none {
+    display: none;
+}
+
 @media (max-width: 1200px) {
     .parent-container-summary {
         margin-left: 0px;

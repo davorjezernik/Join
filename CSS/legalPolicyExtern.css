@@ -1,6 +1,9 @@
 .help-container,
-.tools-box,
 .policy-container {
+    display: none;
+}
+
+.display-none-extern {
     display: none;
 }
 
