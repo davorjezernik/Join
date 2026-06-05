@@ -78,6 +78,10 @@ a:hover {
     font-weight: 700;
 }
 
+.width-1400 {
+    width: 1400px;
+}
+
 .guide-text {
     font-size: 16px;
     font-weight: 400;
@@ -102,14 +106,13 @@ a:hover {
     height: calc(100vh - 10%);
     display: flex;
     justify-content: center;
-    overflow: auto;
 }
 
 .scroll-imprint {
     height: calc(100vh - 10%);
     display: flex;
     justify-content: center;
-    overflow: auto;
+    width: 1400px;
 }
 
 .content-container-legal {
@@ -118,7 +121,6 @@ a:hover {
     margin-left: 232px;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
 }
 
 .legal-policy-box {
@@ -175,7 +177,6 @@ p, h2, h3, ul, li {
 
 .content-privacy-policy {
     height: 100%;
-    overflow-x: auto;
     padding-right: 12px;
     padding-bottom: 64px;
 }
@@ -184,12 +185,35 @@ p, h2, h3, ul, li {
     margin-bottom: 24px;
 }
 
+.margin-bottom-128 {
+    margin-bottom: 64px;
+}
+
 .content-container-help {
     height: 100vh;
     width: calc(100vw - 232px);
     margin-left: 232px;
     display: flex;
     align-items: flex-end;
+}
+
+.color-background {
+    color: rgb(245, 246, 247);
+}
+
+@media (max-width: 1700px) {
+    .width-1400 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1600px) {
+    .scroll-imprint {
+        overflow: auto;
+    }
+    .scroll-help {
+        overflow: auto;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -210,17 +234,17 @@ p, h2, h3, ul, li {
     }
 
     .help-legal-privacy {
-        width: 100%;
-        padding: 0px;
+        padding: 0px 12px;
     }
 
     .help-legal-privacy-headline {
-        margin: 48px 32px 32px 0;
+        margin: 48px 0px 32px 0;
         height: unset;
+        gap: 0px;
     }
 
     .join-360 {
-        font-size: 38px;
+        font-size: 37px;
     }
 
     .text-help {

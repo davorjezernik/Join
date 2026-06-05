@@ -33,6 +33,7 @@ body {
     height: calc(100vh - 10%);
     width: calc(100vw - 232px);
     margin-left: 232px;
+    overflow: auto;
 }
 
 .summary-headline {
