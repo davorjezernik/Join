@@ -151,7 +151,7 @@
 
 @media (max-width: 600px) {
     .main-container-signup {
-        margin-top: 80px;
+        margin-top: 16px;
     }
 
     .arrow-left-line {
@@ -260,7 +260,7 @@
 @media (max-width: 680px) {
     .background {
         position: static;
-        height: 960px;
+        height: 720px;
     }
     .arrowcontainer {
         margin-left: 16px;

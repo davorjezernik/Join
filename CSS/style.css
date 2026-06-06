@@ -205,8 +205,8 @@ body {
     outline: unset;
     Padding-top: 12px;
     padding-bottom: 12px;
-    padding-left: 21px;
-    padding-right: 21px;
+    padding-left: 18px;
+    padding-right: 18px;
     background-image: url('../img/mail.png');
     background-repeat: no-repeat;
     background-position: 95%;
@@ -366,7 +366,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 32px;
-    margin: 16px 0px;
+    margin: 8px 0px;
 }
 
 .login-button {
@@ -487,12 +487,21 @@ fieldset {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.8);
-    animation: introAnimation 2s ease-in-out forwards;
+    animation: introAnimation 0.5s ease-in-out forwards;
+}
+
+.static-img-signup {
+    width: 100px;
+    height: 120px;
+    position: fixed;
+    z-index: 100;
+    left: calc((100vw - min(1400px, 100vw)) / 2 + 24px);
+    top: 56px;
 }
 
 .intro-img-responsive {
     display: none;
-    animation: moveUp 1500ms ease-in-out 900ms forwards;
+    animation: moveUp 500ms ease-in-out 500ms forwards;
     animation-fill-mode: forwards;
     height: 130px;
     width: 100px;
@@ -503,8 +512,12 @@ fieldset {
 }
 
 .intro-img-phone {
-    animation: fadeIn 400ms ease-in-out 600ms forwards;
+    animation: fadeIn 400ms ease-in-out 500ms forwards;
     opacity: 0;
+}
+
+.not-user-text {
+    margin-bottom: 8px;
 }
 
 @keyframes fadeIn {
@@ -530,9 +543,19 @@ fieldset {
     display: none;
 }
 
+.static-img-phone-signup {
+    display: none;
+}
+
 @media (max-width: 1401px) {
     .header-login {
         width: 100%;
+    }
+}
+
+@media (max-height: 600px) {
+    .data-container {
+        margin: 0px;
     }
 }
 
@@ -557,8 +580,17 @@ fieldset {
         height: 80px;
     }
 
+    .static-img-phone-signup {
+        display: block;
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: 64px;
+        height: 80px;
+    }
+
     .intro-img {
-        animation: moveUp ease-in-out 1500ms;
+        animation: moveUp ease-in-out 500ms;
         animation-fill-mode: forwards;
         width: 100px;
         height: 130px;
@@ -572,7 +604,9 @@ fieldset {
 @media (max-width: 680px) {
     .background {
         position: static;
-        height: 960px;
+        height: 420px;
+        gap: 16px;
+        justify-content: flex-start;
     }
 }
 
@@ -582,8 +616,5 @@ fieldset {
     }
     .main-container {
         height: 360px;
-    }
-    .background {
-        gap: 24px;
     }
 }

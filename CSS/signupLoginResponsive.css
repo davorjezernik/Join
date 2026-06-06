@@ -69,10 +69,14 @@
 
 @media (max-width: 680px) {
     .background-animation {
-        animation: backgroundAnimationResponsive ease-in-out 2000ms;
+        animation: backgroundAnimationResponsive ease-in-out 500ms;
         animation-fill-mode: forwards;
         background-color: #2A3647;
         height: 960px;
+    }
+
+    .main-container {
+        margin-top: 8px;
     }
 }
 
@@ -95,12 +99,12 @@
     }
 
     .intro-img {
-        animation: moveUpResponsiveBlue ease-in-out 1500ms;
+        animation: moveUpResponsiveBlue ease-in-out 500ms;
         animation-fill-mode: forwards;
     }
 
     .intro-img-responsive {
-        animation: moveUpResponsiveWhite ease-in-out 1500ms;
+        animation: moveUpResponsiveWhite ease-in-out 500ms;
         animation-fill-mode: forwards;
         display: unset;
     }
