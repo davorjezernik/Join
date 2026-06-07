@@ -100,13 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.main-container-signup');
     const button = document.querySelector('.sign-up-button');
 
-    form.addEventListener('input', () => {
-        button.disabled = !form.checkValidity();
-    });
+    const updateSignupButtonState = () => {
+        const nameValue = document.getElementById('name').value.trim();
+        const emailValue = document.getElementById('email').value.trim();
+        const passwordValue = document.getElementById('password').value.trim();
+        const confirmedPasswordValue = document.getElementById('confirmedPassword').value.trim();
+        const allFilled = nameValue && emailValue && passwordValue && confirmedPasswordValue;
+        const passwordsMatch = passwordValue === confirmedPasswordValue;
+        button.disabled = !(allFilled && passwordsMatch && form.checkValidity());
+    };
 
-    form.addEventListener('change', () => {
-        button.disabled = !form.checkValidity();
-    });
+    form.addEventListener('input', updateSignupButtonState);
+    form.addEventListener('change', updateSignupButtonState);
+    updateSignupButtonState();
 });
 
 
@@ -136,14 +142,14 @@ function validateName() {
     const nameInput = document.getElementById('name');
     let correctIncorrect = document.getElementById('nameCorrectIncorrectS');
     const nameValue = nameInput.value.trim();
-    const nameRegex = /^[A-Za-z]+(\s+[A-Za-z]+)+$/;
+    const nameRegex = /^[A-Za-z]+$/;
     if (nameRegex.test(nameValue)) {
         nameInput.style.borderColor = 'green'; 
         correctIncorrect.textContent = '';
         correctIncorrect.style.color = 'green';
     } else {
         nameInput.style.borderColor = 'red'; 
-        correctIncorrect.textContent = '- Input Name Surname (letters only)';
+        correctIncorrect.textContent = 'Input Name (letters only)';
         correctIncorrect.style.color = 'red';
     }
 }

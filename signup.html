@@ -34,20 +34,17 @@
                 </div>
             </section>
             <section class="data-container">
-                <input id="name" placeholder="Name" type="text" required class="name-input margin-input" onkeyup="validateName()">
+                <input id="name" placeholder="Name" type="text" required class="name-input margin-input" onblur="validateName()">
                 <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
-
-                <input id="email" placeholder="Email" type="email" required class="email-input margin-input" onkeyup="validateEmailS()">
+                <input id="email" placeholder="Email" type="email" required class="email-input margin-input" onblur="validateEmailS()">
                 <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
-
                 <div class="password-container">
-                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onkeyup="validatePassword(this)"/>
+                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
                     <div class="toggle-password" onclick="togglePassword('password')"></div>
                 </div>
                 <div id="passwordOneCorrectIncorrect" class="correct-incorrect"></div>
-
                 <div class="password-container">
-                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onkeyup="validatePassword(this)"/>
+                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
                     <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
                 </div>
                 <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>
@@ -59,7 +56,7 @@
                 </div>
                 <div id="policyErrorMsg" class="error-message" style="color: red;"></div>
             </section>
-            <button class="sign-up-button pointer color-blue-button font-size-21" type="submit">
+            <button class="sign-up-button pointer color-blue-button font-size-21" type="submit" disabled>
                 Sign up
             </button>     
         </form>
