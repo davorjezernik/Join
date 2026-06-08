@@ -96,7 +96,7 @@
         justify-content: center;
         flex-direction: column;
         padding-left: 10px;
-        height: 20%;
+        height: 16%;
         font-size: 18px;
         gap: 8px;
         width: 90%;
@@ -133,7 +133,13 @@
 
 @media (max-height: 700px) {
     .parent-container-summary {
-        height: 800px;
+        height: 664px;
+    }
+}
+
+@media (max-height: 664px) {
+    .parent-container-summary {
+        height: 700px;
     }
 }
 

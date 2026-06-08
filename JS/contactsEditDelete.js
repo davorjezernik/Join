@@ -89,8 +89,6 @@ async function saveEditContact(contactId) {
         document.getElementById('dialogNewEditContact').classList.add('d-none');
         closeDialog();
         location.reload();
-    } else {
-        console.log("Validation failed. Please correct the inputs.");
     }
 }
 
@@ -127,17 +125,16 @@ function validateName(id, messageId) {
     let nameField = document.getElementById(id);
     let nameMessage = document.getElementById(messageId);
     let name = nameField ? nameField.value.trim() : '';
-    if (!nameField || !/^[\p{L}]+([ '\-][\p{L}]+)+$/u.test(name)) {
-        if (nameField) nameField.style.borderColor = 'red';  
+    let isValidName = /^[A-Za-z ]{1,20}$/.test(name);
+    if (!nameField || !isValidName) {
+        if (nameField) nameField.style.borderColor = 'red';
         if (nameMessage) {
-            nameMessage.textContent = '-Input Name surname (letters only)';
+            nameMessage.textContent = 'Please enter a valid name with letters and spaces only (max 20 characters).';
             nameMessage.style.color = 'red';
         }
         return false;
     } else {
-        const formattedName = formatName(name);
-        nameField.value = formattedName;
-        nameField.style.borderColor = 'green';  
+        nameField.style.borderColor = 'green';
         if (nameMessage) {
             nameMessage.textContent = '';
             nameMessage.style.color = 'green';
@@ -163,10 +160,10 @@ function validateEmail(id, messageId) {
     let emailField = document.getElementById(id);
     let emailMessage = document.getElementById(messageId);
     let email = emailField ? emailField.value.trim() : '';
-    if (!emailField || !/^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]+)+$/.test(email)) {
+    if (!emailField || !/^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]{2,})+$/.test(email)) {
         if (emailField) emailField.style.borderColor = 'red';  
         if (emailMessage) {
-            emailMessage.textContent = 'Input email: exampel@mail.com';
+            emailMessage.textContent = 'Input email: example@mail.com';
             emailMessage.style.color = 'red';
         }
         return false;
@@ -191,7 +188,7 @@ function validateNumber(id, messageId) {
     if (!numberField || !/^\+?\d{7,15}$/.test(number)) {
         if (numberField) numberField.style.borderColor = 'red';  
         if (numberMessage) {
-            numberMessage.textContent = 'Incorrect number. It should be 7-15 digits.';
+            numberMessage.textContent = 'It should be 7-15 digits. It can start with a plus sign.';
             numberMessage.style.color = 'red';
         }
         return false;

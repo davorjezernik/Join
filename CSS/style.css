@@ -443,10 +443,11 @@ body {
 
 .correct-incorrect {
     font-size: 14px;
-    height: 16px;
+    height: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 fieldset {
@@ -571,6 +572,12 @@ fieldset {
 @media (max-height: 600px) {
     .data-container {
         margin: 0px;
+    }
+}
+
+@media (max-height: 666px) {
+    .add-new-contact {
+        height: 600px;
     }
 }
 

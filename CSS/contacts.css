@@ -592,7 +592,7 @@ fieldset {
     }
 
     .add-contact-left {
-        height: 45%;
+        height: 35%;
         align-items: unset;
         justify-content: center;
         border-top-left-radius: 30px;
@@ -605,7 +605,7 @@ fieldset {
     }
 
     .add-contact-right {
-        height: 55%;
+        height: 65%;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         padding: 0 16px 0 16px;
@@ -635,8 +635,10 @@ fieldset {
 
     .edit-img {
         position: absolute;
-        top: 37%;
+        top: 30%;
         margin: unset;
+        height: 100px;
+        width: 100px;
     }
 
     .edit {
@@ -651,7 +653,9 @@ fieldset {
     .contact-img {
         position: absolute;
         padding: unset;
-        top: 33%;
+        top: 30%;
+        margin: 0px;
+        height: 100px;
     }
 
     .close-add-contact {
@@ -672,6 +676,7 @@ fieldset {
         justify-content: center;
     }
 }
+
 
 @media (max-width: 900px) {
     .contact-big-container {
@@ -770,6 +775,18 @@ fieldset {
 
     .arrow-contact:hover {
         cursor: pointer;
+    }
+}
+
+@media (max-height: 666px) {
+    .edit-img {
+        top: 25%;
+    }
+    .dialog-new-contact {
+        overflow-y: auto;
+    }
+    .add-new-contact {
+        height: 600px;
     }
 }
 

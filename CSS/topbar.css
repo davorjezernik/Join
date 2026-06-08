@@ -89,7 +89,7 @@
 
 @media (max-width: 1024px) {
     .header-container {
-        height: 10%;
+        height: 80px;
         padding-left: 20px;
         width: 100vw;
         position: fixed;
@@ -107,6 +107,12 @@
 
     .show {
         display: unset;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        height: 64px;
     }
 }
 

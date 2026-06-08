@@ -80,11 +80,11 @@ function getAddNewContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="name" placeholder="Name" type="text" class="name-input" onkeyup="validateName('name', 'nameCorrectIncorrect')">
+                            <input id="name" placeholder="Name" type="text" class="name-input" onkeydown="validateNameInput(event)" onblur="validateName('name', 'nameCorrectIncorrect')">
                             <div id="nameCorrectIncorrect" class="correct-incorrect"></div>
-                            <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onkeyup="validateEmail('email', 'emailCorrectIncorrect')">
+                            <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onblur="validateEmail('email', 'emailCorrectIncorrect')">
                             <div id="emailCorrectIncorrect" class="correct-incorrect"></div>
-                            <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onkeyup="validateNumber('number', 'numberCorrectIncorrect')">
+                            <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onblur="validateNumber('number', 'numberCorrectIncorrect')">
                             <div id="numberCorrectIncorrect" class="correct-incorrect"></div>
                             <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
@@ -128,11 +128,11 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeydown="validateNameInput(event)" onblur="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
                             <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
                             <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
                             <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
                         </div>
                         <div class="close-create-button">
@@ -168,11 +168,11 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
                     <div id="edit-contactsInitialsBig'${contactId}'" class="edit-img"></div>
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeyup="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeydown="validateNameInput(event)" onblur="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
                             <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onkeyup="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
                             <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onkeyup="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
                             <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
                         </div>
                         <div class="close-create-button">
