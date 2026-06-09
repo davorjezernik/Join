@@ -12,9 +12,6 @@
 }
 
 @media(max-width:1024px) {
-    .tools-container {
-        display: none;
-    }
     .extern-height {
         height: calc(100vh - 92px);
     }
@@ -32,6 +29,9 @@
     }
     .margin-bottom {
         margin-bottom: 64px;
+    }
+    .extern {
+        display: none;
     }
 }
 

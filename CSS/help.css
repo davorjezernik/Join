@@ -1,3 +1,12 @@
 .intern-display-none {
     display: none;
 }
+
+@media (max-width: 1024px) {
+    .menu-tools-container {
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 100%;
+        align-items: center;
+    }
+}
