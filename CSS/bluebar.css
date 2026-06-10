@@ -111,6 +111,10 @@ a:hover {
     display: none;
 }
 
+.menu-tool-privacy-legal {
+    display: none;
+}
+
 @media (max-width: 1024px) {
     .join-icon {
         display: none;
@@ -120,7 +124,7 @@ a:hover {
         padding-top: unset;
         justify-content: center;
         width: 100%;
-        height: 80px;
+        height: 10%;
         position: fixed;
         bottom: 0;
         font-size: 14px;
@@ -145,6 +149,8 @@ a:hover {
         display: flex;
         justify-content: space-between;
         width: 100%;
+        margin: 0px 8px;
+        padding: 8px 0px;
     }
 
     .menu-tool {
@@ -154,17 +160,19 @@ a:hover {
         gap: 8px;
         height: 90%;
         font-size: clamp(0.875rem, 0.75rem + 0.4vi, 1rem);
-        width: 86px;
+        width: 96px;
         border-radius: 20px;
     }
 
     .menu-tool-privacy-legal {
+        display: block;
+        display: flex;
         justify-content: center;
         align-items: center;
         gap: 8px;
         height: 90%;
         font-size: clamp(0.875rem, 0.75rem + 0.4vi, 1rem);
-        width: 256px;
+        width: 216px;
         border-radius: 20px;
     }
 
@@ -190,6 +198,12 @@ a:hover {
 }
 
 @media (max-width: 600px) {
+    .tools-container {
+        height: 64px;
+    }
+}
+
+@media (max-height: 600px) {
     .tools-container {
         height: 64px;
     }
