@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmedPasswordValue = document.getElementById('confirmedPassword').value.trim();
         const allFilled = nameValue && emailValue && passwordValue && confirmedPasswordValue;
         const passwordsMatch = passwordValue === confirmedPasswordValue;
-        button.disabled = !(allFilled && passwordsMatch && form.checkValidity());
+        const policyAccepted = document.getElementById('acceptPolicy').checked;
+        button.disabled = !(allFilled && passwordsMatch && policyAccepted);
     };
 
     form.addEventListener('input', updateSignupButtonState);

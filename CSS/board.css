@@ -102,6 +102,7 @@ h1 {
 
 .inner-board-container {
     height: calc(100% - 10%);
+    width: 90%;
 }
 
 .find-task-button-and-input {
