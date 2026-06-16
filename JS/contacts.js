@@ -70,12 +70,10 @@ async function displayInitialsAndContacts() {
     let contacts = userData.contacts;
     let ownDatas = userData;
     for (let j = 0; j < displayedLetters.length; j++) {
-        for (let j = 0; j < displayedLetters.length; j++) {
-            let contactInitial = document.getElementById(`initialLetter${j}`);
-            let contactsContainer = document.getElementById(`contactsContainer${j}`);
-            contactsContainer.innerHTML = '';
-            displayContactsByInitial(contacts, contactInitial, contactsContainer, ownDatas);
-        }
+        let contactInitial = document.getElementById(`initialLetter${j}`);
+        let contactsContainer = document.getElementById(`contactsContainer${j}`);
+        contactsContainer.innerHTML = '';
+        displayContactsByInitial(contacts, contactInitial, contactsContainer, ownDatas);
     }
 }
 
@@ -90,11 +88,12 @@ async function displayInitialsAndContacts() {
 function displayContactsByInitial(contacts, contactInitial, contactsContainer) {
     Object.keys(contacts).forEach((contactId, i) => {
         let { name, email, backgroundcolor: color } = contacts[contactId];
-        let [firstName, lastName = ''] = name.split(' ');
-        let firstLetterOfName = name.charAt(0);
-        let firstLetterOfLastName = lastName.charAt(0);
-        if (contactInitial.innerHTML === firstLetterOfName) {
-            contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email);
+        const words = (name || '').split(/\s+/).filter(Boolean);
+        const firstLetterOfName = name ? name.charAt(0) : '';
+        const lastName = words.length > 1 ? words[words.length - 1] : '';
+        const firstLetterOfLastName = lastName ? lastName.charAt(0) : '';
+        if (contactInitial && contactInitial.innerHTML === firstLetterOfName) {
+            contactsContainer.innerHTML += getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, name, email);
             showColorForContact(i, color);
         }
     });

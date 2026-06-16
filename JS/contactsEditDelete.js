@@ -125,11 +125,11 @@ function validateName(id, messageId) {
     let nameField = document.getElementById(id);
     let nameMessage = document.getElementById(messageId);
     let name = nameField ? nameField.value.trim() : '';
-    let isValidName = /^[A-Za-z ]{1,20}$/.test(name);
+    let isValidName = /^[\p{L} ]{1,100}$/u.test(name);
     if (!nameField || !isValidName) {
         if (nameField) nameField.style.borderColor = 'red';
         if (nameMessage) {
-            nameMessage.textContent = 'Please enter a valid name with letters and spaces only (max 20 characters).';
+            nameMessage.textContent = 'Please enter a valid name with letters and spaces only (max 100 characters).';
             nameMessage.style.color = 'red';
         }
         return false;
@@ -140,6 +140,22 @@ function validateName(id, messageId) {
             nameMessage.style.color = 'green';
         }
         return true;
+    }
+}
+
+/**
+ * Prevents invalid characters from being entered into name fields.
+ * Allows letters and spaces; blocks digits and most symbols.
+ */
+function validateNameInput(event) {
+    try {
+        const key = event.key;
+        if (event.ctrlKey || event.metaKey || event.altKey) return;
+        if (key.length !== 1) return;
+        if (!/^[a-zA-Z ]$/.test(key)) {
+            event.preventDefault();
+        }
+    } catch (error) {
     }
 }
 

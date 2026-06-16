@@ -61,12 +61,16 @@
     height: 58px;
     display: flex;
     align-items: center;
-    gap: 34px;
+    gap: 32px;
     font-size: 20px;
     background-color: #FFFFFF;
     padding-left: 15px;
     border-bottom: solid 1px #D1D1D1;
     width: 96%;
+}
+
+.seperator-line {
+    padding: 4px;
 }
 
 #filteredContactsContainer {
@@ -84,10 +88,24 @@
     height: 78px;
     display: flex;
     align-items: center;
-    gap: 34px;
+    gap: 32px;
     font-size: 20px;
     padding-left: 20px;
     border-radius: 10px;
+    max-width: 93%;   
+    min-height: 128px;   
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+
+}
+
+.contact-info {
+    max-width: 80%;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    flex-direction: column;
 }
 
 .content-container-contacts {
@@ -171,6 +189,7 @@
     font-size: clamp(2.25rem, 1.104rem + 2.037vi, 2.938rem);
     font-weight: 500;
     padding-left: 54px;
+    width: 80%;
 }
 
 .edit-delete-box {

@@ -1,10 +1,10 @@
 
-function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, firstName, lastName, email) {
+function getContactsContainerHtml(i, firstLetterOfName, firstLetterOfLastName, fullName, email) {
     return `
         <div id="contactData${i}" class="contact-data pointer" onclick="openContact(${i}), openContactMobile(${i})">
             <div id="contactsInitials${i}" class="shorts-name">${firstLetterOfName}${firstLetterOfLastName}</div>
-            <div>
-                <div id="contact-name${i}" class="contact-name">${firstName} ${lastName}</div>
+            <div class="contact-info">
+                <div id="contact-name${i}" class="contact-name">${fullName}</div>
                 <div id="contact-email${i}" class="contact-email">${email}</div>
             </div>
         </div>
@@ -16,7 +16,7 @@ function displayInitialsFilterHtml(j, displayedLetter) {
     return `
         <div class="initial-box">
             <div id="initialLetter${j}" class="initial-letter">${displayedLetter}</div>
-            <div class="separator"></div>
+            <div class="separator seperator-line"></div>
         </div>
         <div id="contactsContainer${j}">
         </div>
