@@ -163,6 +163,10 @@
     .parent-container {
         height: calc(100vh - 160px);
     }
+
+    .button-add-contacts {
+        margin: 0px;
+    }
 }
 
 @media (max-width: 600px) {

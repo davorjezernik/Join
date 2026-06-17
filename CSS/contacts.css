@@ -183,12 +183,13 @@
 .edit-delete-contact {
     display: flex;
     align-items: center;
+    min-width: 800px;
 }
 
 .full-name {
     font-size: clamp(2.25rem, 1.104rem + 2.037vi, 2.938rem);
     font-weight: 500;
-    padding-left: 54px;
+    padding-left: 32px;
     width: 80%;
 }
 
@@ -551,6 +552,18 @@ fieldset {
     color: #29ABE2;
 }
 
+@media (max-width: 1600px) {
+    .contact-infos {
+        margin-left: 16px;
+    }
+    .contact-headline {
+        margin: 32px 0 32px 16px;
+    }
+    .edit-delete-contact {
+        min-width: unset;
+    }
+}
+
 @media (max-width: 1500px) {
     .add-new-contact {
         width: 90%;
@@ -593,7 +606,7 @@ fieldset {
         width: 100vw;
     }
     .content-container-contacts {
-        height: 80vh;
+        height: calc(100vh - 20%);
     }
 }
 
@@ -739,6 +752,7 @@ fieldset {
         position: absolute;
         right: 24px;
         bottom: 16%;
+        border-radius: 50%;
     }
 
     .contact-data {
@@ -794,6 +808,10 @@ fieldset {
 
     .arrow-contact:hover {
         cursor: pointer;
+    }
+
+    .contact-data {
+        min-height: 168px;
     }
 }
 
@@ -858,6 +876,13 @@ fieldset {
         top: 33%;
     }
 }
+
+@media (max-height: 410px) {
+    .add-contact-box {
+       bottom: 30%;
+    }
+}
+
 
 @media (max-width: 350px) {
     #filteredContactsContainer {
