@@ -264,3 +264,9 @@ body {
         height: calc(100vh - 20%);
     } 
 }
+
+@media (max-width: 1024px) {
+    .seperator-and-text-container {
+        gap: 8px;
+    }
+}

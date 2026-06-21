@@ -186,6 +186,19 @@ function showColorForBigContact(i, color) {
 
 
 /**
+ * This function removes the own-user suffix from a contact name when editing.
+ *
+ * @param {string} name
+ * @returns {string}
+ */
+function stripYouFromName(name) {
+    const youSuffix = ' (you)';
+    if (typeof name !== 'string') return '';
+    return name.endsWith(youSuffix) ? name.slice(0, -youSuffix.length) : name;
+}
+
+
+/**
  * This function generates a random color
  * 
  * @returns {string}
@@ -244,9 +257,10 @@ async function openEditContact(i) {
     let { contacts } = await loadSpecificUserDataFromLocalStorage();
     let contactId = Object.keys(contacts)[i];
     let { name, email, number, backgroundcolor } = contacts[contactId] || {};
+    let displayName = stripYouFromName(name);
     let dialogEditContact = document.getElementById('dialogNewEditContact');
-    let [firstLetterOfName, firstLetterOfLastName] = name ? [name.charAt(0), name.split(' ')[1] || ''] : ['', ''];
-    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, email, number, backgroundcolor, contactId);
+    let [firstLetterOfName, firstLetterOfLastName] = displayName ? [displayName.charAt(0), displayName.split(' ')[1] || ''] : ['', ''];
+    dialogEditContact.innerHTML = getEditContactHtml(firstLetterOfName, firstLetterOfLastName, displayName, email, number, backgroundcolor, contactId);
     dialogEditContact.classList.remove('d-none');
     let contactInitialBig = document.getElementById(`edit-contactsInitialsBig${contactId}`);
     contactInitialBig.style.backgroundColor = backgroundcolor;
@@ -268,8 +282,9 @@ async function editOpenedContactInMobileView() {
     let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
     document.body.style.overflow = 'hidden';
     if (ToBeEditedContactId) {
+        const displayedName = stripYouFromName(document.getElementById('nameOfContact').innerHTML);
         dialogEditContact.innerHTML = getEditContactHtmlMobileView(
-            document.getElementById('nameOfContact').innerHTML, 
+            displayedName,
             email,
             document.getElementById('numberOfContact').innerHTML, 
             ToBeEditedContactId

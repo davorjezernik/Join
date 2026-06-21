@@ -81,8 +81,13 @@ async function saveEditContact(contactId) {
         const editedEmail = document.getElementById(`editEmail${contactId}`).value;
         const editedPhone = document.getElementById(`editNumber${contactId}`).value;
         const background = userData.contacts[contactId]['backgroundcolor'];
+        const originalName = userData.contacts[contactId].name || '';
+        const ownsSuffix = originalName.endsWith(' (you)');
         userData.contacts[contactId] = {
-            name: editedName, email: editedEmail, number: editedPhone, backgroundcolor: background
+            name: ownsSuffix ? `${editedName} (you)` : editedName,
+            email: editedEmail,
+            number: editedPhone,
+            backgroundcolor: background
         };
         await updateUserData(uid, userData);
         await loadDataAfterChanges();

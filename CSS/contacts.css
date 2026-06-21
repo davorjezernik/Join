@@ -709,6 +709,12 @@ fieldset {
     }
 }
 
+@media (max-width: 1024px) {
+    .phone-overflow {
+        overflow-y: auto;
+    }
+}
+
 
 @media (max-width: 900px) {
     .contact-big-container {
@@ -811,7 +817,7 @@ fieldset {
     }
 
     .contact-data {
-        min-height: 168px;
+        min-height: 176px;
     }
 }
 

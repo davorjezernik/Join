@@ -198,7 +198,7 @@ p, h2, h3, ul, li {
 }
 
 .color-background {
-    color: rgb(245, 246, 247);
+    color: transparent;
 }
 
 @media (max-width: 1700px) {
