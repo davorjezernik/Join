@@ -241,7 +241,6 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    overflow: hidden;
     z-index: 999;
 }
 
@@ -256,8 +255,7 @@
 
 .parent-container {
     height: calc(100vh - 10%);
-    width: 100%;
-    overflow: hidden;
+    width: 100%;    
 }
 
 .add-contact-left {

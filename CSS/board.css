@@ -465,7 +465,6 @@ h1 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -538,7 +537,6 @@ h1 {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    overflow: hidden;
 }
 
 .main-container-task-board {
