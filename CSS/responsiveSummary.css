@@ -23,6 +23,12 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .todos-container {
+        width: 60%;
+    }
+}
+
 @media (max-width: 1024px) {
     .greeting-and-todos-container {
         align-items: flex-start;

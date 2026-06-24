@@ -203,8 +203,9 @@ a:hover {
     }
 }
 
-@media (max-height: 600px) {
+@media (max-height: 500px) {
     .tools-container {
-        height: 64px;
+        overflow-y: scroll;
     }
 }
+

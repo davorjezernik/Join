@@ -1,4 +1,4 @@
-@media (max-width: 900px) {
+@media (max-width: 960px) {
     body {
         flex-direction: column-reverse;
     }
@@ -8,13 +8,13 @@
         font-size: 48px;
     }
 
-    .blue-seperator {
-        width: 80px;
-    }
-
     .main-container {
         width: 310px;
         margin-top: 100px;
+    }
+
+    .blue-seperator {
+        width: 80px;
     }
 
     .data-container {

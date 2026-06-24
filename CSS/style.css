@@ -498,7 +498,7 @@ fieldset {
 .intro-img {
     width: 100px;
     height: 120px;
-    position: fixed;
+    position: absolute;
     z-index: 100;
     top: 50%;
     left: 50%;
@@ -509,7 +509,7 @@ fieldset {
 .static-img-signup {
     width: 100px;
     height: 120px;
-    position: fixed;
+    position: absolute;
     z-index: 100;
     left: calc((100vw - min(1400px, 100vw)) / 2 + 24px);
     top: 56px;
@@ -566,6 +566,12 @@ fieldset {
 @media (max-width: 1401px) {
     .header-login {
         width: 100%;
+    }
+}
+
+@media (max-height: 700px) {
+    .not-user-text {
+        display: none;
     }
 }
 
@@ -640,3 +646,4 @@ fieldset {
         height: 360px;
     }
 }
+
