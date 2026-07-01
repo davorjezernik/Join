@@ -218,12 +218,12 @@ p, h2, h3, ul, li {
 
 @media (max-width: 1024px) {
     .parent-container {
-        width: 100vw;
+        width: 100%;
     }
 
     .content-container-legal,
     .content-container-help {
-        width: 100vw;
+        width: 100%;
         margin-left: 0;
     }
 

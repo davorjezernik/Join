@@ -6,6 +6,9 @@ body {
 
 .main-content {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .parent-container-summary {
@@ -256,7 +259,7 @@ body {
 
     .content-container-privacy {
         height: calc(100vh - 20%);
-        width: 100vw;
+        width: 100%;
         margin-left: 0;  
     }
     

@@ -49,7 +49,7 @@
 @media(max-width: 1300px) {
     .board-position-lower {
         flex-direction: column;
-        max-width: 100vw;
+        max-width: 100%;
         box-sizing: border-box;
     }
 
@@ -141,7 +141,7 @@
 
     .open-tasks-container {
         height: calc(100vh - 20%);
-        width: 100vw;
+        width: 100%;
         overflow-x: hidden;
         justify-content: center;
     }

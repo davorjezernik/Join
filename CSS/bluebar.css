@@ -204,8 +204,21 @@ a:hover {
 }
 
 @media (max-height: 500px) {
-    .tools-container {
-        overflow-y: scroll;
+    .join-icon {
+        margin-bottom: 8px;
+    }
+    .menu-img {
+        width: 20px;
+        height: 20px;
+    }
+    .menu-tool {
+        font-size: 14px;
+    }
+}
+
+@media (max-height: 400px) {
+    .join-icon {
+        display: none;
     }
 }
 
