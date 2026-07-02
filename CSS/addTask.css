@@ -48,10 +48,12 @@ body {
 .parent-container {
     box-sizing: border-box;
     background-color: #F6F7F8;
-    height: calc(100% + 40px);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    padding-top: 90px;
 }
 
 .main-container-task {
@@ -295,7 +297,6 @@ body {
     display: none;
     transition: 0.5s;
     z-index: 1;
-    overflow-y: auto;
     max-height: 164px;
 }
 

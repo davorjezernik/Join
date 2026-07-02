@@ -36,7 +36,7 @@
 
 @media (max-height: 1024px) {
     .parent-container {
-        height: calc(100% + 96px);
+        height: 100%;
     }
 }
 
@@ -50,13 +50,13 @@
         justify-content: flex-start;
         height: calc(100vh - 54%);
         overflow-x: scroll;
-        padding: 0 8px;
+        padding: 0px;
         margin: unset;
         width: 100%;
     }
 
     .main-container-task {
-        margin: 16px 8px;
+        margin: 0px;
         height: 80vh;
         gap: 0px;
     }
@@ -72,7 +72,7 @@
 
     .button-end-process-container {
         position: fixed;
-        bottom: 10%;
+        bottom: 9%;
         padding-left: 12px;
         padding-right: 12px;
         background-color: #F6F7F8;
@@ -115,3 +115,4 @@
         margin-left: 0px;
     }
 }
+
