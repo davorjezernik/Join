@@ -298,6 +298,7 @@ body {
     transition: 0.5s;
     z-index: 1;
     max-height: 164px;
+    overflow: auto;
 }
 
 .selectClicked {
@@ -389,7 +390,7 @@ body {
 .name-initial {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     margin-top: 2px;
     margin-bottom: 2px;
 }
@@ -528,6 +529,10 @@ body {
 
 fieldset {
     border: none;
+}
+
+.margin-bottom-32 {
+    padding-bottom: 32px;
 }
 
 @media(max-width: 1680px) {
