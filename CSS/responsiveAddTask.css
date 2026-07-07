@@ -100,7 +100,7 @@
     }
 
     .content-container {
-        height: auto;
+        min-height: 400px;
     }
 }
 
@@ -117,6 +117,18 @@
     }
     .content-container {
         min-height: 1px;
+    }
+}
+
+@media (max-height: 680px) {
+    .button-end-process-container {
+        height: 104px;
+    }
+    .creat-and-close-buttons {
+        margin-bottom: 40px;
+    }
+    .margin-bottom-32 {
+        padding-bottom: 128px;
     }
 }
 
