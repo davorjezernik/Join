@@ -109,7 +109,6 @@
     }
     .modal-content {
         width: 35%;
-        height: auto;
     }
 
     .open-tasks-container {
@@ -130,11 +129,12 @@
         display: flex;
         align-items: flex-start;
         height: 100%;
+        padding-bottom: 10%;
     }
+
     .modal-content {
         width: 65%;
-        height: auto;
-        padding: 32px 24px;
+        padding: 24px 24px;
     }
 
     .open-tasks-container {
