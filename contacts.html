@@ -26,7 +26,7 @@
     <main class="main-content">
         <div id="dialogNewEditContact" class="dialog-new-contact d-none" onclick="closeDialog()"></div>
         <section class="content-container-contacts">
-            <div class="parent-container phone-overflow">
+            <div class="parent-container">
                 <div class="contact-box">
                     <div id="arrowContact" class="arrow-contact d-none" onclick="closeContactMobile()">
                         <img src="./img/arrow-left-line.png">
@@ -47,18 +47,20 @@
                             <div id="filteredContactsContainer"></div>
                         </div>
                     </fieldset>
-                    <fieldset id="contactBigContainer" class="contact-big-container">
-                        <div id="contactHeadline" class="contact-headline">
-                            <div class="fat-contacts-headline">Contacts</div>
-                            <div class="seperator-and-text-container">
-                                <div class="vertical-seperator"></div>
-                                <div>Better with a team</div>
+                    <div class="overflow-container">
+                        <fieldset id="contactBigContainer" class="contact-big-container">
+                            <div id="contactHeadline" class="contact-headline">
+                                <div class="fat-contacts-headline">Contacts</div>
+                                <div class="seperator-and-text-container">
+                                    <div class="vertical-seperator"></div>
+                                    <div>Better with a team</div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div id="contactInfos" class="contact-infos"></div>
-                        </div>
-                    </fieldset>
+                            <div>
+                                <div id="contactInfos" class="contact-infos"></div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
         </section>

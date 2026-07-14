@@ -550,6 +550,12 @@ fieldset {
     color: #29ABE2;
 }
 
+.overflow-container {
+    overflow: auto;
+    width: 55%;
+}
+
+
 @media (max-width: 1600px) {
     .contact-infos {
         margin-left: 16px;
@@ -730,6 +736,11 @@ fieldset {
         justify-content: flex-end;
     }
 
+    .overflow-container {
+        width: unset;
+        scrollbar-width: none;
+    }
+
     .contact-headline {
         margin: 48px 0 48px 16px;
     }
@@ -894,7 +905,6 @@ fieldset {
     }
     .contact-box {
         overflow-y: auto;
-        overflow-x: hidden;
     }
 }
 
