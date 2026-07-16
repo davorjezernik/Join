@@ -264,7 +264,6 @@ p, h2, h3, ul, li {
     .scroll-imprint,
     .scroll-help {
         height: calc(100vh - 20%);
-        overflow-x: hidden;
     }
 
     .content-container-legal,
