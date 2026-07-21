@@ -110,7 +110,7 @@
 
 .content-container-contacts {
     height: 100vh;
-    width: calc(100vw - 232px);
+    width: calc(100% - 232px);
     margin-left: 232px;
     display: flex;
     align-items: flex-end;
@@ -329,7 +329,7 @@
     font-size: 24px;
     font-weight: 400;
     color: white;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .blue-seperator-contact {
@@ -857,7 +857,7 @@ fieldset {
     }
 
     .add-new-contact-headline {
-        font-size: 47px;
+        font-size: 40px;
     }
 
     .add-contact-data {
@@ -885,11 +885,18 @@ fieldset {
 
     .contact-img {
         top: 28%;
+        height: 80px;
     }
 
     .edit-img {
-        top: 33%;
+        top: 28%;
     }
+
+    .add-contact-data {
+        margin: 0 0 0 0;
+    }
+
+
 }
 
 @media (max-height: 410px) {

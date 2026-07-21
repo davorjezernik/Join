@@ -28,13 +28,13 @@ body {
 
 .content-container {
     height: 100vh;
-    width: calc(100vw - 232px);
+    width: calc(100% - 232px);
     margin-left: 232px;
 }
 
 .content-container-privacy {
     height: calc(100vh - 10%);
-    width: calc(100vw - 232px);
+    width: calc(100% - 232px);
     margin-left: 232px;
 }
 

@@ -117,7 +117,7 @@ a:hover {
 
 .content-container-legal {
     height: 100vh;
-    width: calc(100vw - 232px);
+    width: calc(100% - 232px);
     margin-left: 232px;
     display: flex;
     align-items: flex-end;
@@ -191,7 +191,7 @@ p, h2, h3, ul, li {
 
 .content-container-help {
     height: 100vh;
-    width: calc(100vw - 232px);
+    width: calc(100% - 232px);
     margin-left: 232px;
     display: flex;
     align-items: flex-end;

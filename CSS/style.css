@@ -511,7 +511,7 @@ fieldset {
     height: 120px;
     position: absolute;
     z-index: 100;
-    left: calc((100vw - min(1400px, 100vw)) / 2 + 24px);
+    left: calc((100% - min(1400px, 100%)) / 2 + 24px);
     top: 56px;
 }
 
@@ -550,7 +550,7 @@ fieldset {
     }
     100% {
         top: 56px;
-        left: calc((100vw - min(1400px, 100vw)) / 2 + 24px);
+        left: calc((100% - min(1400px, 100%)) / 2 + 24px);
         transform: translate(0, 0) scale(1);
     }
 }
@@ -578,12 +578,6 @@ fieldset {
 @media (max-height: 600px) {
     .data-container {
         margin: 0px;
-    }
-}
-
-@media (max-height: 666px) {
-    .add-new-contact {
-        height: 600px;
     }
 }
 

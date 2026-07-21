@@ -112,7 +112,7 @@
     }
 
     .open-tasks-container {
-        width: calc(100vw - 232px);
+        width: calc(100% - 232px);
         padding-top: 10%;
     }
 }

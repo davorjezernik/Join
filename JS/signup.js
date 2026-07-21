@@ -81,15 +81,55 @@ function createUserObject(name, email, password) {
  * @returns {object}
  */
 async function createOwnContact(name, email, number, color, uid) {
-    const you = " (you)"
-    let contact = {
+    const you = " (you)";
+    const contact = {
         name: name + (you),
         email: email,
         number: number,
         backgroundcolor: color
     };
-    await postContacts(`/users/${uid}/contacts`, contact);
+
+    const contactsToSave = await getContactsToCopy(uid, contact);
+    await updateUserContacts(uid, contactsToSave);
     return contact;
+}
+
+
+/**
+ * This function copies the first 10 contacts from the guest account to the new user account.
+ *
+ * @param {string} uid
+ * @param {object} ownContact
+ * @returns {object}
+ */
+async function getContactsToCopy(uid, ownContact) {
+    const contactsToSave = {};
+
+    try {
+        const usersData = await loadUserData("users");
+        const guestUserEntry = Object.entries(usersData || {}).find(([_, user]) => user?.email === "guest.user@email.com");
+
+        if (guestUserEntry) {
+            const [, guestUser] = guestUserEntry;
+            const guestContacts = guestUser?.contacts;
+
+            if (guestContacts && typeof guestContacts === "object") {
+                const guestContactEntries = Object.entries(guestContacts)
+                    .filter(([_, guestContact]) => guestContact?.email !== "guest.user@email.com")
+                    .slice(0, 10);
+
+                guestContactEntries.forEach(([contactId, guestContact]) => {
+                    contactsToSave[contactId] = guestContact;
+                });
+            }
+        }
+    } catch (error) {
+        console.error("Failed to copy guest contacts:", error);
+    }
+
+    const ownContactId = `${Date.now()}-${uid.slice(0, 6)}`;
+    contactsToSave[ownContactId] = ownContact;
+    return contactsToSave;
 }
 
 
