@@ -34,20 +34,46 @@
                 </div>
             </section>
             <section class="data-container">
-                <input id="name" placeholder="Name" type="text" required class="name-input margin-input" onblur="validateName()">
-                <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
-                <input id="email" placeholder="Email" type="email" required class="email-input margin-input" onblur="validateEmailS()">
-                <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
+
+                <div class="name-container-signup">
+                    <div class="input-with-icon">
+                        <input id="name" placeholder="Name" type="text" required class="name-input margin-input" onblur="validateName()">
+                        <img class="signup-icon-setup" src="./img/person.png" alt="Person icon">
+                    </div>
+                    <div id="nameCorrectIncorrectS" class="correct-incorrect"></div>
+                </div>
+
+                <div>
+                    <div class="input-with-icon">
+                        <input id="email" placeholder="Email" type="email" required class="email-input margin-input" onblur="validateEmailS()">
+                        <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
+                    </div>
+                    <div id="emailCorrectIncorrectS" class="correct-incorrect"></div>
+                </div>
+
+                <div>
                 <div class="password-container">
-                    <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
-                    <div class="toggle-password" onclick="togglePassword('password')"></div>
+                    <div class="input-with-icon">
+                        <input id="password" placeholder="Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
+                        <img class="signup-icon-setup" src="./img/lock.png" alt="Lock icon">
+                        <div class="toggle-password" onclick="togglePassword('password')"></div>
+                    </div>
                 </div>
                 <div id="passwordOneCorrectIncorrect" class="correct-incorrect"></div>
+                </div>
+
+                <div>
                 <div class="password-container">
-                    <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
-                    <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
+                    <div class="input-with-icon">
+                        <input id="confirmedPassword" placeholder="Confirm Password" type="password" required class="password-input margin-input" onblur="validatePassword(this)"/>
+                        <img class="signup-icon-setup" src="./img/lock.png" alt="Lock icon">
+                        <div class="toggle-password" onclick="togglePassword('confirmedPassword')"></div>
+                    </div>
                 </div>
                 <div id="passwordTwoCorrectIncorrect" class="correct-incorrect"></div>
+                </div>
+
+
             </section>
             <section class="accept-policy-container">
                 <div class="accept-container">

@@ -178,7 +178,8 @@ body {
 }
 
 .data-container {
-    width: 400px;
+    width: min(100%, 400px);
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     margin: 8px 0px;
@@ -189,46 +190,70 @@ body {
 }
 
 .name-input {
+    width: 100%;
+    box-sizing: border-box;
     height: 16px;
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     outline: unset;
-    Padding-top: 12px;
-    padding-bottom: 12px;
+    Padding-top: 21px;
+    padding-bottom: 21px;
     padding-left: 21px;
-    padding-right: 21px;
-    background-image: url('../img/person.png'); 
-    background-repeat: no-repeat;
+    padding-right: 48px;
     background-position: 95%;
     font-weight: 400;
     font-size: 20px;
 }
 
+.name-container-signup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.signup-icon-setup {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .email-input {
+    width: 100%;
+    box-sizing: border-box;
     height: 16px;
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     outline: unset;
-    Padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 18px;
-    padding-right: 18px;
-    background-image: url('../img/mail.png');
-    background-repeat: no-repeat;
+    Padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 21px;
+    padding-right: 48px;
     background-position: 95%;
     font-weight: 400;
     font-size: 20px;
 }
 
 .password-input {
+    width: 100%;
+    box-sizing: border-box;
     height: 16px;
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     outline: unset;
-    Padding-top: 12px;
-    padding-bottom: 12px;
+    Padding-top: 21px;
+    padding-bottom: 21px;
     padding-left: 21px;
-    padding-right: 21px;
+    padding-right: 80px;
     background-repeat: no-repeat !important;
     background-position: 95% !important;
     font-weight: 400;
@@ -238,6 +263,7 @@ body {
 .password-container {
     position: relative;
     display: flex;
+    width: 100%;
 }
 
 #loginPassword, #confirmedPassword, #password {
@@ -246,15 +272,13 @@ body {
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     outline: unset;
-    Padding-top: 12px;
-    padding-bottom: 12px;
+    Padding-top: 21px;
+    padding-bottom: 21px;
     padding-left: 21px;
-    padding-right: 21px;
-    background-repeat: no-repeat;
-    background-position: 95%;
+    padding-right: 80px;
+
     font-weight: 400;
     font-size: 20px;
-    background-image: url('../img/lock.png');
 }
 
 .margin-8 {
@@ -263,10 +287,11 @@ body {
 
 .toggle-password {
     position: absolute;
-    top: 0;
-    right: 10px;
-    width: 30px;
-    height: 100%;
+    top: 50%;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
     cursor: pointer;
     z-index: 2;
 }
