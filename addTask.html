@@ -52,7 +52,7 @@
                             <fieldset class="inputs-flex">
                                 <label>Title<b style="color: orange;">*</b></label>
                                 <input id="taskTitle" placeholder="Enter a title..." minlength="4"
-                                       class="task-input-field" onkeyup="clearTitleError()">
+                                       class="task-input-field" onblur="validateTitle()">
                                 <div id="correctTitle" class="correct-incorrect"></div>
                             </fieldset>
                             <fieldset class="inputs-flex">
@@ -63,7 +63,7 @@
                             </fieldset>
                             <fieldset class="inputs-flex">
                                 <label>Due date<b style="color: orange;">*</b></label>
-                                <input id="date" type="date" class="task-input-field date" onchange="clearDateError()">
+                                <input id="date" type="date" class="task-input-field date" onblur="validateDate()">
                                 <div id="correctDate" class="correct-incorrect"></div>
                             </fieldset>
                             <fieldset class="inputs-flex">
@@ -125,7 +125,7 @@
                             </fieldset>
                             <fieldset class="inputs-flex">
                                 <label>Category<b style="color: orange;">*</b></label>
-                                <div class="drop-down pointer">
+                                <div class="drop-down pointer" tabindex="0" onblur="validateCategory()">
                                     <div class="select" id="selectCategoryContainer">
                                         <span class="selected" id="selectCategory">Select task category</span>
                                         <div class="caret"></div>

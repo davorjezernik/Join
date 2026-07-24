@@ -151,8 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
         button.disabled = !(allFilled && passwordsMatch && policyAccepted);
     };
 
-    form.addEventListener('input', updateSignupButtonState);
+    form.addEventListener('input', (event) => {
+        updateSignupButtonState();
+        if (event.target.id === 'password' || event.target.id === 'confirmedPassword') {
+            handleInputIcon(event.target);
+        }
+    });
     form.addEventListener('change', updateSignupButtonState);
+    handleInputIcon(document.getElementById('password'));
+    handleInputIcon(document.getElementById('confirmedPassword'));
     updateSignupButtonState();
 });
 
@@ -164,11 +171,10 @@ function togglePassword(inputId) {
     let passwordInput = document.getElementById(inputId);
     if (passwordInput.type === "text") {
         passwordInput.type = "password";
-        passwordInput.style.backgroundImage = 'url(./img/visibility_off.png)';
     } else {
         passwordInput.type = "text";
-        passwordInput.style.backgroundImage = 'url(./img/visibility.png)';
     }
+    handleInputIcon(passwordInput);
     setTimeout(() => {
         const length = passwordInput.value.length;
         passwordInput.setSelectionRange(length, length);
@@ -248,17 +254,27 @@ function validatePassword(activeInput) {
 
 
 /**
- * This function displays the lock icon when no password is entered and the visibility icon when a password is entered
+ * This function updates the password icon based on the current field state.
  */
 function handleInputIcon(activeInput) {
+    if (!activeInput) return;
+
+    const inputWrapper = activeInput.closest('.input-with-icon');
+    const icon = inputWrapper?.querySelector('img.signup-icon-setup');
     const value = activeInput.value.trim();
-    if (value.length === 0) {
-        activeInput.style.backgroundImage = "url('../img/lock.png')";
-    } else {
-        if (activeInput.type === "password") {
-            activeInput.style.backgroundImage = "url('./img/visibility_off.png')";
+
+    activeInput.style.backgroundImage = 'none';
+
+    if (icon) {
+        if (value.length === 0) {
+            icon.src = './img/lock.png';
+            icon.style.display = 'block';
+        } else if (activeInput.type === 'password') {
+            icon.src = './img/visibility_off.png';
+            icon.style.display = 'block';
         } else {
-            activeInput.style.backgroundImage = "url('./img/visibility.png')";
+            icon.src = './img/visibility.png';
+            icon.style.display = 'block';
         }
     }
 }
