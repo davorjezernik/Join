@@ -66,25 +66,8 @@
     }
 
     .main-container {
-        width: 310px;
+        width: 300px;
         margin-top: 100px;
-    }
-
-    .data-container {
-        width: 310px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .email-input {
-        width: 250px;
-        background-position: 250px;
-    }
-
-    .password-input {
-        width: 250px;
-        background-position: 250px;
     }
 
     .login-buttons-container {
@@ -97,9 +80,6 @@
         width: 140px;
     }
 
-    .main-container-signup {
-        width: 310px;
-    }
 
     .arrow-left-line {
         right: 130px;

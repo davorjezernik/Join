@@ -80,12 +80,25 @@ function getAddNewContactHtml() {
                     <img src="./img/Group 13.png" class="contact-img">
                     <div class="data-box">
                         <div class="add-contact-data">
+
+                            <div class="input-with-icon">
                             <input id="name" placeholder="Name" type="text" class="name-input" onkeydown="validateNameInput(event)" onblur="validateName('name', 'nameCorrectIncorrect')">
+                            <img class="signup-icon-setup" src="./img/person.png" alt="Person icon">
                             <div id="nameCorrectIncorrect" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
                             <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onblur="validateEmail('email', 'emailCorrectIncorrect')">
+                            <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
                             <div id="emailCorrectIncorrect" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
                             <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onblur="validateNumber('number', 'numberCorrectIncorrect')">
+                            <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
                             <div id="numberCorrectIncorrect" class="correct-incorrect"></div>
+                            </div>
+
                             <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
                                     <div class="button-txt-img">
@@ -128,12 +141,25 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                     <div id="edit-contactsInitialsBig${contactId}" class="edit-img">${firstLetterOfName}${firstLetterOfLastName}</div>
                     <div class="data-box">
                         <div class="add-contact-data">
+
+                            <div class="input-with-icon">
                             <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeydown="validateNameInput(event)" onblur="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                            <img class="signup-icon-setup" src="./img/person.png" alt="Person icon">
                             <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
                             <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                            <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
                             <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
                             <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                            <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
                             <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
                         </div>
                         <div class="close-create-button">
                             <button type="button" onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">
@@ -168,12 +194,25 @@ function getEditContactHtmlMobileView(name, email, number, contactId) {
                     <div id="edit-contactsInitialsBig'${contactId}'" class="edit-img"></div>
                     <div class="data-box">
                         <div class="add-contact-data">
-                            <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeydown="validateNameInput(event)" onblur="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
-                            <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
-                            <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
-                            <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
-                            <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+
+                            <div class="input-with-icon">
+                                <input id="editName${contactId}" placeholder="Name" type="text"  class="name-input" value="${name}" onkeydown="validateNameInput(event)" onblur="validateName('editName${contactId}', 'nameCorrectIncorrect${contactId}')">
+                                <img class="signup-icon-setup" src="./img/person.png" alt="Person icon">
+                                <div id="nameCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
+                                <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
+                                <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
+                                <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
+                            <div class="input-with-icon">
+                                <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
+                                <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
+                                <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                            </div>
+
                         </div>
                         <div class="close-create-button">
                             <button onclick="deleteContact('${contactId}')" class="color-white-button delete-btn">

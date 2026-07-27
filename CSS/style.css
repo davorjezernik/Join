@@ -309,16 +309,32 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 }
 
 .phone-input {
+    width: 100%;
+    box-sizing: border-box;
     height: 16px;
     border: 1px solid rgba(209, 209, 209, 1);
     border-radius: 10px;
     outline: unset;
-    Padding-top: 12px;
-    padding-bottom: 12px;
+    Padding-top: 21px;
+    padding-bottom: 21px;
     padding-left: 21px;
-    padding-right: 21px;
-    background-image: url('../img/call.png');
-    background-repeat: no-repeat;
+    padding-right: 48px;
+    background-position: 95%;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.email-input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 16px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    border-radius: 10px;
+    outline: unset;
+    Padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 21px;
+    padding-right: 48px;
     background-position: 95%;
     font-weight: 400;
     font-size: 20px;

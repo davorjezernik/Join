@@ -9,7 +9,7 @@
     }
 
     .main-container {
-        width: 310px;
+        width: 300px;
         margin-top: 100px;
     }
 
@@ -18,15 +18,10 @@
     }
 
     .data-container {
-        width: 310px;
+        width: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    .email-input {
-        width: 250px;
-        background-position: 250px;
     }
 
     .password-input {
@@ -46,7 +41,7 @@
     }
 
     .main-container-signup {
-        width: 310px;
+        width: 300px;
     }
 
     .arrow-left-line {

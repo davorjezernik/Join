@@ -804,11 +804,6 @@ fieldset {
         padding: 24px 20px 0 0;
     }
 
-    .email-input-edit {
-        width: unset !important;
-        background-position: 93% !important;
-    }
-
     .arrow-contact {
         position: absolute;
         top: 128px;
