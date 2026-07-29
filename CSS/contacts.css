@@ -628,7 +628,7 @@ fieldset {
     }
 
     .add-contact-left {
-        height: 35%;
+        min-height: 200px;
         align-items: unset;
         justify-content: center;
         border-top-left-radius: 30px;
@@ -641,7 +641,7 @@ fieldset {
     }
 
     .add-contact-right {
-        height: 65%;
+        min-height: 320px;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         padding: 0 16px 0 16px;
@@ -659,9 +659,11 @@ fieldset {
 
     .contact-box-right {
         height: 51%;
-        padding: unset;
         width: 100%;
         justify-content: center;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .data-box {
@@ -670,11 +672,9 @@ fieldset {
     }
 
     .edit-img {
-        position: absolute;
-        top: 30%;
-        margin: unset;
-        height: 100px;
-        width: 100px;
+        height: 80px;
+        width: 80px;
+        font-size: 28px;
     }
 
     .edit {
@@ -687,11 +687,8 @@ fieldset {
     }
 
     .contact-img {
-        position: absolute;
-        padding: unset;
-        top: 30%;
-        margin: 0px;
-        height: 100px;
+        height: 80px;
+        width: 80px;
     }
 
     .close-add-contact {
@@ -843,14 +840,6 @@ fieldset {
         height: 95%;
     }
 
-    .add-contact-left {
-        height: 40%;
-    }
-
-    .add-contact-right {
-        height: 60%;
-    }
-
     .add-new-contact-headline {
         font-size: 40px;
     }
@@ -876,15 +865,6 @@ fieldset {
         height: 80px;
         width: 80px;
         font-size: 28px;
-    }
-
-    .contact-img {
-        top: 28%;
-        height: 80px;
-    }
-
-    .edit-img {
-        top: 28%;
     }
 
     .add-contact-data {

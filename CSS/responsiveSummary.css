@@ -140,8 +140,9 @@
 
 @media (max-height: 700px) {
     .parent-container-summary {
-        height: 556px;
+        height: 640px;
     }
+    
 }
 
 

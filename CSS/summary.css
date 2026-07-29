@@ -250,6 +250,7 @@ body {
 @media (max-width: 1024px)  {
     .parent-container-summary {
         align-items: center;
+        margin-top: 0px;
     }
 
     .main-content-privacy {
