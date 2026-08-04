@@ -134,7 +134,7 @@ function validateName(id, messageId) {
     if (!nameField || !isValidName) {
         if (nameField) nameField.style.borderColor = 'red';
         if (nameMessage) {
-            nameMessage.textContent = 'Please enter a valid name with letters and spaces only (max 100 characters).';
+            nameMessage.textContent = 'Enter a valid name (letters/spaces only, max 100 chars).';
             nameMessage.style.color = 'red';
         }
         return false;

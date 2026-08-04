@@ -283,14 +283,20 @@ async function editOpenedContactInMobileView() {
     document.body.style.overflow = 'hidden';
     if (ToBeEditedContactId) {
         const displayedName = stripYouFromName(document.getElementById('nameOfContact').innerHTML);
+        const contact = userData.contacts[ToBeEditedContactId] || {};
         dialogEditContact.innerHTML = getEditContactHtmlMobileView(
             displayedName,
             email,
-            document.getElementById('numberOfContact').innerHTML, 
-            ToBeEditedContactId
+            document.getElementById('numberOfContact').innerHTML,
+            ToBeEditedContactId,
+            contact.backgroundcolor || ''
         );
         dialogEditContact.classList.remove('d-none');
-        let editContact = document.getElementById('dialogNewEditContact'); 
+        const editContactBubble = document.getElementById(`edit-contactsInitialsBig${ToBeEditedContactId}`);
+        if (editContactBubble) {
+            editContactBubble.style.backgroundColor = contact.backgroundcolor || '';
+        }
+        let editContact = document.getElementById('dialogNewEditContact');
         setTimeout(() => {
             editContact.style.transform = "translateY(0%)";
         }, 50);
