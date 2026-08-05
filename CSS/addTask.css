@@ -466,7 +466,9 @@ body {
 
 .assigned-contacts-container {
     display: flex;
+    flex-direction: initial;
     gap: 8px;
+    overflow: auto;
 }
 
 .subtask-Txt .delete-edit {
@@ -543,15 +545,6 @@ fieldset {
     .button-end-process-container-small {
         width: 100%; 
     }  
-    .parent-container {
-        padding-top: 320px;
-    } 
-}
-
-@media(max-width: 1024px) {
-    .parent-container {
-        padding-top: 440px;
-    }
 }
 
 @media(max-width: 900px) {

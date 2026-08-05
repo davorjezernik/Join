@@ -7,12 +7,11 @@ body {
 .main-content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100vh;
     width: 100%;
 }
 
 .parent-container-summary {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -44,7 +43,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 30px;
-    height: 20%;
+    height: 10%;
     font-size: 27px;
     width: 1400px;
 }
@@ -241,6 +240,12 @@ body {
     display: none;
 }
 
+@media (max-width: 1300px) {
+    .parent-container-summary {
+        margin-top: 20%;
+    }
+}
+
 @media (max-width: 1200px) {
     .parent-container-summary {
         margin-left: 0px;
@@ -250,7 +255,7 @@ body {
 @media (max-width: 1024px)  {
     .parent-container-summary {
         align-items: center;
-        margin-top: 0px;
+        margin-top: 10%;
     }
 
     .main-content-privacy {

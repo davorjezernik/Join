@@ -844,6 +844,14 @@ fieldset {
     }
 }
 
+@media (max-height: 640px) {
+    .dialog-new-contact {
+       align-items: flex-start;
+    }
+}
+
+
+
 @media (max-width: 600px) {
     .add-new-contact-headline {
         font-size: 40px;
@@ -875,8 +883,10 @@ fieldset {
     .add-contact-data {
         margin: 0 0 0 0;
     }
-
-
+    
+    .content-container-contacts {
+        height: calc(100vh - 160px);
+    }
 }
 
 @media (max-height: 410px) {

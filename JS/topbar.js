@@ -28,10 +28,25 @@ function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
 }
 
+function closeMenuOnOutsideClick(event) {
+    const menu = document.getElementById('menu');
+    const menuToggle = document.getElementById('userInitialsRoundContainer');
+
+    if (!menu || menu.classList.contains('d-none')) {
+        return;
+    }
+
+    if (menu.contains(event.target) || (menuToggle && menuToggle.contains(event.target))) {
+        return;
+    }
+
+    menu.classList.add('d-none');
+}
 
 /**
  * This function loads the initials after the DOM is loaded
  */
 document.addEventListener('DOMContentLoaded', function () {
     includeHTML();
+    document.addEventListener('click', closeMenuOnOutsideClick);
 });

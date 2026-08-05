@@ -91,13 +91,13 @@ function getAddNewContactHtml() {
                             <input id="email" placeholder="Email" type="email" class="email-input email-input-edit" onblur="validateEmail('email', 'emailCorrectIncorrect')">
                             <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
                             </div>
-                                <div id="emailCorrectIncorrect" class="correct-incorrect"></div>
+                                <div id="emailCorrectIncorrect" class="correct-incorrect-contact"></div>
 
                             <div class="input-with-icon">
                             <input id="number" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" onblur="validateNumber('number', 'numberCorrectIncorrect')">
                             <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
                             </div>
-                                <div id="numberCorrectIncorrect" class="correct-incorrect"></div>
+                                <div id="numberCorrectIncorrect" class="correct-incorrect-contact"></div>
 
                             <div class="close-create-button">
                                 <button type="button" class="color-white-button wht-btn-edit" onclick="closeDialog(event)">
@@ -152,13 +152,13 @@ function getEditContactHtml(firstLetterOfName, firstLetterOfLastName, name, emai
                             <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
                             <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
                             </div>
-                                <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                                <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect-contact"></div>
 
                             <div class="input-with-icon">
                             <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
                             <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
                             </div>
-                                <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                                <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect-contact"></div>
 
                         </div>
                         <div class="close-create-button">
@@ -209,13 +209,13 @@ function getEditContactHtmlMobileView(name, email, number, contactId, background
                                 <input id="editEmail${contactId}" placeholder="Email" type="email" class="email-input email-input-edit" value="${email}" onblur="validateEmail('editEmail${contactId}', 'emailCorrectIncorrect${contactId}')">
                                 <img class="signup-icon-setup" src="./img/mail.png" alt="Mail icon">
                             </div>  
-                                <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                                <div id="emailCorrectIncorrect${contactId}" class="correct-incorrect-contact"></div>
 
                             <div class="input-with-icon">
                                 <input id="editNumber${contactId}" placeholder="Phone" type="tel" pattern="[0-9]*" class="phone-input" value="${number}" onblur="validateNumber('editNumber${contactId}', 'numberCorrectIncorrect${contactId}')">
                                 <img class="signup-icon-setup" src="./img/call.png" alt="Phone icon">
                             </div>
-                                <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect"></div>
+                                <div id="numberCorrectIncorrect${contactId}" class="correct-incorrect-contact"></div>
 
                         </div>
                         <div class="close-create-button">
