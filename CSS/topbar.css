@@ -121,12 +121,6 @@
     }
 }
 
-@media (max-height: 600px) {
-    .header-container {
-        height: 80px;
-    }
-}
-
 @media (max-width: 550px) {
     .user-initials-container {
         width: 30px;

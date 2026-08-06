@@ -51,8 +51,7 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
-    overflow-y: auto;
-    padding-top: 128px;
+    margin-top: 96px;
 }
 
 .main-container-task {
@@ -550,11 +549,5 @@ fieldset {
 @media(max-width: 900px) {
     .parent-container {
         padding-top: 0px;
-    }
-}
-
-@media(max-height: 450px) {
-    .parent-container {
-        padding-top: 64px;
     }
 }

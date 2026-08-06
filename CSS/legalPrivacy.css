@@ -109,7 +109,7 @@ a:hover {
 }
 
 .scroll-imprint {
-    height: calc(100vh - 10%);
+    height: calc(100vh - 96px);
     display: flex;
     justify-content: center;
     width: 1400px;
@@ -263,7 +263,7 @@ p, h2, h3, ul, li {
 
     .scroll-imprint,
     .scroll-help {
-        height: calc(100vh - 20%);
+        height: calc(100vh - 196px);
     }
 
     .content-container-legal,
@@ -278,4 +278,12 @@ p, h2, h3, ul, li {
     .height-128 {
         height: 128px;
     }
+}
+
+@media (max-width: 1024px) {    
+    .scroll-imprint,
+    .scroll-help {
+        height: calc(100vh - 160px);
+    }
+
 }

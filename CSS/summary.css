@@ -17,7 +17,7 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
     margin-left: 64px;
-    margin-top: 10%;
+    margin-top: 96px;
 }
 
 .main-content-privacy {
@@ -240,12 +240,6 @@ body {
     display: none;
 }
 
-@media (max-width: 1300px) {
-    .parent-container-summary {
-        margin-top: 20%;
-    }
-}
-
 @media (max-width: 1200px) {
     .parent-container-summary {
         margin-left: 0px;
@@ -255,7 +249,9 @@ body {
 @media (max-width: 1024px)  {
     .parent-container-summary {
         align-items: center;
-        margin-top: 10%;
+        margin-top: 0px;
+        height: 680px;
+        margin-top: 16px;
     }
 
     .main-content-privacy {
