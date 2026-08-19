@@ -1,7 +1,16 @@
-@media(max-width: 1680px) {
-    .aot-task-container {
-        width: 100%;
+@media(max-width: 1800px) {
+    .main-container-task {
+        width: 90%;
     }
+    .aot-task-container {
+        width: 90%;
+    }
+    .button-end-process-container {
+        width: 90%;
+    }
+}
+
+@media(max-width: 1680px) {
     .main-container-task {
         margin: 16px 32px;
     }
@@ -35,6 +44,15 @@
         display: flex;
         align-items: center;
     }
+
+    .main-container-task {
+        height: 880px;
+    }
+
+    .parent-container {
+        justify-content: center;
+    }
+
 }
 
 @media (max-width: 900px) {
@@ -45,10 +63,18 @@
         flex-direction: column;
         justify-content: flex-start;
         height: calc(100vh - 54%);
-        overflow-x: scroll;
         padding: 0px;
         margin: unset;
         width: 100%;
+    }
+
+    .margin-bottom-32 {
+        padding-bottom: 128px;
+        margin-bottom: 128px;
+    }
+
+    .main-container-task {
+        height: 100%;
     }
 
     .parent-container {
@@ -72,12 +98,13 @@
 
     .button-end-process-container {
         position: fixed;
-        bottom: 9%;
+        bottom: 96px;
         padding-left: 12px;
         padding-right: 12px;
         background-color: #F6F7F8;
         margin: unset;
         flex-direction: column;
+        height: 64px;
     }
 
     .add-task-set-up-one-container,
@@ -123,17 +150,17 @@
     .parent-container {
         height: calc(100vh - 160px);
     }
+    .button-end-process-container {
+        bottom: 80px;
+    }
 }
 
 @media (max-height: 680px) {
     .button-end-process-container {
-        height: 104px;
+        height: 64px;
     }
     .creat-and-close-buttons {
         margin-bottom: 40px;
-    }
-    .margin-bottom-32 {
-        padding-bottom: 128px;
     }
 }
 
