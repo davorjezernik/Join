@@ -16,6 +16,14 @@
     background-color: rgb(255, 255, 255);
 }
 
+.main-content-contacts {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100vh;
+    width: 100%;
+}
+
 .button-add-contacts {
     width: 352px;
     margin: 22.5px 62px 22.5px 62px;
@@ -109,11 +117,10 @@
 }
 
 .content-container-contacts {
-    height: 100vh;
+    height: calc(100vh - 96px);
     width: calc(100% - 232px);
     margin-left: 232px;
     display: flex;
-    align-items: flex-end;
 }
 
 .contact-data:hover {
@@ -260,7 +267,6 @@
 }
 
 .parent-container {
-    height: calc(100vh - 10%);
     width: 100%;    
 }
 
@@ -611,7 +617,7 @@ fieldset {
 }
 
 @media(max-width: 1024px) {
-    .main-content {
+    .main-content-contacts {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -626,7 +632,8 @@ fieldset {
         width: 100%;
     }
     .content-container-contacts {
-        height: calc(100vh - 20%);
+        height: calc(100vh - 192px);
+        margin-top: 0px;
     }
 }
 
