@@ -268,7 +268,6 @@ async function openEditContact(i) {
     setTimeout(() => {
         document.getElementById('editNewContact').style.transform = "translateX(0)";
     }, 50);
-    await loadDataAfterChanges();
 }
 
 
@@ -300,7 +299,6 @@ async function editOpenedContactInMobileView() {
         setTimeout(() => {
             editContact.style.transform = "translateY(0%)";
         }, 50);
-        await loadDataAfterChanges();
     }
 }
 

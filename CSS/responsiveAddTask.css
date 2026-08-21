@@ -27,6 +27,12 @@
     }
 }
 
+@media(max-width: 1100px) {
+    .button-prio {
+        padding: 8px 8px;
+    }
+}
+
 @media (max-width: 1024px) {
     .parent-container {
         width: 100%;
@@ -152,6 +158,9 @@
     }
     .button-end-process-container {
         bottom: 80px;
+    }
+    .button-prio {
+        min-width: 40px;
     }
 }
 

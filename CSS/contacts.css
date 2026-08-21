@@ -104,7 +104,7 @@
     min-height: 128px;   
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 16px 16px;
 
 }
 
@@ -838,7 +838,7 @@ fieldset {
     }
 
     .contact-data {
-        min-height: 176px;
+        min-height: 184px;
     }
 }
 
