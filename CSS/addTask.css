@@ -466,6 +466,7 @@ body {
     flex-direction: initial;
     gap: 8px;
     overflow: auto;
+    height: 80px;
 }
 
 .subtask-Txt .delete-edit {

@@ -148,6 +148,29 @@ function filterTask() {
 
 
 /**
+ * This function validates the search input after it loses focus.
+ */
+function validateSearch(searchInput) {
+    let search = searchInput ? searchInput.value.trim() : '';
+    let errorMessages = document.querySelectorAll('[id^="correctSearch"]');
+
+    errorMessages.forEach(errorMessage => {
+        if (search.length > 0 && search.length < 3) {
+            errorMessage.textContent = 'Required: 3 letters';
+            errorMessage.style.color = 'red';
+            errorMessage.style.display = 'flex';
+        } else {
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+        }
+    });
+    if (searchInput) {
+        searchInput.parentElement.style.borderColor = search.length > 0 && search.length < 3 ? 'red' : '';
+    }
+}
+
+
+/**
  * This function displays searched tasks based on words entered
  * 
  * @param {string} searchTerm 
@@ -188,6 +211,18 @@ function filterWithSearchTerm(searchTerm) {
 function clearClickHere() {
     let clickHere = document.getElementById('clickHere');
     clickHere.classList.add('display-none-a');
+    let searchInput = document.getElementById('search');
+    let searchInputSmall = document.getElementById('searchSmall');
+    let errorMessages = document.querySelectorAll('[id^="correctSearch"]');
+
+    if (searchInput) searchInput.value = '';
+    if (searchInputSmall) searchInputSmall.value = '';
+    if (searchInput) searchInput.parentElement.style.borderColor = '';
+    if (searchInputSmall) searchInputSmall.parentElement.style.borderColor = '';
+    errorMessages.forEach(errorMessage => {
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
+    });
     for (let i = 0; i < todos.length; i++) {
         let taskCard = document.getElementById(`task${i}`);
         if (taskCard) {

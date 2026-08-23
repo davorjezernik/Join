@@ -115,6 +115,8 @@ h1 {
     border-radius: 10px;
     display: flex;
     border: 1px solid rgb(209, 209, 209);
+    height: 48px;
+    margin: 8px 0px;
 }
 
 .find-task-input {
@@ -157,7 +159,7 @@ h1 {
     font-size: 16px;
 }
 
-.input-with-img-smal-scren {
+.find-task-container-mobile {
     display: none;
 }
 
@@ -228,7 +230,7 @@ h1 {
 
 .drag-area {
     width: 100%;
-    min-height: 32px;
+    min-height: 16px;
     height: 100%;
     margin-top: 10%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -452,6 +454,8 @@ h1 {
     flex-direction: column;
     gap: 5px;
     margin: 8px 0;
+    height: 64px;
+    overflow-y: auto;
 }
 
 .checkbox-and-subtask {
@@ -558,10 +562,15 @@ h1 {
 
 .number-initials {
     display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    width: 90%;
-    margin-left: 24px;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    background-color: #D1D1D1;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin-right: -20px;
 }
 
 /* Edit task New*/
@@ -677,4 +686,19 @@ h1 {
 }
 .edit-delete:hover a.font-color {
     color: #29ABE2;
+}
+
+.find-task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.board-height {
+    height: 48px;
+}
+
+.error-message-container {
+    height: 8px;
 }

@@ -236,24 +236,35 @@
             <div class="aot">
                 <h1>Board</h1>
                 <div class="find-task-button-and-input">
-                    <div class="input-with-img-board">
-                        <input class="find-task-input" placeholder="Find Task" id="search" minlength="4"
-                            onkeyup="filterTask()">
-                        <div class="seperate-line"></div>
-                        <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
+                    <div class="find-task-container"> 
+                        <div class="input-with-img-board">
+                            <input class="find-task-input" placeholder="Find Task" id="search" minlength="3"
+                                onkeyup="filterTask()" onblur="validateSearch(this)">
+                            <div class="seperate-line"></div>
+                            <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
+                        </div>
+                        <div class="error-message-container">
+                            <e id="correctSearch" class="correct-incorrect"></e>
+                        </div>
                     </div>
-                    <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button">
+                    <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button board-height">
                         <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
                                 class="svg-size" src="./img/boardImg/plus.svg">
                         </div>
                     </button>
                 </div>
             </div>
-            <div class="input-with-img-smal-scren">
-                <input class="find-task-input" placeholder="Find Task" id="searchSmall" minlength="4" onkeyup="filterTask()">
-                <div class="seperate-line"></div>
-                <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
+            <div class="find-task-container-mobile"> 
+                <div class="input-with-img-smal-scren">
+                    <input class="find-task-input" placeholder="Find Task" id="searchSmall" minlength="3" onkeyup="filterTask()" onblur="validateSearch(this)">
+                    <div class="seperate-line"></div>
+                    <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
+                </div> 
+                <div class="error-message-container">
+                    <e id="correctSearchSmall" class="correct-incorrect"></e>
+                </div>
             </div> 
+            
             </section>           
             <div id="clickHere" class="click-here-box display-none-a">
                 <div>
