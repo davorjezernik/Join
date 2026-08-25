@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="./CSS/bluebar.css">
     <link rel="stylesheet" href="./CSS/topbar.css">
     <link rel="stylesheet" href="./CSS/responsive.css">
-    <link rel="stylesheet" href="./CSS/responsiveAddTask.css">
     <link rel="stylesheet" href="./CSS/responsiveBoard.css">
     <link rel="stylesheet" href="./CSS/legalPrivacy.css">
     <link rel="stylesheet" href="./CSS/addTask.css">
+    <link rel="stylesheet" href="./CSS/responsiveAddTask.css">
     <link rel="stylesheet" href="./CSS/uploadImage.css">
     <link rel="stylesheet" href="./CSS/help.css">
 </head>
@@ -244,14 +244,16 @@
                             <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
                         </div>
                         <div class="error-message-container">
-                            <e id="correctSearch" class="correct-incorrect"></e>
+                            <e id="correctSearch" class="correct-incorrect margin-8"></e>
                         </div>
                     </div>
-                    <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button board-height">
-                        <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
-                                class="svg-size" src="./img/boardImg/plus.svg">
-                        </div>
-                    </button>
+                    <div>
+                        <button onclick="openAddTaskInBoard()" class="add-task-button color-blue-button board-height">
+                            <div class="txt-svg-centering-add-task"><b class="display-none">Add task</b><img
+                                    class="svg-size" src="./img/boardImg/plus.svg">
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="find-task-container-mobile"> 
@@ -261,7 +263,7 @@
                     <img src="./img/boardImg/search.svg" class="input-svg pointer" onclick="filterTask()">
                 </div> 
                 <div class="error-message-container">
-                    <e id="correctSearchSmall" class="correct-incorrect"></e>
+                    <e id="correctSearchSmall" class="correct-incorrect margin-8"></e>
                 </div>
             </div> 
             

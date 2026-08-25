@@ -86,8 +86,9 @@ h1 {
 
 .content-container-board {
     height: 100vh;
-    width: 100%;
+    width: calc(100% - 232px);
     margin-left: 232px;
+    box-sizing: border-box;
 }
 
 .open-tasks-container {
@@ -107,6 +108,7 @@ h1 {
 .find-task-button-and-input {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 .input-with-img-board {
@@ -536,7 +538,7 @@ h1 {
 .parent-Container-for-addTask-board {
     border-radius: 30px;
     background-color: white;
-    width: 1440px;
+    width: 1400px;
     height: 800px;
     box-sizing: border-box;
     display: flex;
@@ -544,12 +546,17 @@ h1 {
 }
 
 .main-container-task-board {
-    width: 1400px;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
     justify-content: center;
     align-items: center;
+}
+
+.board-form {
+    width: 100%;
+
 }
 
 .drag-area-text {
@@ -693,6 +700,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    position: relative;
 }
 
 .board-height {
@@ -701,4 +709,12 @@ h1 {
 
 .error-message-container {
     height: 8px;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+}
+
+.margin-8 {
+    margin-top: 8px;
 }

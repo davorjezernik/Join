@@ -119,9 +119,14 @@
 @media(max-width: 1025px) {
     .content-container-board {
         margin-left: 0px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .button-prio {
+        padding: 8px 8px;
     }
 
     .board-position-lower {
@@ -137,7 +142,7 @@
     }
 
     .open-tasks-container {
-        height: calc(100vh - 20%);
+        height: calc(100vh - 192px);
         width: 100%;
         justify-content: center;
     }
@@ -199,6 +204,12 @@
         align-items: center;
     }
 
+    .find-task-container-mobile .error-message-container {
+        position: static;
+        width: 296px;
+        height: 16px;
+    }
+
     .input-with-img-smal-scren {
         width: 296px;
         background-color: rgb(255, 255, 255);
@@ -232,7 +243,6 @@
 
    .button-prio-width {
         gap: 1px;
-        flex-wrap: wrap;
     }
 
    .details-container {
@@ -245,5 +255,8 @@
 @media(max-width: 600px) {
     .modal-content {
         width: 80%;
+    }
+    .open-tasks-container {
+        height: calc(100vh - 180px);
     }
 }
