@@ -391,6 +391,11 @@ body {
     margin-bottom: 2px;
 }
 
+.contact-name-max-width {
+    max-width: 160px;
+    overflow: hidden;
+}
+
 .contact-boarder,
 .contact-boarder-edittask {
     margin-bottom: 2px;
@@ -449,7 +454,10 @@ body {
 .bubble-initial {
     width: 30px;
     height: 30px;
-    border-radius: 16px;
+    min-width: 30px;
+    max-width: 30px;
+    flex: 0 0 30px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -466,7 +474,7 @@ body {
     flex-direction: initial;
     gap: 8px;
     overflow: auto;
-    height: 80px;
+    height: 40px;
 }
 
 .subtask-Txt .delete-edit {

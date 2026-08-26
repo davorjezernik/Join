@@ -27,6 +27,7 @@
 @media(max-width: 1600px) {
     .parent-Container-for-addTask-board {
         border-radius: 30px;
+        overflow: hidden;
         background-color: white;
         width: 90%;
         height: 800px;
@@ -258,5 +259,8 @@
     }
     .open-tasks-container {
         height: calc(100vh - 180px);
+    }
+    .board-button-end-process-container {
+        flex-direction: column;
     }
 }

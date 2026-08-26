@@ -5,7 +5,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
             <div class="circle-initial" style="background: ${color}">
                 <div class="initial-style">${initials}</div>
             </div>
-            <li id="contact-${i}" data-name="${name}">${name}</li>
+            <li class="contact-name-max-width" id="contact-${i}" data-name="${name}">${name}</li>
         </div>
         <div class="check-box-custom">
             <input id="checkbox${i}" type="checkbox" class="assign-contact-checkbox" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
@@ -22,7 +22,7 @@ function generateContactToChoseHtml(name, color, initials, i) {
             <div class="circle-initial" style="background: ${color}">
                 <div class="initial-style">${initials}</div>
             </div>
-            <li id="contact-${i}" data-name="${name}">${name}</li>
+            <li class="contact-name-max-width" id="contact-${i}" data-name="${name}">${name}</li>
         </div>
         <div class="check-box-custom">
             <input id="checkbox${i}" type="checkbox" class="assign-contact-checkbox" data-name="${name}" onchange="choseContactForAssignment(event, ${i})">
@@ -39,7 +39,7 @@ function generateContactToChoseInEditTaskHtml(name, color, initials, i) {
             <div class="circle-initial-edittask" style="background: ${color}">
                 <div class="initial-style">${initials}</div>
             </div>
-            <li id="contactInEditTask-${i}" data-name-edittask="${name}">${name}</li>
+            <li class="contact-name-max-width" id="contactInEditTask-${i}" data-name-edittask="${name}">${name}</li>
         </div>
         <div class="check-box-custom">
             <input id="checkboxInEditTask${i}" type="checkbox" class="assign-contact-checkbox-edittask" data-name-edittask="${name}" onchange="choseContactForAssignmentEditTask(event, ${i})">
