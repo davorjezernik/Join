@@ -137,11 +137,9 @@ function generateContactInitialsAndNamesHtml(contacts, i) {
         const contact = contacts[j];
         const initial = getInitials(contact.name);
         const color = contact.backgroundcolor;
-        const contactName = contact.name;
         result += `
         <div class="assigned-contacts-and-intials-container">
             <div id="initials${i}-${j}" class="initials-opened" style="background-color: ${color};">${initial}</div>
-            <div class="names-style" id="contact${i}-${j}">${contactName}</div>
         </div>
         `;
     }

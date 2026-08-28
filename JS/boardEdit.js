@@ -209,11 +209,14 @@ function showCheckedContacts() {
     checkboxes.forEach(checkbox => {
         let checkboxIndex = checkbox.id.replace('checkboxInEditTask', '');
         let contactName = contactCheckboxMap[checkboxIndex];
+        let contactToChose = document.getElementById(`contactToChoseInEditTask${checkboxIndex}`);
         if (contactName) {
             checkbox.checked = assignedContactNames.includes(contactName);
         } else {
             checkbox.checked = false;
         }
+        contactToChose.style.backgroundColor = checkbox.checked ? '#2A3647' : '';
+        contactToChose.style.color = checkbox.checked ? 'white' : '';
     });
 }
 

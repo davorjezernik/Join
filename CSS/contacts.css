@@ -842,6 +842,18 @@ fieldset {
     }
 }
 
+@media (max-width: 900px) {
+    .contact-infos {
+        width: 284px;
+    }
+    .full-name {
+        width: 100%;
+    }
+    .contact-box {
+        overflow-y: auto;
+    }
+}
+
 @media (max-height: 666px) {
     .edit-img {
         top: 25%;

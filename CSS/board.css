@@ -432,10 +432,9 @@ h1 {
 }
 
 .assigned-contacts-and-intials-container {
-    padding-left: 18px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .initials-opened {
@@ -443,11 +442,11 @@ h1 {
     padding: 8px;
     border-radius: 50%;
     border: 2px solid white;
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    max-width: 24px;
-    flex: 0 0 24px;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    flex: 0 0 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -725,4 +724,19 @@ h1 {
 
 .margin-8 {
     margin-top: 8px;
+}
+
+.assigned-to-contacts {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.assigned-contacts-container-board {
+    display: flex;
+    flex-direction: initial;
+    gap: 8px;
+    overflow: auto;
+    height: 40px;
 }

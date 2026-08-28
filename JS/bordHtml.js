@@ -66,10 +66,7 @@ function generateModalContent(task, i) {
             </div>
         </div>
         <div class="assigned-to-container">
-            <div>Assigned To:</div>
-            <div class="assigned-contacts-container">
-                <div>${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
-            </div>
+            <div class="assigned-to-contacts">Assigned To: ${generateContactInitialsAndNamesHtml(task['task']['contacts'], i)}</div>
         </div>
         <div class="attachments-container">
            <div>Attachments</div>
@@ -125,7 +122,7 @@ function generateEditModalContent(task, i) {
                     <ul class="menu" id="contactListEdit"></ul>
                 </div>
                 <div class="bubble-setup">
-                    <div id="contactsDisplayBubbleInEdit" class="assigned-contacts-container"></div>
+                    <div id="contactsDisplayBubbleInEdit" class="assigned-contacts-container-board"></div>
                 </div>
             </div>
             <label for="editTaskDate${i}" class="margin-span">Due date:</label>
