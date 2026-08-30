@@ -18,6 +18,7 @@ async function signUp(path = "users") {
         let userData = await setSignedUpUser(userUID);
         if (userData) {
             await createOwnContact(name, email, '', color, userUID);
+            await copyGuestTasksToNewUser(userUID);
             document.getElementById('successfull-container').classList.remove('d-none');
             document.getElementById('succesfull-signup').classList.add('transform');
             setTimeout(() => {
@@ -65,7 +66,8 @@ function createUserObject(name, email, password) {
         urgentTasks: [],
         mediumTasks: [],
         lowTasks: [],
-        contacts: []
+        contacts: [],
+        tasks: {}
     };
 }
 

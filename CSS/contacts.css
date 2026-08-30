@@ -603,6 +603,7 @@ fieldset {
 
     .full-name {
         padding: 21px 0 0 0;
+        width: 100%;
     }
 
     .add-contact-left,
@@ -738,13 +739,12 @@ fieldset {
 
 
 @media (max-width: 1000px) {
-    .contact-big-container {
-        display: none;
+    .contacts-container-contacts {
+        flex-direction: column-reverse;
     }
 
-    .contacts-container-contacts {
-        width: 100%;
-        flex-direction: column-reverse;
+    .add-contact-box {
+        display: none;
     }
 
     .contacts-container {
@@ -778,13 +778,6 @@ fieldset {
 
     .img-contact-add {
         width: 32px;
-    }
-
-    .add-contact-box {
-        position: absolute;
-        right: 24px;
-        bottom: 16%;
-        border-radius: 50%;
     }
 
     .contact-data {
@@ -851,6 +844,20 @@ fieldset {
     }
     .contact-box {
         overflow-y: auto;
+    }
+    .contacts-container-contacts {
+        width: 100%;
+    }
+    .contact-big-container {
+        display: none;
+    }
+
+    .add-contact-box {
+        position: absolute;
+        right: 24px;
+        bottom: 16%;
+        border-radius: 50%;
+        display: block;
     }
 }
 

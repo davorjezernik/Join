@@ -219,6 +219,70 @@ async function updateUserTasks(uid, toBeEditedTaskId, task) {
 
 
 /**
+ * This function creates one shared task id and stores the same task for every registered user.
+ * 
+ * @param {object} task
+ * @param {string} taskId
+ * @returns {string}
+ */
+async function syncTaskToAllRegisteredUsers(task, taskId = null) {
+    const sharedTaskId = taskId || `task-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+    const taskToSave = {
+        ...task,
+        id: sharedTaskId,
+        createdBy: localStorage.getItem('uid') || 'guest-user'
+    };
+    const usersData = await loadUserData('users');
+    const userIds = Object.keys(usersData || {});
+
+    for (const userId of userIds) {
+        const currentTasks = await loadUserData(`users/${userId}/tasks`);
+        const mergedTasks = {
+            ...(currentTasks || {}),
+            [sharedTaskId]: taskToSave
+        };
+
+        await fetch(`${BASE_URL_USER_DATA}/users/${userId}/tasks.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(mergedTasks)
+        });
+    }
+    return sharedTaskId;
+}
+
+
+/**
+ * This function copies all guest tasks into a newly registered user account.
+ * 
+ * @param {string} userUID
+ */
+async function copyGuestTasksToNewUser(userUID) {
+    const usersData = await loadUserData('users');
+    const guestUserEntry = Object.entries(usersData || {}).find(([_, user]) => user?.email === 'guest.user@email.com');
+    if (!guestUserEntry) {
+        return;
+    }
+    const [, guestUser] = guestUserEntry;
+    const guestTasks = guestUser?.tasks && typeof guestUser.tasks === 'object' ? guestUser.tasks : {};
+    const currentTasks = await loadUserData(`users/${userUID}/tasks`);
+    const mergedTasks = {
+        ...(currentTasks || {}),
+        ...guestTasks
+    };
+    await fetch(`${BASE_URL_USER_DATA}/users/${userUID}/tasks.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mergedTasks)
+    });
+}
+
+
+/**
  * This function deletes the user contacts at the external storage
  * 
  * @param {string} uid 
