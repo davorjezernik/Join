@@ -1,7 +1,7 @@
 /**
  * This function display the contacts in mobile view under a screenwidth of 900px
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 function openContactMobile(i) {
     let screenWidth = window.innerWidth;
@@ -68,8 +68,8 @@ function handleClickOutsideEditMenu(event) {
 
 /**
  * This function save the changes of the editet contact
- * 
- * @param {string} contactId 
+ *
+ * @param {string} contactId
  */
 async function saveEditContact(contactId) {
     const isNameValid = validateName(`editName${contactId}`, `nameMessage${contactId}`);
@@ -100,8 +100,8 @@ async function saveEditContact(contactId) {
 
 /**
  * This function create and save an new contact
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 async function createNewContact() {
     let isNameValid = validateName('name', 'nameCorrectIncorrect');
@@ -124,142 +124,9 @@ async function createNewContact() {
 
 
 /**
- * This function validate the name of a contact. It should contain only letters and be in the format "Name Surname"
- */
-function validateName(id, messageId) {
-    let nameField = document.getElementById(id);
-    let nameMessage = document.getElementById(messageId);
-    let name = nameField ? nameField.value.trim() : '';
-    let isValidName = /^[\p{L} ]{1,100}$/u.test(name);
-    if (!nameField || !isValidName) {
-        if (nameField) nameField.style.borderColor = 'red';
-        if (nameMessage) {
-            nameMessage.textContent = 'Enter a valid name (letters/spaces only, max 100 characters).';
-            nameMessage.style.color = 'red';
-        }
-        return false;
-    } else {
-        nameField.style.borderColor = 'green';
-        if (nameMessage) {
-            nameMessage.textContent = '';
-            nameMessage.style.color = 'green';
-        }
-        return true;
-    }
-}
-
-/**
- * Prevents invalid characters from being entered into name fields.
- * Allows letters and spaces; blocks digits and most symbols.
- */
-function validateNameInput(event) {
-    try {
-        const key = event.key;
-        if (event.ctrlKey || event.metaKey || event.altKey) return;
-        if (key.length !== 1) return;
-        if (!/^[a-zA-Z ]$/.test(key)) {
-            event.preventDefault();
-        }
-    } catch (error) {
-    }
-}
-
-
-function formatName(name) {
-    return name
-        .toLowerCase()
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-}
-
-
-/**
- * This function validate the email of a contact. It should be in the format "
- */
-function validateEmail(id, messageId) {
-    let emailField = document.getElementById(id);
-    let emailMessage = document.getElementById(messageId);
-    let email = emailField ? emailField.value.trim() : '';
-    if (!emailField || !/^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]{2,})+$/.test(email)) {
-        if (emailField) emailField.style.borderColor = 'red';  
-        if (emailMessage) {
-            emailMessage.textContent = 'Input email: example@mail.com';
-            emailMessage.style.color = 'red';
-        }
-        return false;
-    } else {
-        emailField.style.borderColor = 'green';  
-        if (emailMessage) {
-            emailMessage.textContent = '';
-            emailMessage.style.color = 'green';
-        }
-        return true;
-    }
-}
-
-
-/**
- * This function validate the number of a contact. It should contain only digits and can start with a plus sign. The length should be between 7 and 15 digits.
- */
-function validateNumber(id, messageId) {
-    let numberField = document.getElementById(id);
-    let numberMessage = document.getElementById(messageId);
-    let number = numberField ? numberField.value.trim() : '';
-    if (!numberField || !/^\+?\d{7,15}$/.test(number)) {
-        if (numberField) numberField.style.borderColor = 'red';  
-        if (numberMessage) {
-            numberMessage.textContent = 'It should be 7-15 digits. It can start with a plus sign.';
-            numberMessage.style.color = 'red';
-        }
-        return false;
-    } else {
-        numberField.style.borderColor = 'green';  
-        if (numberMessage) {
-            numberMessage.textContent = '';
-            numberMessage.style.color = 'green';
-        }
-        return true;
-    }
-}
-
-
-/**
- * This function show the information that the user save a new contact
- */
-function openSuccessfullInfo() {
-    let successBox = document.getElementById('successBox');
-    let successMessage = document.getElementById('successMessage');
-    successBox.classList.remove('d-none');
-    setTimeout(() => {
-        successMessage.style.transform = "translateY(0%)";
-    }, 2000);
-    setTimeout(() => {
-        successBox.classList.add('d-none');
-    }, 2000);
-}
-
-
-/**
- * This function show the information that the user has deleted a contact
- */
-function openSuccessfullDeleteInfo() {
-    let successDeleteBox = document.getElementById('successDeleteBox');
-    let successDeleteMessage = document.getElementById('successDeleteMessage');
-    successDeleteBox.classList.remove('d-none');
-    setTimeout(() => {
-        successDeleteMessage.style.transform = "translateY(0%)";
-    }, 2000);
-    setTimeout(() => {
-        successDeleteBox.classList.add('d-none');
-    }, 2000);
-}
-
-
-/**
  * This function delete an existing contact
- * 
- * @param {string} contactId 
+ *
+ * @param {string} contactId
  */
 async function deleteContact(contactId) {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -281,15 +148,6 @@ async function deleteContact(contactId) {
 
 
 /**
- * deletes the contact in all Tasks in desktop view
- */
-async function deleteContactInTask(contact) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    deleteContactFromTasks(userData, contact)
-}
-
-
-/**
  * This function delete contacts in  mobile view
  */
 async function deleteContactMobileView() {
@@ -299,87 +157,9 @@ async function deleteContactMobileView() {
 
 
 /**
- * This function checks whether the contact exist and deletes it from the user data
- * 
- * @param {string} email 
- */
-async function deleteContactDataAndUpdateUI(email) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
-    if (ToBeDeletedContactId) {
-        await deleteContactFromTasks(userData, ToBeDeletedContactId);
-        await removeContactFromUserData(userData, ToBeDeletedContactId);
-        await loadDataAfterChanges();
-        closeDialog();
-        openSuccessfullDeleteInfo();
-        closeContactMobile();
-        document.getElementById('contactInfos').innerHTML = '';
-    }
-}
-
-
-/**
- * This function deletes the contact from the tasks
- * 
- * @param {object} userData 
- * @param {number} ToBeDeletedContactId 
- */
-async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
-    let tasks = userData.tasks;
-    let taskKeys = Object.keys(tasks);
-    let AllContactsInTask = userData.contacts;
-    for (let j = 0; j < taskKeys.length; j++) {
-        const taskId = taskKeys[j];
-        let task = tasks[taskId];
-        if (!task.contacts) {
-            continue; 
-        }
-        const contactsInTaskObj = task.contacts;
-        let contactsInTask = Object.values(contactsInTaskObj);
-        const contacts = contactsInTask.filter(singleContactInTask =>
-            AllContactsInTask[ToBeDeletedContactId] && AllContactsInTask[ToBeDeletedContactId].name !== singleContactInTask.name
-        );
-        task.contacts = contacts;
-        await updateUserTasks(uid, taskId, task);
-    }
-}
-
-
-/**
- * This function deletes the removed contact from the user data
- * 
- * @param {object} userData 
- * @param {number} ToBeDeletedContactId 
- */
-async function removeContactFromUserData(userData, ToBeDeletedContactId) {
-    delete userData.contacts[ToBeDeletedContactId];
-    await deleteUserContact(uid, ToBeDeletedContactId);
-}
-
-
-/**
- * This function get the informations to delete contacts width the fuction deleteContactMobileView()
- * 
- * @param {object} contacts 
- * @param {string} email 
- * @returns {string}
- */
-function findContactIdByEmailToDelete(contacts, email) {
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < keys.length; i++) {
-        let contactId = keys[i];
-        let contact = contacts[contactId];
-        if (contact.email === email) {
-            return contactId;
-        }
-    }
-}
-
-
-/**
  * This function get the data of a contact to edit them
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 async function getEditContact(i) {
     let userData = await loadSpecificUserDataFromLocalStorage();
@@ -397,15 +177,15 @@ async function getEditContact(i) {
 
 /**
  * This function get the entered datas to save and update them
- * 
- * @param {string} contactId 
- * @param {string} name 
- * @param {string} email 
- * @param {number} number 
- * @param {string} backgroundcolor 
- * @param {string} currentContact 
- * @param {string} uid 
- * @param {object} userData 
+ *
+ * @param {string} contactId
+ * @param {string} name
+ * @param {string} email
+ * @param {number} number
+ * @param {string} backgroundcolor
+ * @param {string} currentContact
+ * @param {string} uid
+ * @param {object} userData
  */
 async function onloadFunc(contactId, name, email, number, backgroundcolor, currentContact, uid, userData) {
     let editname = document.getElementById(`editName${contactId}`).value;
@@ -420,10 +200,10 @@ async function onloadFunc(contactId, name, email, number, backgroundcolor, curre
 
 /**
  * This function show the menu to edit or delete a contact
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 function showEditDeleteMenuBox(contactId) {
     let editDeleteMenuBox = document.getElementById('editDeleteMenuBox');
-    editDeleteMenuBox.innerHTML = getEditDeleteMenuBoxHtml(contactId); 
+    editDeleteMenuBox.innerHTML = getEditDeleteMenuBoxHtml(contactId);
 }
