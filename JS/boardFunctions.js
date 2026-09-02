@@ -179,6 +179,7 @@ function filterWithSearchTerm(searchTerm) {
     let matchingTaskCount = 0;
     for (let i = 0; i < todos.length; i++) {
         let taskTitleElement = document.getElementById(`taskTitle${i}`);
+        let taskDescriptionElement = document.getElementById(`description${i}`);
         let taskCard = document.getElementById(`task${i}`);
         if (!taskTitleElement) {
             console.warn(`taskTitle${i} not found.`);
@@ -188,7 +189,8 @@ function filterWithSearchTerm(searchTerm) {
         }
         if (taskTitleElement && taskCard) {
             let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
-            if (taskTitle.includes(searchTerm)) {
+            let taskDescription = taskDescriptionElement ? taskDescriptionElement.innerHTML.toLowerCase().slice(0, 3) : '';
+            if (taskTitle.includes(searchTerm) || taskDescription.includes(searchTerm)) {
                 taskCard.style.display = 'block';
                 matchingTaskCount++;
             } else {

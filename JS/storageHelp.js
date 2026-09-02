@@ -132,7 +132,28 @@ async function getUrgentTasks() {
 
 
 /**
+ * This function saves the task for a single user by writing it directly to its own path,
+ * so it never has to download or re-upload that user's other tasks (and their attachments).
+ *
+ * @param {string} userId
+ * @param {string} sharedTaskId
+ * @param {object} taskToSave
+ */
+async function saveTaskForUser(userId, sharedTaskId, taskToSave) {
+    await fetch(`${BASE_URL_USER_DATA}/users/${userId}/tasks/${sharedTaskId}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(taskToSave)
+    });
+}
+
+
+/**
  * This function creates one shared task id and stores the same task for every registered user.
+ * The current user's copy is saved first so the UI can update immediately; the rest of the
+ * users are synced in the background so task creation isn't slowed down by their number.
  *
  * @param {object} task
  * @param {string} taskId
@@ -140,28 +161,25 @@ async function getUrgentTasks() {
  */
 async function syncTaskToAllRegisteredUsers(task, taskId = null) {
     const sharedTaskId = taskId || `task-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+    const currentUid = localStorage.getItem('uid');
     const taskToSave = {
         ...task,
         id: sharedTaskId,
-        createdBy: localStorage.getItem('uid') || 'guest-user'
+        createdBy: currentUid || 'guest-user'
     };
-    const usersData = await loadUserData('users');
-    const userIds = Object.keys(usersData || {});
 
-    for (const userId of userIds) {
-        const currentTasks = await loadUserData(`users/${userId}/tasks`);
-        const mergedTasks = {
-            ...(currentTasks || {}),
-            [sharedTaskId]: taskToSave
-        };
+    const otherUsersSynced = fetch(`${BASE_URL_USER_DATA}/users.json?shallow=true`)
+        .then(response => response.json())
+        .then(shallowUsers => {
+            const otherUserIds = Object.keys(shallowUsers || {}).filter(id => id !== currentUid);
+            return Promise.all(otherUserIds.map(userId => saveTaskForUser(userId, sharedTaskId, taskToSave)));
+        })
+        .catch(error => console.error('Background task sync failed:', error));
 
-        await fetch(`${BASE_URL_USER_DATA}/users/${userId}/tasks.json`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(mergedTasks)
-        });
+    if (currentUid) {
+        await saveTaskForUser(currentUid, sharedTaskId, taskToSave);
+    } else {
+        await otherUsersSynced;
     }
     return sharedTaskId;
 }

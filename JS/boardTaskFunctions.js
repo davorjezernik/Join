@@ -29,6 +29,7 @@ async function displayOpenTasks() {
     for (let key in containers) {
         containers[key].innerHTML = '';
     }
+    todos = [];
     await processTasks(containers);
     removeSpecificColorFromDragArea();
 }
@@ -46,12 +47,7 @@ async function handleTaskInContainer(container, task, i, taskData) {
     container.innerHTML += getToDoTaskHtml(task, i);
     setCategoryColor(i);
     await getContactInitials(taskData.contacts, i);
-    const existingIndex = todos.findIndex(t => t.id === task.id);
-    if (existingIndex !== -1) {
-        todos[existingIndex] = task;
-    } else {
-        todos.push(task);
-    }
+    todos[i] = task;
     await generateNumberOfSubtasks(i, task);
     await generatePriorityImgUnopened(i, task);
     updateLoadBar(i);

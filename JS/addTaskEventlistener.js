@@ -18,42 +18,10 @@ async function handleTaskSubmission(task, assignedContactsContainer, date, subta
 }
 
 
-/**
- * This function reset the form so the user can create a new task
- * 
- * @param {object} assignedContactsContainer 
- * @param {number} date 
- * @param {string} subtasksContainer 
- */
-function resetForm(assignedContactsContainer, date, subtasksContainer) {
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    assignedContactsContainer.innerHTML = '';
-    date.value = '';
-    subtasksContainer.innerHTML = '';
-    localStorage.removeItem('dragCategory');
-    localStorage.removeItem('subtasks');
-    localStorage.removeItem('lastClickedButton');
-    deleteAllImages();
-}
-
 function deleteAllImages() {
     allImages = [];
     localStorage.removeItem('allImages');
     renderImages();
-}
-
-
-/**
- * This function shows the user a confirmation that the task has been created
- */
-function showConfirmationTask() {
-    let addedToBoard = document.getElementById('addedToBoard');
-    addedToBoard.classList.remove('d-none');
-    setTimeout(() => {
-        addedToBoard.classList.add('d-none');
-        window.location.href = 'board.html';
-    }, 1500);
 }
 
 
@@ -65,31 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mediumButton').onclick = function () { changeColor(this); };
     document.getElementById('urgentButton').onclick = function () { changeColor(this); };
 });
-
-
-/**
- * This function add a click event listener to each option on dropdown menus
- * 
- * @param {element} options 
- * @param {element} select 
- * @param {element} caret 
- * @param {element} menu 
- * @param {element} selected 
- */
-function addOptionListeners(options, select, caret, menu, selected) {
-    options.forEach(option => {
-        option.addEventListener('click', () => {
-            selected.innerText = option.innerText;
-            select.classList.remove('selectClicked');
-            caret.classList.remove('createRotate');
-            menu.classList.remove('menu-open');
-            options.forEach(opt => {
-                opt.classList.remove('active');
-            });
-            option.classList.add('active');
-        });
-    });
-}
 
 
 /**
@@ -163,10 +106,13 @@ function resetForm(assignedContactsContainer, date, subtasksContainer) {
 
 
 /**
- * This function shows the user a confirmation that the task has been created
+ * This function shows the user a confirmation that the task has been created.
+ * On board.html the task is added via a modal that has no confirmation element,
+ * so the animation and redirect are skipped there.
  */
 function showConfirmationTask() {
     let addedToBoard = document.getElementById('addedToBoard');
+    if (!addedToBoard) return;
     addedToBoard.classList.remove('d-none');
     setTimeout(() => {
         addedToBoard.classList.add('d-none');
