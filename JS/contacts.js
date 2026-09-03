@@ -3,34 +3,65 @@ let alphabet = [
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 ]
 let displayedLetters = [];
-let contacts = [];
+let cachedUserData = null;
 let uid = localStorage.getItem('uid');
 
 
 async function init() {
     includeHTML();
-    await loadUserData();
-    await checkExistingInitials();
-    displayInitialsFilter();
-    await displayInitialsAndContacts();
+    await loadDataAfterChanges();
     showLoggedUserInitials();
     changeBgColorMenu();
 }
 
 
 async function loadDataAfterChanges() {
-    await loadUserData();
-    await checkExistingInitials();
+    let userData = await loadSpecificUserDataFromLocalStorage();
+    cachedUserData = userData;
+    checkExistingInitials(userData);
     displayInitialsFilter();
-    await displayInitialsAndContacts();
+    displayInitialsAndContacts(userData);
+}
+
+
+/**
+ * This function returns the most recently loaded user data, only fetching it
+ * from the server if nothing has been loaded yet, so opening/editing contacts
+ * that are already on screen doesn't re-download the user's whole data again.
+ *
+ * @returns {object}
+ */
+async function getCurrentUserData() {
+    if (!cachedUserData) {
+        cachedUserData = await loadSpecificUserDataFromLocalStorage();
+    }
+    return cachedUserData;
+}
+
+
+/**
+ * This function removes a contact from the cached user data and immediately
+ * re-renders the contact list from it, so a deletion shows up right away
+ * instead of waiting for a server round-trip.
+ *
+ * @param {string} contactId
+ */
+function removeContactFromCacheAndRerender(contactId) {
+    if (cachedUserData && cachedUserData.contacts) {
+        delete cachedUserData.contacts[contactId];
+    }
+    checkExistingInitials(cachedUserData);
+    displayInitialsFilter();
+    displayInitialsAndContacts(cachedUserData);
 }
 
 
 /**
  * This function check the initials of the user and save them in the array
+ *
+ * @param {object} userData
  */
-async function checkExistingInitials() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
+function checkExistingInitials(userData) {
     let contacts = userData.contacts;
     displayedLetters = [];
     if (contacts) {
@@ -64,9 +95,10 @@ function displayInitialsFilter() {
 
 /**
  * This function displays all existing contacts
+ *
+ * @param {object} userData
  */
-async function displayInitialsAndContacts() {
-    let userData = await loadSpecificUserDataFromLocalStorage();
+function displayInitialsAndContacts(userData) {
     let contacts = userData.contacts;
     let ownDatas = userData;
     for (let j = 0; j < displayedLetters.length; j++) {
@@ -131,12 +163,13 @@ async function findIndexOf(contactId) {
  * @param {number} i 
  */
 async function openContact(i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
+    let userData = await getCurrentUserData();
     let contacts = userData.contacts;
     let contactId = Object.keys(contacts)[i];
     let { name, email, number, backgroundcolor: color } = contacts[contactId];
-    let initialsElement = document.getElementById(`contactsInitials${i}`).innerHTML;
-    let [firstLetterOfName, firstLetterOfSurname] = initialsElement.split('');
+    const words = (name || '').split(/\s+/).filter(Boolean);
+    const firstLetterOfName = words.length > 0 ? words[0].charAt(0) : '';
+    const firstLetterOfSurname = words.length > 1 ? words[words.length - 1].charAt(0) : '';
     let contactInfos = document.getElementById('contactInfos');
     contactInfos.innerHTML = getContactInfosHtml(firstLetterOfName, firstLetterOfSurname, name, email, number, i, contactId);
     showColorForBigContact(i, color);
@@ -254,7 +287,7 @@ function closeDialog() {
  * @param {number} i 
  */
 async function openEditContact(i) {
-    let { contacts } = await loadSpecificUserDataFromLocalStorage();
+    let { contacts } = await getCurrentUserData();
     let contactId = Object.keys(contacts)[i];
     let { name, email, number, backgroundcolor } = contacts[contactId] || {};
     let displayName = stripYouFromName(name);
@@ -277,7 +310,7 @@ async function openEditContact(i) {
 async function editOpenedContactInMobileView() {
     const dialogEditContact = document.getElementById('dialogNewEditContact');
     const email = document.getElementById('emailOfContact').innerHTML;
-    let userData = await loadSpecificUserDataFromLocalStorage();
+    let userData = await getCurrentUserData();
     let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
     document.body.style.overflow = 'hidden';
     if (ToBeEditedContactId) {

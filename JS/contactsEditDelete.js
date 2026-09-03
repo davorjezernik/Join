@@ -76,24 +76,30 @@ async function saveEditContact(contactId) {
     const isEmailValid = validateEmail(`editEmail${contactId}`, `emailMessage${contactId}`);
     const isNumberValid = validateNumber(`editNumber${contactId}`, `numberMessage${contactId}`);
     if (isNameValid && isEmailValid && isNumberValid) {
-        let userData = await loadSpecificUserDataFromLocalStorage();
+        let userData = await getCurrentUserData();
+        let existingContact = userData.contacts[contactId] || {};
         const editedName = document.getElementById(`editName${contactId}`).value;
         const editedEmail = document.getElementById(`editEmail${contactId}`).value;
         const editedPhone = document.getElementById(`editNumber${contactId}`).value;
-        const background = userData.contacts[contactId]['backgroundcolor'];
-        const originalName = userData.contacts[contactId].name || '';
+        const originalName = existingContact.name || '';
         const ownsSuffix = originalName.endsWith(' (you)');
-        userData.contacts[contactId] = {
+        const updatedContact = {
             name: ownsSuffix ? `${editedName} (you)` : editedName,
             email: editedEmail,
             number: editedPhone,
-            backgroundcolor: background
+            backgroundcolor: existingContact.backgroundcolor
         };
-        await updateUserData(uid, userData);
-        await loadDataAfterChanges();
+        userData.contacts[contactId] = updatedContact;
         document.getElementById('dialogNewEditContact').classList.add('d-none');
         closeDialog();
-        location.reload();
+        checkExistingInitials(userData);
+        displayInitialsFilter();
+        displayInitialsAndContacts(userData);
+        let editedContactIndex = Object.keys(userData.contacts).indexOf(contactId);
+        if (editedContactIndex !== -1) {
+            await openContact(editedContactIndex);
+        }
+        await updateSingleContact(uid, contactId, updatedContact);
     }
 }
 
@@ -114,11 +120,16 @@ async function createNewContact() {
         let number = document.getElementById('number').value.trim();
         let color = getRandomColor();
         let contact = { name: name, email: email, number: number, backgroundcolor: color };
-        await postContacts('/users/' + uid + '/contacts', contact);
-        await loadDataAfterChanges();
         closeDialog();
         openSuccessfullInfo();
         document.getElementById('contactInfos').innerHTML = '';
+        let response = await postContacts('/users/' + uid + '/contacts', contact);
+        let { name: newContactId } = await response.json();
+        let userData = await getCurrentUserData();
+        userData.contacts[newContactId] = contact;
+        checkExistingInitials(userData);
+        displayInitialsFilter();
+        displayInitialsAndContacts(userData);
     }
 }
 
@@ -129,21 +140,17 @@ async function createNewContact() {
  * @param {string} contactId
  */
 async function deleteContact(contactId) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let contacts = userData.contacts;
-    const keys = Object.keys(contacts);
-    for (let i = 0; i < keys.length; i++) {
-        let contact = keys[i]
-        if (contact === contactId) {
-            delete userData.contacts[contactId];
-            deleteContactInTask(contact);
-        }
-    }
-    await deleteUserContact(uid, contactId);
+    let userData = await getCurrentUserData();
+    let deletedContactName = userData.contacts[contactId] && userData.contacts[contactId].name;
+    let tasks = userData.tasks;
+    removeContactFromCacheAndRerender(contactId);
     openSuccessfullDeleteInfo();
-    await loadDataAfterChanges();
     closeDialog();
     document.getElementById('contactInfos').innerHTML = '';
+    await Promise.all([
+        deleteContactFromTasks(tasks, deletedContactName),
+        deleteUserContact(uid, contactId)
+    ]);
 }
 
 

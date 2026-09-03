@@ -68,6 +68,45 @@ async function updateUserContacts(uid, contacts) {
 
 
 /**
+ * This function updates a single contact of the user at the external storage,
+ * so editing a contact doesn't have to upload the user's whole contacts list.
+ *
+ * @param {string} uid
+ * @param {string} contactId
+ * @param {object} contact
+ */
+async function updateSingleContact(uid, contactId, contact) {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/contacts/${contactId}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contact)
+    });
+}
+
+
+/**
+ * This function updates only the contacts list of a single task at the external
+ * storage, so removing a contact from a task doesn't have to re-upload the
+ * whole task (title, description, subtasks, attachments, ...).
+ *
+ * @param {string} uid
+ * @param {string} taskId
+ * @param {Array} contacts
+ */
+async function updateTaskContacts(uid, taskId, contacts) {
+    await fetch(`${BASE_URL_USER_DATA}/users/${uid}/tasks/${taskId}/contacts.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contacts)
+    });
+}
+
+
+/**
  * This function updates the tasks of the user at the external storage
  *
  * @param {string} uid

@@ -155,72 +155,60 @@ function openSuccessfullDeleteInfo() {
 
 
 /**
- * This function deletes the contact in all tasks in desktop view
- *
- * @param {string} contact - Id of the contact to remove from tasks
- */
-async function deleteContactInTask(contact) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    deleteContactFromTasks(userData, contact)
-}
-
-
-/**
- * This function checks whether the contact exists and deletes it from the user data
+ * This function checks whether the contact exists and deletes it from the user data.
+ * The contact disappears from the UI immediately (from the already-loaded data),
+ * while the removal from the server and from tasks referencing it happens in the background.
  *
  * @param {string} email
  */
 async function deleteContactDataAndUpdateUI(email) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
+    let userData = await getCurrentUserData();
     let ToBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
     if (ToBeDeletedContactId) {
-        await deleteContactFromTasks(userData, ToBeDeletedContactId);
-        await removeContactFromUserData(userData, ToBeDeletedContactId);
-        await loadDataAfterChanges();
+        let deletedContactName = userData.contacts[ToBeDeletedContactId].name;
+        let tasks = userData.tasks;
+        removeContactFromCacheAndRerender(ToBeDeletedContactId);
         closeDialog();
         openSuccessfullDeleteInfo();
         closeContactMobile();
         document.getElementById('contactInfos').innerHTML = '';
+        await Promise.all([
+            deleteContactFromTasks(tasks, deletedContactName),
+            deleteUserContact(uid, ToBeDeletedContactId)
+        ]);
     }
 }
 
 
 /**
- * This function deletes the contact from the tasks
+ * This function removes a contact from the tasks that reference it. Only tasks
+ * that actually contain the contact are written back, in parallel, and only the
+ * task's contacts list is sent (not the whole task).
  *
- * @param {object} userData
- * @param {number} ToBeDeletedContactId
+ * @param {object} tasks
+ * @param {string} deletedContactName
  */
-async function deleteContactFromTasks(userData, ToBeDeletedContactId) {
-    let tasks = userData.tasks;
+async function deleteContactFromTasks(tasks, deletedContactName) {
+    tasks = tasks || {};
     let taskKeys = Object.keys(tasks);
-    let AllContactsInTask = userData.contacts;
+    if (!deletedContactName) return;
+    const updates = [];
     for (let j = 0; j < taskKeys.length; j++) {
         const taskId = taskKeys[j];
         let task = tasks[taskId];
         if (!task.contacts) {
             continue;
         }
-        const contactsInTaskObj = task.contacts;
-        let contactsInTask = Object.values(contactsInTaskObj);
-        const contacts = contactsInTask.filter(singleContactInTask =>
-            AllContactsInTask[ToBeDeletedContactId] && AllContactsInTask[ToBeDeletedContactId].name !== singleContactInTask.name
-        );
-        task.contacts = contacts;
-        await updateUserTasks(uid, taskId, task);
+        const contactsInTask = Object.values(task.contacts);
+        const stillHasContact = contactsInTask.some(singleContactInTask => singleContactInTask.name === deletedContactName);
+        if (!stillHasContact) {
+            continue;
+        }
+        const remainingContacts = contactsInTask.filter(singleContactInTask => singleContactInTask.name !== deletedContactName);
+        task.contacts = remainingContacts;
+        updates.push(updateTaskContacts(uid, taskId, remainingContacts));
     }
-}
-
-
-/**
- * This function deletes the removed contact from the user data
- *
- * @param {object} userData
- * @param {number} ToBeDeletedContactId
- */
-async function removeContactFromUserData(userData, ToBeDeletedContactId) {
-    delete userData.contacts[ToBeDeletedContactId];
-    await deleteUserContact(uid, ToBeDeletedContactId);
+    await Promise.all(updates);
 }
 
 
