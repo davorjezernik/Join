@@ -120,7 +120,7 @@ function closeModal(modal) {
  */
 async function deleteTask(i) {
     const taskId = todos[i].id;
-    await deleteUserTask(uid, taskId);
+    await deleteTaskForAllUsers(taskId);
     const modal = document.getElementById(`myModal${i}`);
     if (modal) {
         closeModal(modal);

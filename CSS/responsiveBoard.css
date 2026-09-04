@@ -106,7 +106,7 @@
 
     .todo-class {
         min-width: 200px;
-        min-height: 200px;
+        max-height: 200px;
     }
     .modal-content {
         width: 35%;

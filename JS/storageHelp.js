@@ -186,6 +186,26 @@ async function syncTaskToAllRegisteredUsers(task, taskId = null) {
 
 
 /**
+ * This function deletes a shared task from every registered user's own copy,
+ * so deleting a task removes it for everybody it was shared with, not just the current user.
+ *
+ * @param {string} taskId
+ */
+async function deleteTaskForAllUsers(taskId) {
+    const shallowUsers = await fetch(`${BASE_URL_USER_DATA}/users.json?shallow=true`)
+        .then(response => response.json())
+        .catch(() => null);
+    const userIds = Object.keys(shallowUsers || {});
+    await Promise.all(userIds.map(userId => fetch(`${BASE_URL_USER_DATA}/users/${userId}/tasks/${taskId}.json`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })));
+}
+
+
+/**
  * This function copies all guest tasks into a newly registered user account.
  *
  * @param {string} userUID
