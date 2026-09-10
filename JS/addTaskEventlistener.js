@@ -18,6 +18,11 @@ async function handleTaskSubmission(task, assignedContactsContainer, date, subta
 }
 
 
+/**
+ * Deletes all uploaded images.
+ * Clears the in-memory `allImages` array, removes the stored
+ * images from localStorage, and re-renders the (now empty) gallery.
+ */
 function deleteAllImages() {
     allImages = [];
     localStorage.removeItem('allImages');
@@ -36,32 +41,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /**
- * This function initialized all drop down menus when is loading
+ * Initializes all dropdown components on the page once the DOM is ready.
+ * Finds every element with the `.drop-down` class and sets up its
+ * open/close behavior.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const dropDowns = document.querySelectorAll('.drop-down');
-    dropDowns.forEach(dropDown => {
-        const select = dropDown.querySelector('.select');
-        const caret = dropDown.querySelector('.caret');
-        const menu = dropDown.querySelector('.menu');
-        const options = dropDown.querySelectorAll('.menu li');
-        const selected = dropDown.querySelector('.selected');
-        select.addEventListener('click', (event) => {
-            event.stopPropagation();
-            select.classList.toggle('selectClicked');
-            caret.classList.toggle('createRotate');
-            menu.classList.toggle('menu-open');
-        });
-        addOptionListeners(options, select, caret, menu, selected);
-        document.addEventListener('click', (event) => {
-            if (!dropDown.contains(event.target)) {
-                select.classList.remove('selectClicked');
-                caret.classList.remove('createRotate');
-                menu.classList.remove('menu-open');
-            }
-        });
-    });
+    dropDowns.forEach(setupDropDown);
 });
+
+
+/**
+ * Sets up a single dropdown's interactive behavior.
+ * Wires up the toggle-on-click handler, attaches option listeners,
+ * and registers the outside-click handler that closes the dropdown.
+ *
+ * @param {Element} dropDown - The root `.drop-down` container element.
+ */
+function setupDropDown(dropDown) {
+    const select = dropDown.querySelector('.select');
+    const caret = dropDown.querySelector('.caret');
+    const menu = dropDown.querySelector('.menu');
+    const options = dropDown.querySelectorAll('.menu li');
+    const selected = dropDown.querySelector('.selected');
+    addToggleListener(select, caret, menu);
+    addOptionListeners(options, select, caret, menu, selected);
+    addOutsideClickListener(dropDown, select, caret, menu);
+}
+
+
+/**
+ * Adds a click listener that toggles the open/closed state of a dropdown.
+ * Toggles the "clicked" and "open" styling classes on the select box,
+ * caret icon, and menu, and stops the click from bubbling up.
+ *
+ * @param {Element} select - The clickable element that opens/closes the menu.
+ * @param {Element} caret - The caret icon that rotates on open/close.
+ * @param {Element} menu - The dropdown menu element.
+ */
+function addToggleListener(select, caret, menu) {
+    select.addEventListener('click', (event) => {
+        event.stopPropagation();
+        select.classList.toggle('selectClicked');
+        caret.classList.toggle('createRotate');
+        menu.classList.toggle('menu-open');
+    });
+}
+
+
+/**
+ * Adds a document-level click listener that closes the dropdown
+ * whenever a click occurs outside of it.
+ *
+ * @param {Element} dropDown - The root `.drop-down` container element.
+ * @param {Element} select - The select box element to reset.
+ * @param {Element} caret - The caret icon element to reset.
+ * @param {Element} menu - The dropdown menu element to close.
+ */
+function addOutsideClickListener(dropDown, select, caret, menu) {
+    document.addEventListener('click', (event) => {
+        if (!dropDown.contains(event.target)) {
+            select.classList.remove('selectClicked');
+            caret.classList.remove('createRotate');
+            menu.classList.remove('menu-open');
+        }
+    });
+}
 
 
 /**
@@ -143,15 +188,6 @@ function changeColor(clickedButton) {
     });
 }
 
-
-/**
- * This function changes the color of the priority buttons and save the selected priority
- */
-/* document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('lowButton').onclick = function () { changeColor(this); };
-    document.getElementById('mediumButton').onclick = function () { changeColor(this); };
-    document.getElementById('urgentButton').onclick = function () { changeColor(this); };
-}); */
 
 
 /**

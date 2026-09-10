@@ -21,8 +21,6 @@ async function onloadFunction() {
 
 /**
  * This function checks whether the entries have been entered correctly before adding a new task
- *
- * @returns {boolean} true if title, date and category are all valid
  */
 function validateAndAddTask() {
     const isTitleValid = validateTitle();
@@ -45,8 +43,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 /**
- * This function retrieves data from local storage and creates an object with data,
- * then submits the task
+ * This function retrieves data from local storage and creates an object with data, then submits the task
  */
 async function addTask() {
     const taskTitle = document.getElementById('taskTitle');
@@ -64,10 +61,6 @@ async function addTask() {
     await handleTaskSubmission(task, assignedContactsContainer, date, subtasksContainer, dragCategory);
 }
 
-
-async function addContactsToTask() {
-
-}
 
 
 /**
@@ -101,7 +94,7 @@ async function handleTaskSubmission(task, assignedContactsContainer, date, subta
  * @param {string} category
  * @param {object} contacts
  * @param {string} subtasks
- * @returns
+ * @returns {object} task object
  */
 function createTaskObject(name, description, date, priority, category, contacts, subtasks) {
     const subtasksArray = createSubtasksArray(subtasks);
@@ -123,7 +116,7 @@ function createTaskObject(name, description, date, priority, category, contacts,
  * This function creates an array for the subtasks
  *
  * @param {object} subtasks
- * @returns {object}
+ * @returns {array} array of subtask objects
  */
 function createSubtasksArray(subtasks) {
     if (!subtasks) return [];
@@ -135,31 +128,71 @@ function createSubtasksArray(subtasks) {
 
 
 /**
- * This function clears all inputs on AddTask
+ * Resets the basic text input fields of the task form.
+ * Clears the title, description, contact display text and bubble,
+ * and the date field.
  */
-function removeAllInput() {
+function resetBasicFields() {
     document.getElementById("taskTitle").value = "";
     document.getElementById("taskDescription").value = "";
     document.getElementById("selectContact").textContent = "Search Contact";
     document.getElementById("contactsDisplayBubble").innerHTML = "";
     document.getElementById("date").value = "";
+}
+
+
+/**
+ * Resets all image-related state.
+ * Clears the in-memory `allImages` array (if defined), removes the
+ * stored images from localStorage, empties the gallery container,
+ * and re-renders the (now empty) gallery.
+ */
+function resetImages() {
     if (typeof allImages !== 'undefined') {
         allImages.length = 0;
     }
     localStorage.removeItem('allImages');
     document.getElementById('gallery').innerHTML = '';
     renderImages();
+}
+
+
+/**
+ * Resets the priority selection buttons to their default state.
+ * Removes the selected style from all priority buttons, then
+ * marks "medium" as the default selected priority.
+ */
+function resetPriorityButtons() {
     const priorityButtons = document.querySelectorAll(".button-prio");
     priorityButtons.forEach(button => {
         button.classList.remove("mediumSelected", "lowSelected", "urgentSelected");
     });
     const mediumButton = document.getElementById("mediumButton");
     mediumButton.classList.add("mediumSelected");
+}
+
+
+/**
+ * Resets the task category selection and all subtasks.
+ * Restores the category placeholder text, clears the subtask
+ * input field and rendered subtask list, resets the `subtasks`
+ * array, and removes any stored subtasks from localStorage.
+ */
+function resetCategoryAndSubtasks() {
     document.getElementById("selectCategory").textContent = "Select task category";
     document.getElementById("inputFieldSubtask").value = "";
     document.getElementById("subtasksContainer").innerHTML = "";
     subtasks = [];
     localStorage.removeItem('subtasks');
+}
+
+
+/**
+ * Resets all contact assignment selections.
+ * Unchecks every contact checkbox and clears any highlight
+ * styling (background/text color) applied to selected contacts.
+ */
+function resetContactSelections() {
     const checkboxes = document.querySelectorAll('.assign-contact-checkbox');
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;
@@ -169,7 +202,31 @@ function removeAllInput() {
         contact.style.backgroundColor = "";
         contact.style.color = "";
     });
+}
+
+
+/**
+ * Clears all validation error messages from the task form,
+ * including title, date, and category errors.
+ */
+function clearAllErrors() {
     clearTitleError();
     clearDateError();
     clearCategoryError();
+}
+
+
+/**
+ * Resets the entire "Add Task" form to its initial state.
+ * Orchestrates all individual reset functions to clear input
+ * fields, images, priority selection, category/subtasks,
+ * contact selections, and validation errors.
+ */
+function removeAllInput() {
+    resetBasicFields();
+    resetImages();
+    resetPriorityButtons();
+    resetCategoryAndSubtasks();
+    resetContactSelections();
+    clearAllErrors();
 }

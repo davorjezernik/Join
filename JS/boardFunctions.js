@@ -138,7 +138,7 @@ function filterTask() {
     }
     if (search.length >= 3) {
         if (clickHere) clickHere.classList.remove('display-none-a');
-        filterWithSearchTerm(search.slice(0, 3));
+        filterWithSearchTerm(search);
         removeSpecificColorFromDragArea();
     } else if (search.length === 0) {
         clearClickHere();
@@ -188,8 +188,8 @@ function filterWithSearchTerm(searchTerm) {
             console.warn(`task${i} not found.`);
         }
         if (taskTitleElement && taskCard) {
-            let taskTitle = taskTitleElement.innerHTML.toLowerCase().slice(0, 3);
-            let taskDescription = taskDescriptionElement ? taskDescriptionElement.innerHTML.toLowerCase().slice(0, 3) : '';
+            let taskTitle = taskTitleElement.innerHTML.toLowerCase();
+            let taskDescription = taskDescriptionElement ? taskDescriptionElement.innerHTML.toLowerCase() : '';
             if (taskTitle.includes(searchTerm) || taskDescription.includes(searchTerm)) {
                 taskCard.style.display = 'block';
                 matchingTaskCount++;

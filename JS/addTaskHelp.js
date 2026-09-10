@@ -270,31 +270,85 @@ function onInputChange() {
 
 
 /**
- * This function saves the selected contacts in local storage and displays them in the task
+ * Handles a contact checkbox toggle for task assignment.
+ * Adds or removes the contact from `assignedContacts` depending on
+ * the checkbox state, updates the contact's visual selection state,
+ * persists the assignment list, and refreshes the assigned-contacts display.
  *
- * @param {object} event
- * @param {number} i
+ * @param {Event} event - The change event from the contact checkbox.
+ * @param {number} i - The index used to identify the corresponding
+ * `contactToChose{i}` element.
  */
 function choseContactForAssignment(event, i) {
     const checkbox = event.target;
     const contactToChose = document.getElementById(`contactToChose${i}`);
     const contactName = checkbox.getAttribute('data-name');
-    const contactElement = checkbox.closest('.contact-boarder');
-    const color = contactElement.querySelector('.circle-initial').style.background;
+    const color = getContactColor(checkbox);
+
     if (checkbox.checked) {
-        if (!assignedContacts.some(contact => contact.name === contactName)) {
-            assignedContacts.push({ name: contactName, backgroundcolor: color });
-            contactToChose.style.backgroundColor = "#2A3647";
-            contactToChose.style.color = "white";
-        }
+        addAssignedContact(contactName, color, contactToChose);
     } else {
-        assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
-        contactToChose.style.backgroundColor = "";
-        contactToChose.style.color = "";
+        removeAssignedContact(contactName, contactToChose);
     }
-    localStorage.setItem('contactsAssignedToTask', JSON.stringify(assignedContacts));
+
+    saveAssignedContacts();
     displayContactsForAssignment();
 }
+
+
+/**
+ * Retrieves the background color associated with a contact checkbox.
+ * Looks up the contact's initials circle within its containing
+ * `.contact-boarder` element.
+ *
+ * @param {Element} checkbox - The contact checkbox element.
+ * @returns {string} The CSS background color of the contact's initial circle.
+ */
+function getContactColor(checkbox) {
+    const contactElement = checkbox.closest('.contact-boarder');
+    return contactElement.querySelector('.circle-initial').style.background;
+}
+
+
+/**
+ * Adds a contact to the assigned contacts list if not already present,
+ * and applies the "selected" styling to its corresponding element.
+ *
+ * @param {string} contactName - The name of the contact to assign.
+ * @param {string} color - The background color associated with the contact.
+ * @param {Element} contactToChose - The element representing the contact
+ * in the selection list, to be visually marked as selected.
+ */
+function addAssignedContact(contactName, color, contactToChose) {
+    if (!assignedContacts.some(contact => contact.name === contactName)) {
+        assignedContacts.push({ name: contactName, backgroundcolor: color });
+        contactToChose.style.backgroundColor = "#2A3647";
+        contactToChose.style.color = "white";
+    }
+}
+
+
+/**
+ * Removes a contact from the assigned contacts list and clears the
+ * "selected" styling from its corresponding element.
+ *
+ * @param {string} contactName - The name of the contact to unassign.
+ * @param {Element} contactToChose - The element representing the contact
+ * in the selection list, to be visually reset.
+ */
+function removeAssignedContact(contactName, contactToChose) {
+    assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
+    contactToChose.style.backgroundColor = "";
+    contactToChose.style.color = "";
+}
+
+
+/**
+ * Persists the current list of assigned contacts to localStorage.
+ */
+function saveAssignedContacts() {
+    localStorage.setItem('contactsAssignedToTask', JSON.stringify(assignedContacts));
+} 
 
 
 /**
