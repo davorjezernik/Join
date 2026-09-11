@@ -47,9 +47,8 @@ async function toggleSubtaskStatus(i, j) {
     let tasks = userData.tasks;
     let taskIds = Object.keys(tasks);
     let id = taskIds[i];
-    let task = tasks[id];
     await updateSubtaskStatus(tasks, i, j, statusOfSubtask);
-    await generateNumberOfSubtasks(i, task);
+    await generateNumberOfSubtasks(i, { id, task: tasks[id] });
     updateLoadBar(i);
 }
 
@@ -101,6 +100,7 @@ function updateLoadBar(i) {
     const loadBarContainer = document.getElementById(`loadBarContainer${i}`);
     const loadBar = document.getElementById(`loadBar${i}`);
     const subtaskNumber = document.getElementById(`subtasksNumber${i}`);
+    if (!loadBarContainer || !loadBar || !subtaskNumber) return;
     const subtaskText = subtaskNumber.innerHTML;
     const match = subtaskText.match(/(\d+)\/(\d+) Subtasks/);
     if (match) {

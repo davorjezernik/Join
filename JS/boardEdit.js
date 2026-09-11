@@ -42,33 +42,71 @@ function changeColorEdit(clickedButton) {
 
 
 /**
- * This function allows adding a subtask to an existing task or editing the subtask
- * 
- * @param {number} i 
+ * Adds a new subtask to the task at index `i` while in edit mode.
+ * Reads the subtask text from the edit input field, ensures the task's
+ * subtask list is properly initialized, inserts or appends the new
+ * subtask, persists the change, and refreshes the subtask list display.
+ *
+ * @param {number} i - The index of the task in the `todos` array
+ * being edited.
  */
 function addSubtaskEdit(i) {
-    let container = document.getElementById(`subtasksContainer${i}`);
-    let subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
-    if (subtaskText !== '') {
-        let newSubtask = { text: subtaskText, status: 'pending' };
-        if (todos[i]) {
-            if (!todos[i].task) {
-                todos[i].task = { subtasks: [] };
-            } if (!Array.isArray(todos[i].task.subtasks)) {
-                todos[i].task.subtasks = [];
-            }
-            if (editedSubtask !== null) {
-                todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
-                editedSubtask = null;
-            } else {
-                todos[i].task.subtasks.push(newSubtask);
-            }
-            localStorage.setItem('todos', JSON.stringify(todos));
-            container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
-            document.getElementById('inputFieldSubtaskEdit').value = '';
-        }
+    const subtaskText = document.getElementById('inputFieldSubtaskEdit').value.trim();
+    if (subtaskText !== '' && todos[i]) {
+        ensureSubtasksArray(todos[i]);
+        insertOrAppendSubtask(i, subtaskText);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        refreshSubtaskEditView(i);
     }
     onInputChangeEdit();
+}
+
+/**
+ * Ensures a task object has a valid `task.subtasks` array,
+ * creating the `task` object and/or `subtasks` array if missing.
+ *
+ * @param {Object} todo - The task object to check/initialize.
+ */
+function ensureSubtasksArray(todo) {
+    if (!todo.task) {
+        todo.task = { subtasks: [] };
+    }
+    if (!Array.isArray(todo.task.subtasks)) {
+        todo.task.subtasks = [];
+    }
+}
+
+
+/**
+ * Inserts a new subtask into an existing subtask's position (if one is
+ * currently being edited) or appends it to the end of the task's
+ * subtask list otherwise. Clears the global `editedSubtask` state
+ * after an insertion.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ * @param {string} subtaskText - The text content of the new subtask.
+ */
+function insertOrAppendSubtask(i, subtaskText) {
+    const newSubtask = { text: subtaskText, status: 'pending' };
+    if (editedSubtask !== null) {
+        todos[editedSubtask.taskIndex].task.subtasks.splice(editedSubtask.subtaskIndex, 0, newSubtask);
+        editedSubtask = null;
+    } else {
+        todos[i].task.subtasks.push(newSubtask);
+    }
+}
+
+
+/**
+ * Re-renders the subtask list for the given task and clears the
+ * subtask edit input field.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ */
+function refreshSubtaskEditView(i) {
+    const container = document.getElementById(`subtasksContainer${i}`);
+    container.innerHTML = generateSubtasksEditHtml(todos[i].task.subtasks, i);
+    document.getElementById('inputFieldSubtaskEdit').value = '';
 }
 
 
@@ -85,7 +123,7 @@ function editSubtaskEdit(taskIndex, subtaskIndex) {
     editedSubtask = { taskIndex, subtaskIndex, text };
     todos[taskIndex].task.subtasks.splice(subtaskIndex, 1);
     localStorage.setItem('todos', JSON.stringify(todos));
-    displaySubtasksEdit(taskIndex);
+    refreshSubtaskEditView(taskIndex);
     onInputChangeEdit();
 }
 
@@ -132,220 +170,98 @@ function deleteSubtaskEdit(taskIndex, subtaskIndex) {
 
 
 /**
- * This function get the assigned contacts to save them
- * 
- * @returns {object}
- */
-function getTaskContacts() {
-    let newContacts;
-    const toBeEditedAssignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
-    newContacts = toBeEditedAssignedContacts;
-    return newContacts;
-}
-
-
-function getTaskAllImages() {
-    const allImages = JSON.parse(localStorage.getItem('allImages')) || [];
-    return allImages;
-}
-
-
-/**
- * This function gets the assigned priority for saving
- * 
- * @returns {element}
- */
-function getTaskPriority() {
-    const priority = localStorage.getItem('lastClickedButton');
-    const toBeEditedPriority = localStorage.getItem('toBeEditedPriority');
-    let newPriority;
-    if (toBeEditedPriority === priority) {
-        newPriority = toBeEditedPriority;
-    } else {
-        newPriority = priority;
-    }
-    return newPriority;
-}
-
-
-/**
- * This function gets the assigned subtask for saving
- * 
- * @param {number} i 
- * @returns {string}
- */
-function getTaskSubtasks(i) {
-    const subtasksContainer = document.getElementById(`subtasksContainer${i}`);
-    const subtaskDivs = subtasksContainer.getElementsByClassName('subtask-Txt');
-    const subtasks = [];
-    for (let j = 0; j < subtaskDivs.length; j++) {
-        const subtaskText = subtaskDivs[j].querySelector(`#subtask${i}-${j}`).innerText;
-        subtasks.push({ text: subtaskText, status: 'undone' });
-    }
-    return subtasks;
-}
-
-
-/**
- * This function updates the status of the checkbox based on saved contacts in local storage
- * 
- * @returns no return
- */
-function showCheckedContacts() {
-    let assignedContactsJson = localStorage.getItem('toBeEditedAssignedContacts');
-    if (!assignedContactsJson) {
-        return;
-    }
-    let assignedContacts = JSON.parse(assignedContactsJson);
-    let assignedContactNames = assignedContacts.map(contact => contact.name);
-    let contacts = document.querySelectorAll('[id^="contactInEditTask-"]');
-    let checkboxes = document.querySelectorAll('[id^="checkboxInEditTask"]');
-    let contactCheckboxMap = {};
-    contacts.forEach(contact => {
-        let contactName = contact.innerHTML.trim();
-        let contactIndex = contact.id.split('-')[1];
-        contactCheckboxMap[contactIndex] = contactName;
-    });
-    checkboxes.forEach(checkbox => {
-        let checkboxIndex = checkbox.id.replace('checkboxInEditTask', '');
-        let contactName = contactCheckboxMap[checkboxIndex];
-        let contactToChose = document.getElementById(`contactToChoseInEditTask${checkboxIndex}`);
-        if (contactName) {
-            checkbox.checked = assignedContactNames.includes(contactName);
-        } else {
-            checkbox.checked = false;
-        }
-        contactToChose.style.backgroundColor = checkbox.checked ? '#2A3647' : '';
-        contactToChose.style.color = checkbox.checked ? 'white' : '';
-    });
-}
-
-
-/**
- * This function save a task after editing
- * 
- * @param {number} i 
+ * Saves edits made to the task at index `i`.
+ * Validates the title and date, and if valid, gathers the updated
+ * task data, persists it, refreshes the task list, closes the edit
+ * modal, and cleans up temporary edit-related localStorage data.
+ *
+ * @param {number} i - The index of the task being edited, used to
+ * locate its form fields and modal.
  */
 async function saveTask(i) {
     const { nameEdit, descriptionEdit, dateEdit } = getTaskDetails(i);
-    const isTitleValid = validateEditTitle(nameEdit, i);
-    const isDateValid = validateEditDate(dateEdit, i);
-    if (!isTitleValid || !isDateValid) return;
-    const subtasks = getTaskSubtasks(i);
-    const newContacts = getTaskContacts();
-    const newPriority = getTaskPriority();
+    if (!isEditFormValid(nameEdit, dateEdit, i)) return;
+    const task = buildUpdatedTask(nameEdit, descriptionEdit, dateEdit, i);
     const toBeEditedTaskId = localStorage.getItem('toBeEditedTaskId');
-    const toBeEditedDragCategory = JSON.parse(localStorage.getItem('toBeEditedDragCategory'));
-    const toBeEditedCategory = JSON.parse(localStorage.getItem('toBeEditedCategory'));
-    const task = {
-        name: nameEdit,
-        description: descriptionEdit,
-        date: dateEdit,
-        contacts: newContacts,
-        category: toBeEditedCategory,
-        dragCategory: toBeEditedDragCategory,
-        subtasks: subtasks,
-        priority: newPriority,
-        allImages: getTaskAllImages()
-    };
     await updateUserTasks(uid, toBeEditedTaskId, task);
     await displayOpenTasks();
-    const modal = document.getElementById(`myModal${i}`);
-    closeModal(modal); 
-    localStorage.removeItem('contacts');
-    localStorage.removeItem('allImages');
-    localStorage.removeItem('toBeEditedAllImages');
+    closeModal(document.getElementById(`myModal${i}`));
+    clearEditTaskStorage();
 }
 
 
 /**
- * This function title is chosen
- * 
- * @param {number} i 
- * @param {number} title 
- */
-function validateEditTitle(title, i) {
-    const input = document.getElementById(`taskTitleEdit${i}`);
-    const errorSpan = document.getElementById(`correctTitleEdit${i}`);    
-    const isValid = title && title.trim().length >= 4;
-    if (!isValid) {
-        if (input) input.style.borderColor = 'red';
-        if (errorSpan) {
-            errorSpan.textContent = 'Title must be at least 4 characters.';
-            errorSpan.style.color = 'red';
-        }
-        return false;
-    }
-    if (input?.style.borderColor === 'red') input.style.borderColor = '';
-    if (errorSpan?.textContent) errorSpan.textContent = '';
-
-    return true;
-}
-
-
-/**
- * This function if a date is chosen
- * 
- * @param {number} i 
- * @param {number} date 
- */
-function validateEditDate(date, i) {
-    const input = document.getElementById(`dateEdit${i}`);
-    const errorSpan = document.getElementById(`correctDateEdit${i}`);
-    const isValid = Boolean(date);
-    if (!isValid) {
-        if (input) input.style.borderColor = 'red';
-        if (errorSpan) {
-            errorSpan.textContent = 'Please select a valid date.';
-            errorSpan.style.color = 'red';
-        }
-        return false;
-    }
-    if (input?.style.borderColor === 'red') input.style.borderColor = '';
-    if (errorSpan?.textContent) errorSpan.textContent = '';
-    return true;
-}
-
-
-/**
- * This function gets the details of the task (description, name and date) for saving
- * 
- * @param {number} i 
- * @returns {string, number}
- */
-function getTaskDetails(i) {
-    const nameEdit = document.getElementById(`taskTitleEdit${i}`).value || '';
-    const descriptionEdit = document.getElementById(`taskDescriptionEdit${i}`).value || '';
-    const dateEdit = document.getElementById(`dateEdit${i}`).value || '';
-    return { nameEdit, descriptionEdit, dateEdit };
-}
-
-
-/**
- * This function checks wether all required fields are filled in to add a new task
+ * Validates the "add task" form fields and, if valid, submits the task.
+ * Resets any previous validation error styling, checks the title,
+ * date, and category fields, and calls `addTask()` only if all
+ * fields pass validation.
  */
 function validateAndAddTask() {
-    const taskTitle = document.getElementById('taskTitle');
-    const date = document.getElementById('date');
-    const categoryContainer = document.getElementById('selectCategoryContainer');
-    const category = document.getElementById('selectCategory');
-    taskTitle.style.borderColor = '';
-    date.style.borderColor = '';
-    categoryContainer.style.borderColor = '';
-    let isValid = true;
-    if (taskTitle.value.trim().length < 4) {
-        taskTitle.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (!date.value) {
-        date.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (category.textContent === 'Select task category') {
-        categoryContainer.style.borderColor = 'red';
-        isValid = false;
-    }
-    if (isValid) {
+    resetValidationStyling();
+    const isTitleValid = validateTaskTitle();
+    const isDateValid = validateTaskDate();
+    const isCategoryValid = validateTaskCategory();
+    if (isTitleValid && isDateValid && isCategoryValid) {
         addTask();
     }
+}
+
+/**
+ * Clears any error border styling previously applied to the
+ * title, date, and category fields.
+ */
+function resetValidationStyling() {
+    document.getElementById('taskTitle').style.borderColor = '';
+    document.getElementById('date').style.borderColor = '';
+    document.getElementById('selectCategoryContainer').style.borderColor = '';
+}
+
+
+/**
+ * Validates the task title field, requiring at least 4 non-whitespace
+ * characters. Applies error styling if invalid.
+ *
+ * @returns {boolean} `true` if the title is valid, `false` otherwise.
+ */
+function validateTaskTitle() {
+    const taskTitle = document.getElementById('taskTitle');
+    if (taskTitle.value.trim().length < 4) {
+        taskTitle.style.borderColor = 'red';
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * Validates that the task date field has a value.
+ * Applies error styling if invalid.
+ *
+ * @returns {boolean} `true` if the date is set, `false` otherwise.
+ */
+function validateTaskDate() {
+    const date = document.getElementById('date');
+    if (!date.value) {
+        date.style.borderColor = 'red';
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * Validates that a task category has been selected (i.e. the
+ * placeholder text is no longer shown). Applies error styling
+ * to the category container if invalid.
+ *
+ * @returns {boolean} `true` if a category is selected, `false` otherwise.
+ */
+function validateTaskCategory() {
+    const category = document.getElementById('selectCategory');
+    const categoryContainer = document.getElementById('selectCategoryContainer');
+    if (category.textContent === 'Select task category') {
+        categoryContainer.style.borderColor = 'red';
+        return false;
+    }
+    return true;
 }
