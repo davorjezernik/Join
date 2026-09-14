@@ -61,6 +61,7 @@ function addSubtaskEdit(i) {
     onInputChangeEdit();
 }
 
+
 /**
  * Ensures a task object has a valid `task.subtasks` array,
  * creating the `task` object and/or `subtasks` array if missing.
@@ -205,6 +206,7 @@ function validateAndAddTask() {
         addTask();
     }
 }
+
 
 /**
  * Clears any error border styling previously applied to the

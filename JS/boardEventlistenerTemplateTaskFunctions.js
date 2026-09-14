@@ -78,31 +78,72 @@ function addCategoryEventListenerEdit() {
 
 
 /**
- * This function adds drop down event listener to different elements
+ * Sets up dropdown behavior for all dropdowns in the given list of
+ * element ids. Wires up toggle-on-click and option-selection behavior
+ * for each one.
  */
 function addEventListenerDropDown() {
-    const dropDowns = ['dropDownEdit']; 
+    const dropDowns = ['dropDownEdit'];
     dropDowns.forEach(dropDownId => {
-        const dropDown = document.getElementById(dropDownId);
-        const select = dropDown.querySelector('.select');
-        const caret = dropDown.querySelector('.caret');
-        const menu = dropDown.querySelector('.menu');
-        const options = dropDown.querySelectorAll('.menu li');
-        const selected = dropDown.querySelector('.selected');
-        select.addEventListener('click', () => {
-            select.classList.toggle('selectClicked');
-            caret.classList.toggle('createRotate');
-            menu.classList.toggle('menu-open');
-        });
-        options.forEach(option => {
-            option.addEventListener('click', () => {
-                selected.innerText = option.innerText;
-                select.classList.remove('selectClicked');
-                caret.classList.remove('createRotate');
-                menu.classList.remove('menu-open');
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-            });
+        setupDropDownById(dropDownId);
+    });
+}
+
+
+/**
+ * Sets up a single dropdown's interactive behavior by its element id.
+ * Wires up the toggle-on-click handler and the option-selection handler.
+ *
+ * @param {string} dropDownId - The id of the root `.drop-down` container element.
+ */
+function setupDropDownById(dropDownId) {
+    const dropDown = document.getElementById(dropDownId);
+    const select = dropDown.querySelector('.select');
+    const caret = dropDown.querySelector('.caret');
+    const menu = dropDown.querySelector('.menu');
+    const options = dropDown.querySelectorAll('.menu li');
+    const selected = dropDown.querySelector('.selected');
+    addDropDownToggleListener(select, caret, menu);
+    addDropDownOptionListeners(options, select, caret, menu, selected);
+}
+
+
+/**
+ * Adds a click listener that toggles the open/closed styling of a dropdown.
+ *
+ * @param {Element} select - The clickable element that opens/closes the menu.
+ * @param {Element} caret - The caret icon that rotates on open/close.
+ * @param {Element} menu - The dropdown menu element.
+ */
+function addDropDownToggleListener(select, caret, menu) {
+    select.addEventListener('click', () => {
+        select.classList.toggle('selectClicked');
+        caret.classList.toggle('createRotate');
+        menu.classList.toggle('menu-open');
+    });
+}
+
+
+/**
+ * Adds click listeners to each dropdown option, so that selecting one
+ * updates the displayed selected text, closes the dropdown, and marks
+ * the chosen option as active.
+ *
+ * @param {NodeListOf<Element>} options - The list of selectable menu options.
+ * @param {Element} select - The select box element to reset on selection.
+ * @param {Element} caret - The caret icon element to reset on selection.
+ * @param {Element} menu - The dropdown menu element to close on selection.
+ * @param {Element} selected - The element displaying the currently selected text.
+ */
+function addDropDownOptionListeners(options, select, caret, menu, selected) {
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selected.innerText = option.innerText;
+            select.classList.remove('selectClicked');
+            caret.classList.remove('createRotate');
+            menu.classList.remove('menu-open');
+            options.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
         });
     });
 }
@@ -174,7 +215,15 @@ function generateSubtasksEditHtml(subtasks, i) {
 
 
 /**
- * Generates the html for the images in the edit view, including a trashcan icon to delete them and displays them
+ * Generates the HTML markup for a list of images in the task edit view.
+ * Each image is rendered with a clickable preview, a trashcan icon to
+ * delete it, and its filename displayed below.
+ *
+ * @param {Array<{base64String: string, name: string}>} allImages - The
+ * list of image objects to render, each with a base64-encoded image
+ * string and a file name.
+ * @returns {string} The concatenated HTML markup for all images, or an
+ * empty string if `allImages` is missing or empty.
  */
 function generateImagesEditHtml(allImages) {
     if (!allImages || allImages.length === 0) return '';

@@ -138,60 +138,113 @@ const emptyArray = [];
  *
  * @param {number} i
  */
+/**
+ * Opens the edit view for the task at index `i`.
+ * Persists the task's current data to localStorage for the edit
+ * session, renders the edit modal content, and initializes all
+ * interactive elements within it (image upload/drag-drop, dropdowns,
+ * priority buttons, and contact display).
+ *
+ * @param {number} i - The index of the task in the `todos` array being edited.
+ */
 async function editTask(i) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let tasks = userData.tasks;
-    const modalContentEdit = document.getElementById(`modal${i}`);
+    await loadSpecificUserDataFromLocalStorage();
     const task = todos[i]['task'];
-    const contacts = todos[i]['task']['contacts'];
-    if (contacts) {
-        localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(contacts));
-    } else {
-        localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(emptyArray));
-    }
-    const dragCategory = todos[i]['task']["dragCategory"];
-    localStorage.setItem('toBeEditedDragCategory', JSON.stringify(dragCategory));
-    const category = todos[i]['task']["category"];
-    localStorage.setItem('toBeEditedCategory', JSON.stringify(category));
-    const priority = todos[i]['task']["priority"];
-    localStorage.setItem('toBeEditedPriority', JSON.stringify(priority));
-    const allImages = todos[i]['task']["allImages"];
-    if (allImages) {
-        localStorage.setItem('allImages', JSON.stringify(allImages));
+    storeTaskEditState(i, task);
+    const modalContentEdit = document.getElementById(`modal${i}`);
+    modalContentEdit.innerHTML = generateEditModalContent(task, i);
+    setupEditGallery(i);
+    setupFileUploadListener(i);
+    setupDropZoneListeners(i);
+    initializeEditModalControls();
+}
+
+/**
+ * Persists the task's contacts, drag category, category, priority,
+ * images, and id to localStorage so the edit modal and its supporting
+ * functions can read them during the edit session.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ * @param {Object} task - The task's `task` data object.
+ */
+function storeTaskEditState(i, task) {
+    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(task.contacts || emptyArray));
+    localStorage.setItem('toBeEditedDragCategory', JSON.stringify(task.dragCategory));
+    localStorage.setItem('toBeEditedCategory', JSON.stringify(task.category));
+    localStorage.setItem('toBeEditedPriority', JSON.stringify(task.priority));
+    if (task.allImages) {
+        localStorage.setItem('allImages', JSON.stringify(task.allImages));
     } else {
         localStorage.removeItem('allImages');
     }
-    let title = task.name;
-    let description = task.description;
     localStorage.setItem('toBeEditedTaskId', todos[i].id);
-    modalContentEdit.innerHTML = generateEditModalContent(task, i);
-    const fileUpload = document.getElementById(`fileUpload${i}`);
-    const dropZone = document.getElementById(`dropZone${i}`);
+}
+
+
+/**
+ * Sets up the image gallery for the edit modal, pointing the global
+ * `gallery` reference at this task's gallery element and loading
+ * its images.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ */
+function setupEditGallery(i) {
     window.gallery = document.getElementById(`gallery${i}`);
     if (typeof gallery !== 'undefined') gallery = window.gallery;
     window.loadImages();
+}
+
+
+/**
+ * Adds a change listener to the edit modal's file upload input, so
+ * that selected files are passed to `handleFiles`.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ */
+function setupFileUploadListener(i) {
+    const fileUpload = document.getElementById(`fileUpload${i}`);
     if (fileUpload) {
         fileUpload.addEventListener('change', () => {
             handleFiles(fileUpload.files);
         });
     }
-    if (dropZone) {
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.add('dragover');
-        });
-        dropZone.addEventListener('dragleave', (e) => {
-            e.stopPropagation();
-            dropZone.classList.remove('dragover');
-        });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.remove('dragover');
-            handleFiles(e.dataTransfer.files);
-        });
-    }
+}
+
+
+/**
+ * Adds drag-and-drop listeners to the edit modal's drop zone,
+ * toggling its "dragover" styling and passing dropped files to
+ * `handleFiles`.
+ *
+ * @param {number} i - The index of the task in the `todos` array.
+ */
+function setupDropZoneListeners(i) {
+    const dropZone = document.getElementById(`dropZone${i}`);
+    if (!dropZone) return;
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.add('dragover');
+    });
+    dropZone.addEventListener('dragleave', (e) => {
+        e.stopPropagation();
+        dropZone.classList.remove('dragover');
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+}
+
+
+/**
+ * Initializes the remaining interactive controls in the edit modal:
+ * category dropdown, priority button listeners and selected styling,
+ * assigned contacts display, form-change tracking, and image loading.
+ */
+function initializeEditModalControls() {
     addEventListenerDropDown();
     addPrioEventListenersEdit();
     changeColor(document.querySelector('.button-prio-selected'));

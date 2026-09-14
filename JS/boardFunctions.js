@@ -1,7 +1,7 @@
 /**
  * This function sets the background color for the selected category
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 function setCategoryColor(i) {
     let categoryContainer = document.getElementById(`category${i}`);
@@ -16,10 +16,10 @@ function setCategoryColor(i) {
 
 
 /**
- * This function displays the background color for the selected category in the larger view 
+ * This function displays the background color for the selected category in the larger view
  * of the task
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 function setCategoryColorOpened(i) {
     let categoryContainerOpened = document.getElementById(`categoryOpened${i}`);
@@ -35,9 +35,9 @@ function setCategoryColorOpened(i) {
 
 /**
  * This function toggle the status of the subtask
- * 
- * @param {number} i 
- * @param {number} j 
+ *
+ * @param {number} i
+ * @param {number} j
  */
 async function toggleSubtaskStatus(i, j) {
     let subtaskCheckbox = document.getElementById(`subtaskCheckbox(${i}, ${j})`);
@@ -54,47 +54,9 @@ async function toggleSubtaskStatus(i, j) {
 
 
 /**
- * This function updates the status of subtask
- * 
- * @param {object} tasks 
- * @param {number} i 
- * @param {number} j 
- * @param {*element} statusOfSubtask 
- */
-async function updateSubtaskStatus(tasks, i, j, statusOfSubtask) {
-    let taskIds = Object.keys(tasks);
-    let taskId = taskIds[i];
-    let task = tasks[taskId];
-    let subtasks = task.subtasks;
-    let subtaskIds = Object.keys(subtasks);
-    let subtaskId = subtaskIds[j];
-    let subtask = subtasks[subtaskId];
-    subtask.status = statusOfSubtask ? 'done' : 'undone';
-    await updateSubtaskStatusInFirebase(subtask.status, taskId, subtaskId);
-}
-
-
-/**
- * This function updates the subtask status in external storage
- * 
- * @param {element} status 
- * @param {number} taskId 
- * @param {number} subtaskId 
- */
-async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
-    let userData = await loadSpecificUserDataFromLocalStorage();
-    let tasks = userData.tasks;
-    if (tasks[taskId] && tasks[taskId].subtasks[subtaskId]) {
-        tasks[taskId].subtasks[subtaskId].status = status;
-        await updateUserData(uid, userData);
-    }
-}
-
-
-/**
  * This function updates the loadbar
- * 
- * @param {number} i 
+ *
+ * @param {number} i
  */
 function updateLoadBar(i) {
     const loadBarContainer = document.getElementById(`loadBarContainer${i}`);
@@ -116,30 +78,16 @@ function updateLoadBar(i) {
 
 
 /**
- * This function filters searched tasks
+ * Filters searched tasks based on the current value of whichever
+ * search input is active or populated. Toggles the "clickHere" hint
+ * element and applies/clears filtering depending on the search
+ * term's length.
  */
 function filterTask() {
-    let clickHere = document.getElementById('clickHere');
-    // Try both desktop and mobile search inputs
-    let searchInput = document.getElementById('search');
-    let searchInputSmall = document.getElementById('searchSmall');
-    let search = '';
-    if (searchInput && searchInput === document.activeElement) {
-        search = searchInput.value.toLowerCase();
-    } else if (searchInputSmall && searchInputSmall === document.activeElement) {
-        search = searchInputSmall.value.toLowerCase();
-    } else if (searchInput && searchInput.value) {
-        search = searchInput.value.toLowerCase();
-    } else if (searchInputSmall && searchInputSmall.value) {
-        search = searchInputSmall.value.toLowerCase();
-    }
-    if (!clickHere) {
-        console.warn('Element with id "clickHere" not found.');
-    }
+    const search = getActiveSearchTerm();
+    warnIfClickHereMissing();
     if (search.length >= 3) {
-        if (clickHere) clickHere.classList.remove('display-none-a');
-        filterWithSearchTerm(search);
-        removeSpecificColorFromDragArea();
+        showClickHereAndFilter(search);
     } else if (search.length === 0) {
         clearClickHere();
         removeSpecificColorFromDragArea();
@@ -153,7 +101,6 @@ function filterTask() {
 function validateSearch(searchInput) {
     let search = searchInput ? searchInput.value.trim() : '';
     let errorMessages = document.querySelectorAll('[id^="correctSearch"]');
-
     errorMessages.forEach(errorMessage => {
         if (search.length > 0 && search.length < 3) {
             errorMessage.textContent = 'Required: 3 letters';
@@ -171,75 +118,24 @@ function validateSearch(searchInput) {
 
 
 /**
- * This function displays searched tasks based on words entered
- * 
- * @param {string} searchTerm 
- */
-function filterWithSearchTerm(searchTerm) {
-    let matchingTaskCount = 0;
-    for (let i = 0; i < todos.length; i++) {
-        let taskTitleElement = document.getElementById(`taskTitle${i}`);
-        let taskDescriptionElement = document.getElementById(`description${i}`);
-        let taskCard = document.getElementById(`task${i}`);
-        if (!taskTitleElement) {
-            console.warn(`taskTitle${i} not found.`);
-        }
-        if (!taskCard) {
-            console.warn(`task${i} not found.`);
-        }
-        if (taskTitleElement && taskCard) {
-            let taskTitle = taskTitleElement.innerHTML.toLowerCase();
-            let taskDescription = taskDescriptionElement ? taskDescriptionElement.innerHTML.toLowerCase() : '';
-            if (taskTitle.includes(searchTerm) || taskDescription.includes(searchTerm)) {
-                taskCard.style.display = 'block';
-                matchingTaskCount++;
-            } else {
-                taskCard.style.display = 'none';
-            }
-        }
-    }
-    let taskCountElem = document.getElementById('taskCount');
-    if (taskCountElem) {
-        taskCountElem.innerText = matchingTaskCount;
-    } else {
-        console.warn('Element with id "taskCount" not found.');
-    }
-}
-
-
-/**
- * This function clears the serach input and displays all tasks
+ * Clears the search UI back to its default state.
+ * Hides the "clickHere" hint, clears search inputs and their error
+ * styling, hides error messages, shows all task cards again, and
+ * resets the visible task count to zero.
  */
 function clearClickHere() {
-    let clickHere = document.getElementById('clickHere');
-    clickHere.classList.add('display-none-a');
-    let searchInput = document.getElementById('search');
-    let searchInputSmall = document.getElementById('searchSmall');
-    let errorMessages = document.querySelectorAll('[id^="correctSearch"]');
-
-    if (searchInput) searchInput.value = '';
-    if (searchInputSmall) searchInputSmall.value = '';
-    if (searchInput) searchInput.parentElement.style.borderColor = '';
-    if (searchInputSmall) searchInputSmall.parentElement.style.borderColor = '';
-    errorMessages.forEach(errorMessage => {
-        errorMessage.textContent = '';
-        errorMessage.style.display = 'none';
-    });
-    for (let i = 0; i < todos.length; i++) {
-        let taskCard = document.getElementById(`task${i}`);
-        if (taskCard) {
-            taskCard.style.display = 'block';
-        }
-    }
-
+    document.getElementById('clickHere').classList.add('display-none-a');
+    resetSearchInputs();
+    hideSearchErrorMessages();
+    showAllTaskCards();
     document.getElementById('taskCount').innerText = '0';
 }
 
 
 /**
  * This function manages the drag and drop state
- * 
- * @param {number} id 
+ *
+ * @param {number} id
  */
 function startDragging(id) {
     currentDraggedElement = id;
@@ -248,8 +144,8 @@ function startDragging(id) {
 
 /**
  * This function allows tasks to be postponed
- * 
- * @param {element} category 
+ *
+ * @param {element} category
  * @param {number} i
  * @param {event} event
  */
@@ -265,10 +161,10 @@ async function moveTo(category) {
 
 /**
  * This function allows tasks to be postponed and update the datas on external storage
- * 
- * @param {element} event 
- * @param {element} category 
- * @param {number} i 
+ *
+ * @param {element} event
+ * @param {element} category
+ * @param {number} i
  */
 async function moveToFromMenu(event, category, i) {
     event.stopPropagation();
@@ -281,49 +177,21 @@ async function moveToFromMenu(event, category, i) {
 
 
 /**
- * This function allows tasks to be remove from a container
- * 
- * @param {number} index 
- */
-function removeTaskFromContainer(index) {
-    const taskElement = document.getElementById(`task${index}`);
-    if (taskElement) {
-        taskElement.remove();
-        const container = taskElement.parentElement;
-        if (container && container.children.length === 0) {
-            const noTaskMessage = container.querySelector('.drag-area-text');
-            if (noTaskMessage) noTaskMessage.style.display = 'block';
-        }
-    }
-}
-
-
-/**
- * This function add a new task in the correct container
- * 
- * @param {number} index 
- * @param {element} category 
+ * Adds a rendered task card to the appropriate drag-area container
+ * based on its category, and initializes its visual details
+ * (contacts, subtask count, priority icon, and progress bar).
+ *
+ * @param {number} index - The index of the task in the `todos` array.
+ * @param {string} category - The task's category key (e.g. 'todo',
+ * 'inprogress', 'awaitfeedback', 'done').
  */
 function addTaskToContainer(index, category) {
-    const containerIdMap = {
-        'todo': 'toDoTasks',
-        'inprogress': 'inProgressTasks',
-        'awaitfeedback': 'feedbackTasks',
-        'done': 'done'
-    };
-    const containerId = containerIdMap[category];
-    const container = document.getElementById(containerId);
-    if (container) {
-        container.classList.remove('drag-area-no-elements');
-        container.classList.add('drag-area-has-elements');
-        const noTaskMessage = container.querySelector('.drag-area-text');
-        if (noTaskMessage) noTaskMessage.style.display = 'none';
-        container.innerHTML += getToDoTaskHtml(todos[index], index);
-        getContactInitials(todos[index].task.contacts, index);
-        generateNumberOfSubtasks(index, todos[index]);
-        generatePriorityImgUnopened(index, todos[index]);
-        updateLoadBar(index);
-    }
+    const container = getCategoryContainer(category);
+    if (!container) return;
+
+    markContainerAsHasElements(container);
+    container.innerHTML += getToDoTaskHtml(todos[index], index);
+    initializeTaskCardDetails(index);
 }
 
 
@@ -346,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * This function makes it possible to drag and drop tasks into a container
- * 
- * @param {*} event 
+ *
+ * @param {*} event
  */
 function allowDrop(event) {
     event.preventDefault();
@@ -356,9 +224,9 @@ function allowDrop(event) {
 
 /**
  * This function shows or hides the menu
- * 
- * @param {object} event 
- * @param {number} i 
+ *
+ * @param {object} event
+ * @param {number} i
  */
 function toggleMoveToMenu(event, i) {
     event.stopPropagation();

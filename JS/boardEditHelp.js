@@ -104,12 +104,10 @@ function buildContactCheckboxMap() {
  */
 function applyCheckedStateToCheckboxes(contactCheckboxMap, assignedContactNames) {
     const checkboxes = document.querySelectorAll('[id^="checkboxInEditTask"]');
-
     checkboxes.forEach(checkbox => {
         const checkboxIndex = checkbox.id.replace('checkboxInEditTask', '');
         const contactName = contactCheckboxMap[checkboxIndex];
         const contactToChose = document.getElementById(`contactToChoseInEditTask${checkboxIndex}`);
-
         checkbox.checked = contactName ? assignedContactNames.includes(contactName) : false;
         contactToChose.style.backgroundColor = checkbox.checked ? '#2A3647' : '';
         contactToChose.style.color = checkbox.checked ? 'white' : '';

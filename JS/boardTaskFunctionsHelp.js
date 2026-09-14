@@ -233,6 +233,7 @@ function choseContactForAssignmentEditTask(event, i) {
         contactToChose.style.color = "";
     }
     localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(assignedContacts));
+    renderAssignedContactsBubblesEdit(assignedContacts);
 }
 
 
@@ -240,19 +241,31 @@ function choseContactForAssignmentEditTask(event, i) {
  * This function dsiplays the assigned contacts in editing view
  */
 async function displayAssignedContactsInEdit() {
-    let containerBubbleInitials = document.getElementById('contactsDisplayBubbleInEdit');
     let userData = await loadSpecificUserDataFromLocalStorage();
     let tasks = userData.tasks;
     let taskId = localStorage.getItem('toBeEditedTaskId');
     let toBeEditedTask = tasks[taskId];
     let contacts = toBeEditedTask.contacts;
     if (toBeEditedTask && contacts) {
-        for (let i = 0; i < contacts.length; i++) {
-            const contact = contacts[i];
-            let backgroundColor = contact.backgroundcolor;
-            let name = contact.name;
-            let initials = getInitials(name)
-            containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, backgroundColor);
-        }
+        renderAssignedContactsBubblesEdit(contacts);
+    }
+}
+
+
+/**
+ * This function redraws the assigned-contacts bubbles in the editing
+ * view so they always match the currently selected contacts.
+ *
+ * @param {Array<Object>} contacts
+ */
+function renderAssignedContactsBubblesEdit(contacts) {
+    let containerBubbleInitials = document.getElementById('contactsDisplayBubbleInEdit');
+    containerBubbleInitials.innerHTML = '';
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        let backgroundColor = contact.backgroundcolor;
+        let name = contact.name;
+        let initials = getInitials(name)
+        containerBubbleInitials.innerHTML += generateBubbleInitialsHtml(i, initials, backgroundColor);
     }
 }
