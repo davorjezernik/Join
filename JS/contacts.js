@@ -7,6 +7,10 @@ let cachedUserData = null;
 let uid = localStorage.getItem('uid');
 
 
+/**
+ * This function initializes the contacts page by including the HTML templates,
+ * loading the user data and rendering the logged in user's initials and menu colors
+ */
 async function init() {
     includeHTML();
     await loadDataAfterChanges();
@@ -15,6 +19,10 @@ async function init() {
 }
 
 
+/**
+ * This function loads the current user data from local storage, caches it and
+ * refreshes the contacts list and its letter filter on screen
+ */
 async function loadDataAfterChanges() {
     let userData = await loadSpecificUserDataFromLocalStorage();
     cachedUserData = userData;
@@ -305,34 +313,69 @@ async function openEditContact(i) {
 
 
 /**
- * This function opens a menu to edit contacts
+ * Opens the edit-contact dialog in mobile view for the currently
+ * displayed contact. Looks up the contact by the email shown in the
+ * detail view, renders the edit form, applies the contact's color to
+ * the initials bubble, and animates the dialog into view.
  */
 async function editOpenedContactInMobileView() {
-    const dialogEditContact = document.getElementById('dialogNewEditContact');
     const email = document.getElementById('emailOfContact').innerHTML;
-    let userData = await getCurrentUserData();
-    let ToBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
+    const userData = await getCurrentUserData();
+    const toBeEditedContactId = findContactIdByEmailToEdit(userData.contacts, email);
     document.body.style.overflow = 'hidden';
-    if (ToBeEditedContactId) {
-        const displayedName = stripYouFromName(document.getElementById('nameOfContact').innerHTML);
-        const contact = userData.contacts[ToBeEditedContactId] || {};
-        dialogEditContact.innerHTML = getEditContactHtmlMobileView(
-            displayedName,
-            email,
-            document.getElementById('numberOfContact').innerHTML,
-            ToBeEditedContactId,
-            contact.backgroundcolor || ''
-        );
-        dialogEditContact.classList.remove('d-none');
-        const editContactBubble = document.getElementById(`edit-contactsInitialsBig${ToBeEditedContactId}`);
-        if (editContactBubble) {
-            editContactBubble.style.backgroundColor = contact.backgroundcolor || '';
-        }
-        let editContact = document.getElementById('dialogNewEditContact');
-        setTimeout(() => {
-            editContact.style.transform = "translateY(0%)";
-        }, 50);
+    if (toBeEditedContactId) {
+        const contact = userData.contacts[toBeEditedContactId] || {};
+        renderEditContactDialog(toBeEditedContactId, email, contact);
+        applyContactColorToBubble(toBeEditedContactId, contact);
+        animateEditContactDialogIn();
     }
+}
+
+
+/**
+ * Renders the edit-contact form into the dialog and makes it visible.
+ *
+ * @param {string} contactId - The id of the contact being edited.
+ * @param {string} email - The contact's email address.
+ * @param {Object} contact - The contact's data object.
+ */
+function renderEditContactDialog(contactId, email, contact) {
+    const dialogEditContact = document.getElementById('dialogNewEditContact');
+    const displayedName = stripYouFromName(document.getElementById('nameOfContact').innerHTML);
+    dialogEditContact.innerHTML = getEditContactHtmlMobileView(
+        displayedName,
+        email,
+        document.getElementById('numberOfContact').innerHTML,
+        contactId,
+        contact.backgroundcolor || ''
+    );
+    dialogEditContact.classList.remove('d-none');
+}
+
+
+/**
+ * Applies the contact's background color to their initials bubble
+ * in the edit dialog, if the bubble element exists.
+ *
+ * @param {string} contactId - The id of the contact being edited.
+ * @param {Object} contact - The contact's data object.
+ */
+function applyContactColorToBubble(contactId, contact) {
+    const editContactBubble = document.getElementById(`edit-contactsInitialsBig${contactId}`);
+    if (editContactBubble) {
+        editContactBubble.style.backgroundColor = contact.backgroundcolor || '';
+    }
+}
+
+
+/**
+ * Animates the edit-contact dialog sliding into view.
+ */
+function animateEditContactDialogIn() {
+    const editContact = document.getElementById('dialogNewEditContact');
+    setTimeout(() => {
+        editContact.style.transform = "translateY(0%)";
+    }, 50);
 }
 
 

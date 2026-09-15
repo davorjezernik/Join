@@ -5,10 +5,8 @@
 async function logOut() {
     let data = JSON.parse(localStorage.getItem('data'));
     let guest = JSON.parse(localStorage.getItem('loggedInGuest'));
-
     if (data && data.name) {
         let name = data.name;
-
         if (name === 'Guest') {
             localStorage.removeItem('contacts');
             window.location.href = "index.html";
@@ -29,7 +27,6 @@ async function handleUserLogout(data) {
     let Data = await loadUserData("users");
     let users = Object.entries(Data);
     let foundUser = users.find(([uid, u]) => u.email === data.email && u.password === data.password);
-
     if (foundUser) {
         let userUID = foundUser[0];
         localStorage.removeItem('uid');

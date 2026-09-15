@@ -54,6 +54,7 @@ function openEditSmallMenu() {
     }, 0);
 }
 
+
 /**
  * Handles closing the edit menu when clicking outside of it
  */
@@ -67,70 +68,185 @@ function handleClickOutsideEditMenu(event) {
 
 
 /**
- * This function save the changes of the editet contact
+ * Validates and saves edits to the contact identified by `contactId`.
+ * If all fields are valid, builds the updated contact data, updates
+ * the local user data and UI, reopens the contact detail view, and
+ * persists the change.
  *
- * @param {string} contactId
+ * @param {string} contactId - The id of the contact being edited.
  */
 async function saveEditContact(contactId) {
+    if (!isEditContactFormValid(contactId)) return;
+
+    const userData = await getCurrentUserData();
+    const existingContact = userData.contacts[contactId] || {};
+    const updatedContact = buildUpdatedContact(contactId, existingContact);
+
+    userData.contacts[contactId] = updatedContact;
+
+    closeEditContactDialog();
+    refreshContactsDisplay(userData);
+    await reopenEditedContact(userData, contactId);
+    await updateSingleContact(uid, contactId, updatedContact);
+}
+
+
+/**
+ * Validates the name, email, and number fields of the edit-contact form.
+ *
+ * @param {string} contactId - The id of the contact being edited, used
+ * to locate its form fields.
+ * @returns {boolean} `true` if all three fields are valid, `false` otherwise.
+ */
+function isEditContactFormValid(contactId) {
     const isNameValid = validateName(`editName${contactId}`, `nameMessage${contactId}`);
     const isEmailValid = validateEmail(`editEmail${contactId}`, `emailMessage${contactId}`);
     const isNumberValid = validateNumber(`editNumber${contactId}`, `numberMessage${contactId}`);
-    if (isNameValid && isEmailValid && isNumberValid) {
-        let userData = await getCurrentUserData();
-        let existingContact = userData.contacts[contactId] || {};
-        const editedName = document.getElementById(`editName${contactId}`).value;
-        const editedEmail = document.getElementById(`editEmail${contactId}`).value;
-        const editedPhone = document.getElementById(`editNumber${contactId}`).value;
-        const originalName = existingContact.name || '';
-        const ownsSuffix = originalName.endsWith(' (you)');
-        const updatedContact = {
-            name: ownsSuffix ? `${editedName} (you)` : editedName,
-            email: editedEmail,
-            number: editedPhone,
-            backgroundcolor: existingContact.backgroundcolor
-        };
-        userData.contacts[contactId] = updatedContact;
-        document.getElementById('dialogNewEditContact').classList.add('d-none');
-        closeDialog();
-        checkExistingInitials(userData);
-        displayInitialsFilter();
-        displayInitialsAndContacts(userData);
-        let editedContactIndex = Object.keys(userData.contacts).indexOf(contactId);
-        if (editedContactIndex !== -1) {
-            await openContact(editedContactIndex);
-        }
-        await updateSingleContact(uid, contactId, updatedContact);
+    return isNameValid && isEmailValid && isNumberValid;
+}
+
+
+/**
+ * Builds the updated contact object from the edit form's current
+ * values, preserving the "(you)" name suffix and background color
+ * from the existing contact.
+ *
+ * @param {string} contactId - The id of the contact being edited.
+ * @param {Object} existingContact - The contact's current data, used
+ * to preserve its name suffix and background color.
+ * @returns {Object} The updated contact object.
+ */
+function buildUpdatedContact(contactId, existingContact) {
+    const editedName = document.getElementById(`editName${contactId}`).value;
+    const editedEmail = document.getElementById(`editEmail${contactId}`).value;
+    const editedPhone = document.getElementById(`editNumber${contactId}`).value;
+    const originalName = existingContact.name || '';
+    const ownsSuffix = originalName.endsWith(' (you)');
+    return {
+        name: ownsSuffix ? `${editedName} (you)` : editedName,
+        email: editedEmail,
+        number: editedPhone,
+        backgroundcolor: existingContact.backgroundcolor
+    };
+}
+
+
+/**
+ * Hides and closes the edit-contact dialog.
+ */
+function closeEditContactDialog() {
+    document.getElementById('dialogNewEditContact').classList.add('d-none');
+    closeDialog();
+}
+
+
+/**
+ * Refreshes all contact-related UI displays after a contact update.
+ *
+ * @param {Object} userData - The current user data, including the
+ * updated contacts list.
+ */
+function refreshContactsDisplay(userData) {
+    checkExistingInitials(userData);
+    displayInitialsFilter();
+    displayInitialsAndContacts(userData);
+}
+
+
+/**
+ * Reopens the contact detail view for the edited contact, if its
+ * position can be found in the contacts list.
+ *
+ * @param {Object} userData - The current user data, including the
+ * updated contacts list.
+ * @param {string} contactId - The id of the edited contact.
+ */
+async function reopenEditedContact(userData, contactId) {
+    const editedContactIndex = Object.keys(userData.contacts).indexOf(contactId);
+    if (editedContactIndex !== -1) {
+        await openContact(editedContactIndex);
     }
 }
 
 
 /**
- * This function create and save an new contact
- *
- * @param {number} i
+ * Validates and creates a new contact from the "add contact" form.
+ * If all fields are valid, builds the contact object, closes the
+ * dialog, shows a success message, saves the contact to the backend,
+ * and refreshes the contacts UI.
  */
 async function createNewContact() {
-    let isNameValid = validateName('name', 'nameCorrectIncorrect');
-    let isEmailValid = validateEmail('email', 'emailCorrectIncorrect');
-    let isNumberValid = validateNumber('number', 'numberCorrectIncorrect');
-    if (isNameValid && isEmailValid && isNumberValid) {
-        let uid = localStorage.getItem('uid');
-        let name = document.getElementById('name').value.trim();
-        let email = document.getElementById('email').value.trim();
-        let number = document.getElementById('number').value.trim();
-        let color = getRandomColor();
-        let contact = { name: name, email: email, number: number, backgroundcolor: color };
-        closeDialog();
-        openSuccessfullInfo();
-        document.getElementById('contactInfos').innerHTML = '';
-        let response = await postContacts('/users/' + uid + '/contacts', contact);
-        let { name: newContactId } = await response.json();
-        let userData = await getCurrentUserData();
-        userData.contacts[newContactId] = contact;
-        checkExistingInitials(userData);
-        displayInitialsFilter();
-        displayInitialsAndContacts(userData);
-    }
+    if (!isNewContactFormValid()) return;
+
+    const contact = buildNewContactFromForm();
+
+    closeDialog();
+    openSuccessfullInfo();
+    document.getElementById('contactInfos').innerHTML = '';
+
+    const newContactId = await saveNewContact(contact);
+    await refreshContactsAfterCreate(newContactId, contact);
+}
+
+
+/**
+ * Validates the name, email, and number fields of the
+ * "add contact" form.
+ *
+ * @returns {boolean} `true` if all three fields are valid, `false` otherwise.
+ */
+function isNewContactFormValid() {
+    const isNameValid = validateName('name', 'nameCorrectIncorrect');
+    const isEmailValid = validateEmail('email', 'emailCorrectIncorrect');
+    const isNumberValid = validateNumber('number', 'numberCorrectIncorrect');
+    return isNameValid && isEmailValid && isNumberValid;
+}
+
+
+/**
+ * Builds a new contact object from the current values of the
+ * "add contact" form, assigning it a random background color.
+ *
+ * @returns {Object} The new contact object.
+ */
+function buildNewContactFromForm() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const number = document.getElementById('number').value.trim();
+    const color = getRandomColor();
+
+    return { name, email, number, backgroundcolor: color };
+}
+
+
+/**
+ * Saves a new contact to the backend under the current user.
+ *
+ * @param {Object} contact - The contact object to save.
+ * @returns {Promise<string>} The id assigned to the new contact.
+ */
+async function saveNewContact(contact) {
+    const uid = localStorage.getItem('uid');
+    const response = await postContacts('/users/' + uid + '/contacts', contact);
+    const { name: newContactId } = await response.json();
+    return newContactId;
+}
+
+
+/**
+ * Refreshes the contacts UI after a new contact has been created,
+ * incorporating it into the local user data first.
+ *
+ * @param {string} newContactId - The id assigned to the new contact.
+ * @param {Object} contact - The newly created contact object.
+ */
+async function refreshContactsAfterCreate(newContactId, contact) {
+    const userData = await getCurrentUserData();
+    userData.contacts[newContactId] = contact;
+
+    checkExistingInitials(userData);
+    displayInitialsFilter();
+    displayInitialsAndContacts(userData);
 }
 
 

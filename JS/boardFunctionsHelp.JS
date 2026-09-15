@@ -96,13 +96,11 @@ function showClickHereAndFilter(search) {
  */
 function filterWithSearchTerm(searchTerm) {
     let matchingTaskCount = 0;
-
     for (let i = 0; i < todos.length; i++) {
         if (filterSingleTask(i, searchTerm)) {
             matchingTaskCount++;
         }
     }
-
     updateTaskCountDisplay(matchingTaskCount);
 }
 
