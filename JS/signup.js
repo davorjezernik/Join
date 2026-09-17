@@ -1,74 +1,51 @@
 /**
- * This function createa an user object with all the data and if the password is correct 
- * the user is registered and can log in
- * 
- * @param {string} path 
- * @returns 
+ * Handles the sign-up flow: validates the password confirmation,
+ * creates the user account, and if successful, sets up the new
+ * user's initial data and shows the success UI before redirecting.
+ *
+ * @param {string} [path="users"] - The backend path to post the new user to.
  */
 async function signUp(path = "users") {
-    let {name, email, password, confirmedPassword, color} = getUserData();
+    const { name, email, password, confirmedPassword, color } = getUserData();
     if (password !== confirmedPassword) {
         alert("Passwords do not match.");
         return;
     }
-    let data = createUserObject(name, email, password);
-    let responseToJson = await postUser(path, data);
-    if (responseToJson) {
-        let userUID = responseToJson.name;
-        let userData = await setSignedUpUser(userUID);
-        if (userData) {
-            await createOwnContact(name, email, '', color, userUID);
-            await copyGuestTasksToNewUser(userUID);
-            document.getElementById('successfull-container').classList.remove('d-none');
-            document.getElementById('succesfull-signup').classList.add('transform');
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        }
-    }
+    const responseToJson = await postUser(path, createUserObject(name, email, password));
+    if (!responseToJson) return;
+    const userUID = responseToJson.name;
+    const userData = await setSignedUpUser(userUID);
+    if (!userData) return;
+    await setUpNewUserData(userUID, name, email, color);
+    showSignUpSuccessAndRedirect();
 }
 
 
 /**
- * This function get all the entered user data
- * 
- * @returns {object}
+ * Sets up a newly signed-up user's initial data: creates their own
+ * contact entry and copies over any tasks created as a guest.
+ *
+ * @param {string} userUID - The id of the newly created user.
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ * @param {string} color - The background color for the user's contact bubble.
  */
-function getUserData() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let confirmedPassword = document.getElementById('confirmedPassword').value;
-    let color = getRandomColor();
-    return {
-        name: name,
-        email: email,
-        password: password,
-        confirmedPassword: confirmedPassword,
-        color: color
-    };
+async function setUpNewUserData(userUID, name, email, color) {
+    await createOwnContact(name, email, '', color, userUID);
+    await copyGuestTasksToNewUser(userUID);
 }
 
 
 /**
- * This function create an object with the user data
- * 
- * @param {string} name 
- * @param {string} email 
- * @param {string} password 
- * @returns {object}
+ * Shows the sign-up success message with its transform animation,
+ * then redirects to the summary page after a short delay.
  */
-function createUserObject(name, email, password) {
-    return {
-        name: name,
-        email: email,
-        password: password,
-        urgentTasks: [],
-        mediumTasks: [],
-        lowTasks: [],
-        contacts: [],
-        tasks: {}
-    };
+function showSignUpSuccessAndRedirect() {
+    document.getElementById('successfull-container').classList.remove('d-none');
+    document.getElementById('succesfull-signup').classList.add('transform');
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1500);
 }
 
 
@@ -98,36 +75,17 @@ async function createOwnContact(name, email, number, color, uid) {
 
 
 /**
- * This function copies the first 10 contacts from the guest account to the new user account.
+ * Builds the set of contacts to save for a new user: up to 10 of the
+ * guest user's existing contacts (excluding the guest's own entry),
+ * plus the new user's own contact. Guest contact lookup failures are
+ * logged but don't prevent the user's own contact from being included.
  *
- * @param {string} uid
- * @param {object} ownContact
- * @returns {object}
+ * @param {string} uid - The new user's id, used to generate their contact id.
+ * @param {Object} ownContact - The new user's own contact object.
+ * @returns {Promise<Object>} A map of contact id to contact object.
  */
 async function getContactsToCopy(uid, ownContact) {
-    const contactsToSave = {};
-
-    try {
-        const usersData = await loadUserData("users");
-        const guestUserEntry = Object.entries(usersData || {}).find(([_, user]) => user?.email === "guest.user@email.com");
-
-        if (guestUserEntry) {
-            const [, guestUser] = guestUserEntry;
-            const guestContacts = guestUser?.contacts;
-
-            if (guestContacts && typeof guestContacts === "object") {
-                const guestContactEntries = Object.entries(guestContacts)
-                    .filter(([_, guestContact]) => guestContact?.email !== "guest.user@email.com")
-                    .slice(0, 10);
-
-                guestContactEntries.forEach(([contactId, guestContact]) => {
-                    contactsToSave[contactId] = guestContact;
-                });
-            }
-        }
-    } catch (error) {
-        console.error("Failed to copy guest contacts:", error);
-    }
+    const contactsToSave = await getGuestContactsToCopy();
 
     const ownContactId = `${Date.now()}-${uid.slice(0, 6)}`;
     contactsToSave[ownContactId] = ownContact;
@@ -136,171 +94,74 @@ async function getContactsToCopy(uid, ownContact) {
 
 
 /**
- * This function is responsible that the form works
+ * Retrieves up to 10 of the guest user's contacts (excluding the
+ * guest's own contact entry) to copy over to a new user. Returns an
+ * empty object if the guest user or their contacts can't be found,
+ * or if the lookup fails.
+ *
+ * @returns {Promise<Object>} A map of contact id to contact object.
+ */
+async function getGuestContactsToCopy() {
+    const contactsToSave = {};
+    try {
+        const usersData = await loadUserData("users");
+        const guestUser = findGuestUser(usersData);
+        const guestContactEntries = getGuestContactEntries(guestUser);
+
+        guestContactEntries.forEach(([contactId, guestContact]) => {
+            contactsToSave[contactId] = guestContact;
+        });
+    } catch (error) {
+        console.error("Failed to copy guest contacts:", error);
+    }
+    return contactsToSave;
+}
+
+
+/**
+ * Finds the guest user entry within the users data by email.
+ *
+ * @param {Object} usersData - The full users data object.
+ * @returns {Object|undefined} The guest user's data object, or
+ * `undefined` if not found.
+ */
+function findGuestUser(usersData) {
+    const guestUserEntry = Object.entries(usersData || {})
+        .find(([_, user]) => user?.email === "guest.user@email.com");
+    return guestUserEntry ? guestUserEntry[1] : undefined;
+}
+
+
+/**
+ * Extracts up to 10 of a guest user's contact entries, excluding the
+ * guest's own contact entry (matched by email).
+ *
+ * @param {Object|undefined} guestUser - The guest user's data object.
+ * @returns {Array} An array of `[contactId, contact]` entries, or an
+ * empty array if the guest user has no valid contacts.
+ */
+function getGuestContactEntries(guestUser) {
+    const guestContacts = guestUser?.contacts;
+    if (!guestContacts || typeof guestContacts !== "object") {
+        return [];
+    }
+    return Object.entries(guestContacts)
+        .filter(([_, guestContact]) => guestContact?.email !== "guest.user@email.com")
+        .slice(0, 10);
+}
+
+
+/**
+ * Initializes the sign-up form once the DOM is ready: wires up
+ * button-state updates and password icon toggling on input/change,
+ * and sets the initial state.
  */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.main-container-signup');
     const button = document.querySelector('.sign-up-button');
 
-    const updateSignupButtonState = () => {
-        const nameValue = document.getElementById('name').value.trim();
-        const emailValue = document.getElementById('email').value.trim();
-        const passwordValue = document.getElementById('password').value.trim();
-        const confirmedPasswordValue = document.getElementById('confirmedPassword').value.trim();
-        const allFilled = nameValue && emailValue && passwordValue && confirmedPasswordValue;
-        const passwordsMatch = passwordValue === confirmedPasswordValue;
-        const policyAccepted = document.getElementById('acceptPolicy').checked;
-        button.disabled = !(allFilled && passwordsMatch && policyAccepted);
-    };
-
-    form.addEventListener('input', (event) => {
-        updateSignupButtonState();
-        if (event.target.id === 'password' || event.target.id === 'confirmedPassword') {
-            handleInputIcon(event.target);
-        }
-    });
-    form.addEventListener('change', updateSignupButtonState);
-    handleInputIcon(document.getElementById('password'));
-    handleInputIcon(document.getElementById('confirmedPassword'));
-    updateSignupButtonState();
+    setupSignupFormListeners(form, button);
+    initializePasswordIcons();
+    updateSignupButtonState(button);
 });
-
-
-/**
- * This fuction displays or hide the entered password and places the curser where it was entered
- */
-function togglePassword(inputId) {
-    let passwordInput = document.getElementById(inputId);
-    if (passwordInput.type === "text") {
-        passwordInput.type = "password";
-    } else {
-        passwordInput.type = "text";
-    }
-    handleInputIcon(passwordInput);
-    setTimeout(() => {
-        const length = passwordInput.value.length;
-        passwordInput.setSelectionRange(length, length);
-    }, 0);
-}
-
-
-/**
- * This function checks whether the first and last name have been entered
- */
-function validateName() {
-    const nameInput = document.getElementById('name');
-    let correctIncorrect = document.getElementById('nameCorrectIncorrectS');
-    const nameValue = nameInput.value.trim();
-    const nameRegex = /^[A-Za-z]+$/;
-    if (nameRegex.test(nameValue)) {
-        nameInput.style.borderColor = 'green'; 
-        correctIncorrect.textContent = '';
-        correctIncorrect.style.color = 'green';
-    } else {
-        nameInput.style.borderColor = 'red'; 
-        correctIncorrect.textContent = 'Input Name (letters only)';
-        correctIncorrect.style.color = 'red';
-    }
-}
-
-
-/**
- * This function checks whethter the email was entered correctly
- */
-function validateEmailS() {
-    const emailInput = document.getElementById('email');
-    const emailValue = emailInput.value.trim();
-    const correctIncorrect = document.getElementById('emailCorrectIncorrectS');
-    const emailRegex = /^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]+)+$/;
-    if (emailRegex.test(emailValue)) {
-        emailInput.style.borderColor = 'green'; 
-        correctIncorrect.textContent = '';  
-    } else {
-        emailInput.style.borderColor = 'red'; 
-        correctIncorrect.textContent = 'Invalid email format: example@mail.com';
-        correctIncorrect.style.color = 'red';
-    }
-}
-
-
-/**
- * This function checks whethter the password was entered correctly
- */
-function validatePassword(activeInput) {
-    const passwordInput = document.getElementById('password');
-    const confirmedPasswordInput = document.getElementById('confirmedPassword');
-    let correctIncorrectOne = document.getElementById('passwordOneCorrectIncorrect');
-    let correctIncorrectTwo = document.getElementById('passwordTwoCorrectIncorrect');
-    const passwordValue = passwordInput.value.trim();
-    const confirmedPasswordValue = confirmedPasswordInput.value.trim();
-    handleInputIcon(activeInput);
-    if (passwordValue.length >= 3) {
-        passwordInput.style.borderColor = 'green'; 
-        correctIncorrectOne.textContent = '';
-    } else {
-        passwordInput.style.borderColor = 'red'; 
-        correctIncorrectOne.textContent = 'Input a minimum of 3 signs';
-        correctIncorrectOne.style.color = 'red';
-    }
-    if (confirmedPasswordValue === passwordValue && confirmedPasswordValue.length >= 3) {
-        confirmedPasswordInput.style.borderColor = 'green'; 
-        correctIncorrectTwo.textContent = "";
-    } else if (confirmedPasswordValue.length > 0) {
-        confirmedPasswordInput.style.borderColor = 'red'; 
-        correctIncorrectTwo.textContent = "Password doesn't match";
-        correctIncorrectTwo.style.color = 'red';
-    } else {
-        confirmedPasswordInput.style.borderColor = ''; 
-    }
-}
-
-
-/**
- * This function updates the password icon based on the current field state.
- */
-function handleInputIcon(activeInput) {
-    if (!activeInput) return;
-
-    const inputWrapper = activeInput.closest('.input-with-icon');
-    const icon = inputWrapper?.querySelector('img.signup-icon-setup');
-    const value = activeInput.value.trim();
-
-    activeInput.style.backgroundImage = 'none';
-
-    if (icon) {
-        if (value.length === 0) {
-            icon.src = './img/lock.png';
-            icon.style.display = 'block';
-        } else if (activeInput.type === 'password') {
-            icon.src = './img/visibility_off.png';
-            icon.style.display = 'block';
-        } else {
-            icon.src = './img/visibility.png';
-            icon.style.display = 'block';
-        }
-    }
-}
-
-
-/**
- * This function checks whether all fields are filled and the checkbox is checked, if not an error message is displayed 
- */
-function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const errorMsg = document.getElementById('policyErrorMsg');
-    errorMsg.textContent = '';
-    const inputs = form.querySelectorAll('input[required]');
-    const allFilled = [...inputs].every(input => input.value.trim() !== '');
-    if (!allFilled) {
-        errorMsg.textContent = 'Please fill out all fields.';
-        return;
-    }
-    const checkbox = document.getElementById('acceptPolicy');
-    if (!checkbox.checked) {
-        errorMsg.textContent = 'Please accept the privacy policy.';
-        return;
-    }
-    signUp('/users');
-}
 

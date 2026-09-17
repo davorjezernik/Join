@@ -60,6 +60,10 @@ document.addEventListener('keydown', (event) => {
 });
 
 
+/**
+ * Keydown event listener to navigate through images using left and right
+ * arrow keys while the `#modal` element is visible.
+ */
 document.addEventListener('keydown', (event) => {
     const modal = document.getElementById('modal');
     if (!modal || modal.style.display !== 'block') return;
@@ -171,16 +175,7 @@ function renderImages() {
     if (!target) return;
     target.innerHTML = '';
     allImages.forEach(image => {
-        target.innerHTML += `
-        <div class="image-container">
-            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">
-            <div class="trashcan-container">
-                <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">
-            </div>
-            <div class="image-name">
-                <p class="image-name-text">${image.name}</p>
-            </div>
-        </div>`;
+        target.innerHTML += buildImageCardHTML(image);
     });
 }
 

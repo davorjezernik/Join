@@ -28,20 +28,26 @@ function toggleMenu() {
     document.getElementById('menu').classList.toggle('d-none');
 }
 
+
+/**
+ * Closes the user menu when a click occurs outside of it, ignoring
+ * clicks on the menu itself or its toggle button, and doing nothing
+ * if the menu is already hidden.
+ *
+ * @param {MouseEvent} event - The click event dispatched on the document.
+ */
 function closeMenuOnOutsideClick(event) {
     const menu = document.getElementById('menu');
     const menuToggle = document.getElementById('userInitialsRoundContainer');
-
     if (!menu || menu.classList.contains('d-none')) {
         return;
     }
-
     if (menu.contains(event.target) || (menuToggle && menuToggle.contains(event.target))) {
         return;
     }
-
     menu.classList.add('d-none');
 }
+
 
 /**
  * This function loads the initials after the DOM is loaded

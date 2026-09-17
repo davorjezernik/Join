@@ -18,6 +18,19 @@ function createErrorModal() {
     const modal = document.createElement('div');
     modal.id = 'errorModal';
     modal.className = 'error-modal';
+    const content = buildErrorModalContent(modal);
+    modal.append(content);
+    document.body.append(modal);
+}
+
+
+/**
+ * Builds the content element (message + close button) for the error modal.
+ *
+ * @param {HTMLElement} modal - The error modal element to hide on close.
+ * @returns {HTMLElement} The modal's content container.
+ */
+function buildErrorModalContent(modal) {
     const content = document.createElement('div');
     content.id = 'errorModalContent';
     content.className = 'error-modal-content';
@@ -30,8 +43,7 @@ function createErrorModal() {
         modal.style.display = 'none';
     });
     content.append(message, closeBtn);
-    modal.append(content);
-    document.body.append(modal);
+    return content;
 }
 
 
@@ -176,21 +188,36 @@ function compressImage(file, maxWidth, maxHeight, quality) {
  */
 function helpFunctuinImg(img, file, maxWidth, maxHeight, quality, resolve) {
     img.addEventListener('load', () => {
-        let width = img.width;
-        let height = img.height;
-        if (width > maxWidth || height > maxHeight) {
-            const scale = Math.min(maxWidth / width, maxHeight / height);
-            width = Math.round(width * scale);
-            height = Math.round(height * scale);
-        }
+        const { width, height } = getScaledDimensions(img, maxWidth, maxHeight);
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        const compressedBase64 = canvas.toDataURL(file.type, quality);
-        resolve(compressedBase64);
+        resolve(canvas.toDataURL(file.type, quality));
     });
+}
+
+
+/**
+ * Computes the dimensions an image should be scaled down to so it fits
+ * within the given maximum width and height, preserving aspect ratio.
+ * Returns the image's original dimensions if it already fits.
+ *
+ * @param {HTMLImageElement} img - The image to measure.
+ * @param {number} maxWidth - The maximum allowed width.
+ * @param {number} maxHeight - The maximum allowed height.
+ * @returns {{width: number, height: number}} The scaled dimensions.
+ */
+function getScaledDimensions(img, maxWidth, maxHeight) {
+    let width = img.width;
+    let height = img.height;
+    if (width > maxWidth || height > maxHeight) {
+        const scale = Math.min(maxWidth / width, maxHeight / height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+    }
+    return { width, height };
 }
 
 
@@ -208,6 +235,26 @@ function formatBytes(bytes, decimals = 2) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+}
+
+
+/**
+ * Builds the HTML markup for a single image card in the gallery.
+ *
+ * @param {{name: string, base64String: string}} image - The image to render.
+ * @returns {string} The HTML markup for the image's gallery card.
+ */
+function buildImageCardHTML(image) {
+    return `
+        <div class="image-container">
+            <img class="main-image-upload" src="${image.base64String}" alt="${image.name}" onclick="openImageModal(this.src)">
+            <div class="trashcan-container">
+                <img class="traschcan-img" src="./img/trash.svg" alt="Delete" onclick="deleteImage('${image.name}')">
+            </div>
+            <div class="image-name">
+                <p class="image-name-text">${image.name}</p>
+            </div>
+        </div>`;
 }
 
 

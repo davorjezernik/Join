@@ -185,31 +185,55 @@ function getDayTime() {
 
 
 /**
- * This function displays the pending tasks with priority
+ * Displays the earliest upcoming deadline among urgent tasks.
+ * Loads all tasks, finds the urgent task with the closest deadline,
+ * and renders its formatted date (or a fallback message if none exist).
  */
 async function displayUpcomingDeadline() {
-    let deadline = document.getElementById('deadline');
-    let tasks = await loadAllTasksFromStorage();
-    if (tasks) {
-        let taskIds = Object.keys(tasks);
-        let earliestTask = null;
-        for (let id of taskIds) {
-            let currentTask = tasks[id];
-            if (currentTask.priority === 'Urgent') {
-                let currentTaskDeadline = new Date(currentTask.date);
-                if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
-                    earliestTask = currentTask;
-                }
-            }
-        }
-        if (earliestTask) {
-            let options = { year: 'numeric', month: 'long', day: 'numeric' };
-            let formattedDeadline = new Date(earliestTask.date).toLocaleDateString('en-US', options);
-            deadline.innerHTML = formattedDeadline;
-        } else {
-            deadline.innerHTML = 'No upcoming Deadlines';
+    const deadline = document.getElementById('deadline');
+    const tasks = await loadAllTasksFromStorage();
+    if (!tasks) return;
+
+    const earliestTask = findEarliestUrgentTask(tasks);
+    deadline.innerHTML = earliestTask
+        ? formatDeadlineDate(earliestTask.date)
+        : 'No upcoming Deadlines';
+}
+
+
+/**
+ * Finds the urgent task with the earliest deadline among a set of tasks.
+ *
+ * @param {Object} tasks - A map of task id to task object.
+ * @returns {Object|null} The urgent task with the earliest deadline,
+ * or `null` if no urgent tasks exist.
+ */
+function findEarliestUrgentTask(tasks) {
+    let earliestTask = null;
+
+    for (const id of Object.keys(tasks)) {
+        const currentTask = tasks[id];
+        if (currentTask.priority !== 'Urgent') continue;
+
+        const currentTaskDeadline = new Date(currentTask.date);
+        if (!earliestTask || currentTaskDeadline < new Date(earliestTask.date)) {
+            earliestTask = currentTask;
         }
     }
+
+    return earliestTask;
+}
+
+
+/**
+ * Formats a date string as a long-form US date (e.g. "January 5, 2027").
+ *
+ * @param {string} date - The date string to format.
+ * @returns {string} The formatted date.
+ */
+function formatDeadlineDate(date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
 }
 
 

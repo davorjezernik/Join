@@ -22,30 +22,62 @@ async function logIn() {
 
 
 /**
- * This function check the entered user data with the saved user data and if they are correct, the user is logged in
+ * Validates login credentials and logs the user in if they match.
+ * On success, sets the logged-in user, persists "remember me" state,
+ * and redirects to the summary page. On failure, shows an error message.
+ *
+ * @param {string} email - The entered email address.
+ * @param {string} password - The entered password.
+ * @param {Element} errorMsg - The element to display a login error in.
  */
 async function checkLogInData(email, password, errorMsg) {
-    let data = await loadUserData("users");
-    let users = Object.entries(data);
-    let foundUser = users.find(
-        ([uid, u]) => u.email === email && u.password === password
-    );
-    if (!foundUser) {
+    const userUID = await findUserUidByCredentials(email, password);
+
+    if (!userUID) {
         errorMsg.textContent = "Wrong email or password";
         return;
     }
-    let userUID = foundUser[0];
+
     await setLoggedInUser(userUID);
-    let rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
-    let rememberMe = rememberMeCheckbox.checked;
+    persistRememberMe(email, password);
+    window.location.href = "summary.html";
+}
+
+
+/**
+ * Looks up the user id whose stored email and password match the
+ * given credentials.
+ *
+ * @param {string} email - The entered email address.
+ * @param {string} password - The entered password.
+ * @returns {Promise<string|undefined>} The matching user's id, or
+ * `undefined` if no user matches.
+ */
+async function findUserUidByCredentials(email, password) {
+    const data = await loadUserData("users");
+    const users = Object.entries(data);
+    const foundUser = users.find(
+        ([uid, u]) => u.email === email && u.password === password
+    );
+    return foundUser ? foundUser[0] : undefined;
+}
+
+
+/**
+ * Persists the "remember me" preference to localStorage, storing the
+ * user's credentials only if the checkbox is checked.
+ *
+ * @param {string} email - The entered email address.
+ * @param {string} password - The entered password.
+ */
+function persistRememberMe(email, password) {
+    const rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
+    const rememberMe = rememberMeCheckbox.checked;
+
     localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
     if (rememberMe) {
-        localStorage.setItem('loggedInUser', JSON.stringify({
-            email: email,
-            password: password
-        }));
+        localStorage.setItem('loggedInUser', JSON.stringify({ email, password }));
     }
-    window.location.href = "summary.html";
 }
 
 
