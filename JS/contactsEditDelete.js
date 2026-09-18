@@ -77,13 +77,10 @@ function handleClickOutsideEditMenu(event) {
  */
 async function saveEditContact(contactId) {
     if (!isEditContactFormValid(contactId)) return;
-
     const userData = await getCurrentUserData();
     const existingContact = userData.contacts[contactId] || {};
     const updatedContact = buildUpdatedContact(contactId, existingContact);
-
     userData.contacts[contactId] = updatedContact;
-
     closeEditContactDialog();
     refreshContactsDisplay(userData);
     await reopenEditedContact(userData, contactId);
@@ -177,13 +174,10 @@ async function reopenEditedContact(userData, contactId) {
  */
 async function createNewContact() {
     if (!isNewContactFormValid()) return;
-
     const contact = buildNewContactFromForm();
-
     closeDialog();
     openSuccessfullInfo();
     document.getElementById('contactInfos').innerHTML = '';
-
     const newContactId = await saveNewContact(contact);
     await refreshContactsAfterCreate(newContactId, contact);
 }

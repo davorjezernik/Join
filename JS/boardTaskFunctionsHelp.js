@@ -8,24 +8,61 @@ async function getContactInitials(contacts, i) {
     let contactInitialsContainer = document.getElementById(`initialsContainer${i}`);
     contactInitialsContainer.innerHTML = '';
     if (contacts && contacts.length > 0) {
-        const maxInitialsToShow = 3;
-        const extraContactsCount = contacts.length - maxInitialsToShow;
-        for (let j = 0; j < Math.min(contacts.length, maxInitialsToShow); j++) {
-            const contact = contacts[j];
-            const initial = getInitials(contact.name);
-            const color = contact.backgroundcolor;
-            contactInitialsContainer.innerHTML += `
-                <div id="initials${i}-${j}" class="initials" style="background-color: ${color};">
-                    ${initial}
-                </div>`;
-        }
-        if (extraContactsCount > 0) {
-            contactInitialsContainer.innerHTML += `
-                <div id="initials${i}-extra" class="number-initials" style="color: black;">
-                    +${extraContactsCount}
-                </div>`;
-        }
+        renderContactInitials(contacts, i, contactInitialsContainer);
     }
+}
+
+
+/**
+ * This function renders the initials (and a "+n" overflow badge) of the
+ * given contacts into the provided container.
+ *
+ * @param {object} contacts
+ * @param {number} i
+ * @param {HTMLElement} container
+ */
+function renderContactInitials(contacts, i, container) {
+    const maxInitialsToShow = 3;
+    const extraContactsCount = contacts.length - maxInitialsToShow;
+    for (let j = 0; j < Math.min(contacts.length, maxInitialsToShow); j++) {
+        container.innerHTML += generateInitialHtml(contacts[j], i, j);
+    }
+    if (extraContactsCount > 0) {
+        container.innerHTML += generateExtraContactsHtml(i, extraContactsCount);
+    }
+}
+
+
+/**
+ * This function generates the HTML for a single contact's initials bubble.
+ *
+ * @param {object} contact
+ * @param {number} i
+ * @param {number} j
+ * @returns {string}
+ */
+function generateInitialHtml(contact, i, j) {
+    const initial = getInitials(contact.name);
+    const color = contact.backgroundcolor;
+    return `
+        <div id="initials${i}-${j}" class="initials" style="background-color: ${color};">
+            ${initial}
+        </div>`;
+}
+
+
+/**
+ * This function generates the HTML for the "+n" overflow badge.
+ *
+ * @param {number} i
+ * @param {number} extraContactsCount
+ * @returns {string}
+ */
+function generateExtraContactsHtml(i, extraContactsCount) {
+    return `
+        <div id="initials${i}-extra" class="number-initials" style="color: black;">
+            +${extraContactsCount}
+        </div>`;
 }
 
 
@@ -215,25 +252,69 @@ async function displayNamesOfContactsEdit() {
  * @param {number} i
  */
 function choseContactForAssignmentEditTask(event, i) {
+    const data = getContactAssignmentData(event, i);
+    let assignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
+    if (data.checkbox.checked) {
+        assignedContacts = addContactToAssignment(assignedContacts, data);
+    } else {
+        assignedContacts = removeContactFromAssignment(assignedContacts, data);
+    }
+    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(assignedContacts));
+    renderAssignedContactsBubblesEdit(assignedContacts);
+}
+
+
+/**
+ * This function reads the checkbox, contact name and color from the
+ * event target for a contact assignment checkbox in the edit task view.
+ *
+ * @param {object} event
+ * @param {number} i
+ * @returns {object}
+ */
+function getContactAssignmentData(event, i) {
     const checkbox = event.target;
     const contactToChose = document.getElementById(`contactToChoseInEditTask${i}`);
     const contactName = checkbox.getAttribute('data-name-edittask');
     const contactElement = checkbox.closest('.contact-boarder-edittask');
     const color = contactElement.querySelector('.circle-initial-edittask').style.background;
-    let assignedContacts = JSON.parse(localStorage.getItem('toBeEditedAssignedContacts')) || [];
-    if (checkbox.checked) {
-        if (!assignedContacts.some(contact => contact.name === contactName)) {
-            assignedContacts.push({ name: contactName, backgroundcolor: color });
-            contactToChose.style.backgroundColor = "#2A3647";
-            contactToChose.style.color = "white";
-        }
-    } else {
-        assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
-        contactToChose.style.backgroundColor = "";
-        contactToChose.style.color = "";
+    return { checkbox, contactToChose, contactName, color };
+}
+
+
+/**
+ * This function adds a contact to the assigned contacts list and marks
+ * its element as selected.
+ *
+ * @param {Array<object>} assignedContacts
+ * @param {object} data
+ * @returns {Array<object>}
+ */
+function addContactToAssignment(assignedContacts, data) {
+    const { contactToChose, contactName, color } = data;
+    if (!assignedContacts.some(contact => contact.name === contactName)) {
+        assignedContacts.push({ name: contactName, backgroundcolor: color });
+        contactToChose.style.backgroundColor = "#2A3647";
+        contactToChose.style.color = "white";
     }
-    localStorage.setItem('toBeEditedAssignedContacts', JSON.stringify(assignedContacts));
-    renderAssignedContactsBubblesEdit(assignedContacts);
+    return assignedContacts;
+}
+
+
+/**
+ * This function removes a contact from the assigned contacts list and
+ * clears its element's selected styling.
+ *
+ * @param {Array<object>} assignedContacts
+ * @param {object} data
+ * @returns {Array<object>}
+ */
+function removeContactFromAssignment(assignedContacts, data) {
+    const { contactToChose, contactName } = data;
+    assignedContacts = assignedContacts.filter(contact => contact.name !== contactName);
+    contactToChose.style.backgroundColor = "";
+    contactToChose.style.color = "";
+    return assignedContacts;
 }
 
 

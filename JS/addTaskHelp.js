@@ -284,13 +284,11 @@ function choseContactForAssignment(event, i) {
     const contactToChose = document.getElementById(`contactToChose${i}`);
     const contactName = checkbox.getAttribute('data-name');
     const color = getContactColor(checkbox);
-
     if (checkbox.checked) {
         addAssignedContact(contactName, color, contactToChose);
     } else {
         removeAssignedContact(contactName, contactToChose);
     }
-
     saveAssignedContacts();
     displayContactsForAssignment();
 }

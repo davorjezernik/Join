@@ -32,12 +32,10 @@ async function logIn() {
  */
 async function checkLogInData(email, password, errorMsg) {
     const userUID = await findUserUidByCredentials(email, password);
-
     if (!userUID) {
         errorMsg.textContent = "Wrong email or password";
         return;
     }
-
     await setLoggedInUser(userUID);
     persistRememberMe(email, password);
     window.location.href = "summary.html";
@@ -73,7 +71,6 @@ async function findUserUidByCredentials(email, password) {
 function persistRememberMe(email, password) {
     const rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
     const rememberMe = rememberMeCheckbox.checked;
-
     localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
     if (rememberMe) {
         localStorage.setItem('loggedInUser', JSON.stringify({ email, password }));

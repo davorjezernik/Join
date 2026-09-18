@@ -47,7 +47,6 @@ async function updateSubtaskStatusInFirebase(status, taskId, subtaskId) {
 function getActiveSearchTerm() {
     const searchInput = document.getElementById('search');
     const searchInputSmall = document.getElementById('searchSmall');
-
     if (searchInput && searchInput === document.activeElement) {
         return searchInput.value.toLowerCase();
     } else if (searchInputSmall && searchInputSmall === document.activeElement) {
@@ -118,15 +117,9 @@ function filterSingleTask(i, searchTerm) {
     const taskTitleElement = document.getElementById(`taskTitle${i}`);
     const taskDescriptionElement = document.getElementById(`description${i}`);
     const taskCard = document.getElementById(`task${i}`);
-    if (!taskTitleElement) {
-        console.warn(`taskTitle${i} not found.`);
-    }
-    if (!taskCard) {
-        console.warn(`task${i} not found.`);
-    }
-    if (!taskTitleElement || !taskCard) {
-        return false;
-    }
+    if (!taskTitleElement) { console.warn(`taskTitle${i} not found.`); }
+    if (!taskCard) { console.warn(`task${i} not found.`); }
+    if (!taskTitleElement || !taskCard) { return false; }
     const taskTitle = taskTitleElement.innerHTML.toLowerCase();
     const taskDescription = taskDescriptionElement ? taskDescriptionElement.innerHTML.toLowerCase() : '';
     const isMatch = taskTitle.includes(searchTerm) || taskDescription.includes(searchTerm);

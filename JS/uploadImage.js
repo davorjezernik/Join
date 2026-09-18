@@ -92,7 +92,6 @@ function closeImageModal() {
     if (!modal) return;
     modal.style.display = 'none';
     document.body.style.overflow = '';
-
     const deleteBtn = document.getElementById('deleteRemove');
     if (deleteBtn) deleteBtn.style.display = '';
 }

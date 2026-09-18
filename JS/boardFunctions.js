@@ -188,7 +188,6 @@ async function moveToFromMenu(event, category, i) {
 function addTaskToContainer(index, category) {
     const container = getCategoryContainer(category);
     if (!container) return;
-
     markContainerAsHasElements(container);
     container.innerHTML += getToDoTaskHtml(todos[index], index);
     initializeTaskCardDetails(index);

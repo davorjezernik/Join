@@ -67,7 +67,6 @@ async function createOwnContact(name, email, number, color, uid) {
         number: number,
         backgroundcolor: color
     };
-
     const contactsToSave = await getContactsToCopy(uid, contact);
     await updateUserContacts(uid, contactsToSave);
     return contact;
@@ -86,7 +85,6 @@ async function createOwnContact(name, email, number, color, uid) {
  */
 async function getContactsToCopy(uid, ownContact) {
     const contactsToSave = await getGuestContactsToCopy();
-
     const ownContactId = `${Date.now()}-${uid.slice(0, 6)}`;
     contactsToSave[ownContactId] = ownContact;
     return contactsToSave;
@@ -107,7 +105,6 @@ async function getGuestContactsToCopy() {
         const usersData = await loadUserData("users");
         const guestUser = findGuestUser(usersData);
         const guestContactEntries = getGuestContactEntries(guestUser);
-
         guestContactEntries.forEach(([contactId, guestContact]) => {
             contactsToSave[contactId] = guestContact;
         });
@@ -159,7 +156,6 @@ function getGuestContactEntries(guestUser) {
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.main-container-signup');
     const button = document.querySelector('.sign-up-button');
-
     setupSignupFormListeners(form, button);
     initializePasswordIcons();
     updateSignupButtonState(button);

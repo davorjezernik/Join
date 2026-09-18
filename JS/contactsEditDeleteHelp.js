@@ -82,7 +82,6 @@ function validateEmail(id, messageId) {
     const emailMessage = document.getElementById(messageId);
     const email = emailField ? emailField.value.trim() : '';
     const isValidEmail = !!emailField && /^(?!.*\.\.)([^\s@.]+(\.[^\s@.]+)*)@[^\s@.]+(\.[^\s@.]{2,})+$/.test(email);
-
     applyValidationStyle(emailField, emailMessage, isValidEmail, 'Input email: example@mail.com');
     return isValidEmail;
 }
@@ -150,11 +149,9 @@ async function deleteContactDataAndUpdateUI(email) {
     const userData = await getCurrentUserData();
     const toBeDeletedContactId = findContactIdByEmailToDelete(userData.contacts, email);
     if (!toBeDeletedContactId) return;
-
     const deletedContactName = userData.contacts[toBeDeletedContactId].name;
     removeContactFromCacheAndRerender(toBeDeletedContactId);
     closeContactDeleteUI();
-
     await Promise.all([
         deleteContactFromTasks(userData.tasks, deletedContactName),
         deleteUserContact(uid, toBeDeletedContactId)
@@ -185,11 +182,9 @@ function closeContactDeleteUI() {
 async function deleteContactFromTasks(tasks, deletedContactName) {
     tasks = tasks || {};
     if (!deletedContactName) return;
-
     const updates = Object.keys(tasks)
         .map(taskId => buildTaskContactUpdate(tasks[taskId], taskId, deletedContactName))
         .filter(update => update !== null);
-
     await Promise.all(updates);
 }
 
